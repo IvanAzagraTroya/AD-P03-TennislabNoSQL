@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.litote.kmongo:kmongo-async-core:4.7.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.litote.kmongo/kmongo-async-core/4.7.2/1f07d6bc202ad9276a4e026b0ad24970b49ab09f/kmongo-async-core-4.7.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.litote.kmongo/kmongo-async-core/4.7.2/3a6b4929de63bccc1042f6b3c4c3cc047c325351/kmongo-async-core-4.7.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
