@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import models.tarea.Tarea
 import models.tarea.TareaResult
 
-interface TareaRepo<ID> {
+interface ITareaRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Tarea>>
     fun findAll(): TareaResult<Flow<Tarea>>
     suspend fun findById(id: ID): TareaResult<Tarea>
