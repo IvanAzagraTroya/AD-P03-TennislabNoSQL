@@ -6,6 +6,12 @@ import serializers.UUIDSerializer
 import java.time.LocalDate
 import java.util.*
 
+/**
+ * @Author Daniel Rodriguez Muñoz
+ * Clase POKO de las maquinas.
+ * La primera parte de los parametros son obligatorios y son la base de las maquinas,
+ * los parametros opcionales son especificos para los distintos tipos de maquina.
+ */
 @Serializable
 data class Maquina(
     @Serializable(with = UUIDSerializer::class)
@@ -16,10 +22,13 @@ data class Maquina(
     val fechaAdquisicion: LocalDate,
     val numeroSerie: String,
     val tipo: TipoMaquina,
+    val activa: Boolean,
+
     // esto es data para encordadoras
     val isManual: Boolean?,
     val maxTension: Double?,
     val minTension: Double?,
+
     // esto es data para personalizadoras
     val measuresManeuverability: Boolean?,
     val measuresRigidity: Boolean?,

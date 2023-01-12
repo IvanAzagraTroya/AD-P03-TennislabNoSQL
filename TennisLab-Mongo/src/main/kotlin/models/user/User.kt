@@ -4,6 +4,10 @@ import kotlinx.serialization.Serializable
 import serializers.UUIDSerializer
 import java.util.*
 
+/**
+ * @Author Daniel Rodriguez Muñoz
+ * Clase POKO de los usuarios.
+ */
 @Serializable
 data class User(
     @Serializable(with = UUIDSerializer::class)
