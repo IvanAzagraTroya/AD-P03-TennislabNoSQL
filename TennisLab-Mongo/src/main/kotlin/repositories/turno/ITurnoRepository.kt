@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import models.turno.Turno
 import models.turno.TurnoResult
 
-interface TurnoRepo<ID> {
+interface ITurnoRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Turno>>
     fun findAll(): TurnoResult<Flow<Turno>>
     suspend fun findById(id: ID): TurnoResult<Turno>
