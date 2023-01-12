@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import models.user.User
 import models.user.UserResult
 
-interface UserRepo<ID> {
+interface IUserRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<User>>
     fun findAll(): UserResult<Flow<User>>
     suspend fun findById(id: ID): UserResult<User>
