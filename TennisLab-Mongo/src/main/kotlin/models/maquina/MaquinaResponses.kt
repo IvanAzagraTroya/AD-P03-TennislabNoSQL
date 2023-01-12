@@ -3,15 +3,15 @@ package models.maquina
 /**
  * @author Daniel Rodriguez Muñoz
  * Esta clase sellada es la base de las respuestas de Maquinas,
- * que seran devueltas por el MaquinaRepository.
+ * que seran devueltas por el MaquinaController.
  */
 sealed class MaquinaResponse<Maquina>
 
 /**
  * @author Daniel Rodriguez Muñoz
- * Esta clase hereda de MaquinaResponse y la usara el MaquinaRepository para devolver
+ * Esta clase hereda de MaquinaResponse y la usara el MaquinaController para devolver
  * resultados exitosos, con el codigo correspondiente y un dato T (donde T podra ser
- * un Maquina, o un Flow de Maquinas)
+ * un Maquina, o un Flow de Maquinas, o una lista de Maquinas)
  * @param code codigo HTTP que dice el estado de la operacion.
  * @param data objeto resultante de la operacion.
  */
@@ -19,7 +19,7 @@ class MaquinaResponseSuccess<T: Any>(val code: Int, val data: T) : MaquinaRespon
 
 /**
  * @author Daniel Rodriguez Muñoz
- * Esta clase hereda de UserResponse y la usara el UserRepository para devolver
+ * Esta clase hereda de MaquinaResponse y la usara el MaquinaController para devolver
  * resultados fallidos, con el codigo correspondiente y un mensaje de error, aunque
  * puede no haber mensaje de error, de ahi que sea nullable.
  * @param code codigo HTTP que dice el estado de la operacion.
