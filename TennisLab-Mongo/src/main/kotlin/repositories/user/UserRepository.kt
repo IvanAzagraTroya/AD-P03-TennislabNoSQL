@@ -1,4 +1,4 @@
 package repositories.user
 
-class UserRepository {
-}
+//class UserRepository: /*IUserRepository<>*/ {
+//}
