@@ -43,11 +43,11 @@ De momento printea el código plantilla de intellij.
 
 ## Tencnologías:
 
-![Mongo](![download](https://user-images.githubusercontent.com/67174666/212279453-f2a9887b-29d3-4394-a753-b0ef7d3a428a.png)
-)
-![SpringData](![download](https://user-images.githubusercontent.com/67174666/212279518-eca7216b-ab3b-409b-87a7-09ac95461dab.png)
-)
-![Koin]![kotzilla-moodboard_Koin_format-site-web-line](https://user-images.githubusercontent.com/67174666/212279657-d90c0aa4-8741-456c-9f70-e02887f204db.png)
-()
-![Kotlin](![kotlin_250x250](https://user-images.githubusercontent.com/67174666/212279750-122c6f68-7b30-4ba8-a003-1db50df5feec.png)
-)
+![Mongo](https://user-images.githubusercontent.com/67174666/212279453-f2a9887b-29d3-4394-a753-b0ef7d3a428a.png)
+
+![SpringData](https://user-images.githubusercontent.com/67174666/212279518-eca7216b-ab3b-409b-87a7-09ac95461dab.png)
+
+![Koin](https://user-images.githubusercontent.com/67174666/212279657-d90c0aa4-8741-456c-9f70-e02887f204db.png)
+
+![Kotlin](https://user-images.githubusercontent.com/67174666/212279750-122c6f68-7b30-4ba8-a003-1db50df5feec.png)
+
