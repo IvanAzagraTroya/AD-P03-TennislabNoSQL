@@ -1,6 +1,10 @@
 package models.tarea
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import org.bson.codecs.pojo.annotations.BsonId
+import org.litote.kmongo.Id
+import org.litote.kmongo.newId
 import serializers.UUIDSerializer
 import java.util.UUID
 
@@ -12,6 +16,8 @@ import java.util.UUID
  */
 @Serializable
 data class Tarea(
+    @BsonId @Contextual
+    val id: Id<Tarea> = newId(),
     @Serializable(with = UUIDSerializer::class)
     val uuid: UUID = UUID.randomUUID(),
     @Serializable(with = UUIDSerializer::class)

@@ -6,7 +6,7 @@ import models.user.UserResult
 
 interface IUserRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<User>>
-    fun findAll(): UserResult<Flow<User>>
+    suspend fun findAll(): UserResult<List<User>>
     suspend fun findById(id: ID): UserResult<User>
     suspend fun save(entity: User): UserResult<User>
     suspend fun update(entity: User): UserResult<User>

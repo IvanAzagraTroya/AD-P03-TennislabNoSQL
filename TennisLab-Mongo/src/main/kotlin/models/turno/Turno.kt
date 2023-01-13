@@ -1,7 +1,10 @@
 package models.turno
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
+import org.bson.codecs.pojo.annotations.BsonId
+import org.litote.kmongo.Id
+import org.litote.kmongo.newId
 import serializers.LocalDateTimeSerializer
 import serializers.UUIDSerializer
 import java.time.LocalDateTime
@@ -13,6 +16,8 @@ import java.util.UUID
  */
 @Serializable
 data class Turno(
+    @BsonId @Contextual
+    val id: Id<Turno> = newId(),
     @Serializable(with = UUIDSerializer::class)
     val uuid: UUID = UUID.randomUUID(),
     @Serializable(with = UUIDSerializer::class)
@@ -28,6 +33,5 @@ data class Turno(
     val tarea1Id: UUID,
     @Serializable(with = UUIDSerializer::class)
     val tarea2Id: UUID?,
-    val hasFinished: Boolean
-
+    val finalizado: Boolean
 )

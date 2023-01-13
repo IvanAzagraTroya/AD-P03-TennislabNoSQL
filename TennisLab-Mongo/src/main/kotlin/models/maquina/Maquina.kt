@@ -1,6 +1,10 @@
 package models.maquina
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import org.bson.codecs.pojo.annotations.BsonId
+import org.litote.kmongo.Id
+import org.litote.kmongo.newId
 import serializers.LocalDateSerializer
 import serializers.UUIDSerializer
 import java.time.LocalDate
@@ -14,6 +18,8 @@ import java.util.*
  */
 @Serializable
 data class Maquina(
+    @BsonId @Contextual
+    val id: Id<Maquina> = newId(),
     @Serializable(with = UUIDSerializer::class)
     val uuid: UUID = UUID.randomUUID(),
     val modelo: String,
