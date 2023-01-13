@@ -41,7 +41,7 @@ Tenemos varios modelos con los que trabajar de los que hablaré a continuación:
 
 De momento printea el código plantilla de intellij.
 
-## Tencnologías:
+## Tecnologías:
 
 <p align="center">
   
