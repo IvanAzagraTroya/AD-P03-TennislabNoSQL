@@ -46,16 +46,16 @@ De momento printea el código plantilla de intellij.
 <p align="center">
   
   <a href="https://www.mongodb.com/es">
-    <img src="https://user-images.githubusercontent.com/67174666/212279453-f2a9887b-29d3-4394-a753-b0ef7d3a428a.png" width="50" heigth="100" alt="Mongo"/>
+    <img src="https://user-images.githubusercontent.com/67174666/212279453-f2a9887b-29d3-4394-a753-b0ef7d3a428a.png" width="120" heigth="120" alt="Mongo"/>
   </a>
   <a href="https://spring.io/projects/spring-data">
-    <img src="https://user-images.githubusercontent.com/67174666/212282111-85be3f7e-e6e8-4cce-83a2-5abbaf9a3517.png" width="50" heigth="50" alt="Spring Data"/>
+    <img src="https://user-images.githubusercontent.com/67174666/212282111-85be3f7e-e6e8-4cce-83a2-5abbaf9a3517.png" width="90" heigth="90" alt="Spring Data"/>
   </a>
   <a href="https://insert-koin.io/">
-    <img src="https://user-images.githubusercontent.com/67174666/212279657-d90c0aa4-8741-456c-9f70-e02887f204db.png" width="50" heigth="50" alt="Koin"/>
+    <img src="https://user-images.githubusercontent.com/67174666/212279657-d90c0aa4-8741-456c-9f70-e02887f204db.png" width="200" heigth="200" alt="Koin"/>
   </a>
   <a href="https://kotlinlang.org/">
-    <img src="https://user-images.githubusercontent.com/67174666/212279750-122c6f68-7b30-4ba8-a003-1db50df5feec.png" width="50" heigth="50" alt="Kotlin"/>
+    <img src="https://user-images.githubusercontent.com/67174666/212279750-122c6f68-7b30-4ba8-a003-1db50df5feec.png" width="90" heigth="90" alt="Kotlin"/>
   </a>
 
 </p>
