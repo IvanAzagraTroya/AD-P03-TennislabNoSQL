@@ -43,7 +43,11 @@ De momento printea el código plantilla de intellij.
 
 ## Tencnologías:
 
-![Mongo](https://www.google.com/imgres?imgurl=https%3A%2F%2Flive.mrf.io%2Fstatics%2Fi%2Fps%2Fwww.muylinux.com%2Fwp-content%2Fuploads%2F2019%2F01%2Fmongodb.png%3Fwidth%3D1200%26enable%3Dupscale&imgrefurl=https%3A%2F%2Fwww.muylinux.com%2F2019%2F01%2F17%2Fmongodb-rechazo-nueva-licencia%2F&tbnid=rChUM9JZAwooSM&vet=12ahUKEwje8ZS2lcT8AhVvUqQEHd1IDtEQMygDegUIARCoAQ..i&docid=0gSv3g23FJ9l8M&w=1200&h=801&q=Mongo&ved=2ahUKEwje8ZS2lcT8AhVvUqQEHd1IDtEQMygDegUIARCoAQ)
-![SpringData](https://www.google.com/imgres?imgurl=https%3A%2F%2Fspring.io%2Fimages%2Fspring-initializr-4291cc0115eb104348717b82161a81de.svg&imgrefurl=https%3A%2F%2Fspring.io%2Fprojects%2Fspring-data&tbnid=uYC_yEn1IiVsmM&vet=12ahUKEwilxu3ClcT8AhU5XaQEHVbMAzoQMygGegUIARDOAQ..i&docid=acf3UCpSJN6RGM&w=800&h=719&q=SpringData&ved=2ahUKEwilxu3ClcT8AhU5XaQEHVbMAzoQMygGegUIARDOAQ)
-![Koin](https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.kotzilla.io%2Fwp-content%2Fuploads%2F2022%2F01%2Fkotzilla-moodboard_Koin_format-site-web-line.png&imgrefurl=https%3A%2F%2Fwww.kotzilla.io%2Fkoin%2F&tbnid=L2sJlV3frxHVMM&vet=12ahUKEwizhLjNlcT8AhUSpEwKHZ3gDtQQMygDegUIARC4AQ..i&docid=t9HCQhXyFd90vM&w=1405&h=417&q=Koin&ved=2ahUKEwizhLjNlcT8AhUSpEwKHZ3gDtQQMygDegUIARC4AQ)
-![Kotlin](https://www.google.com/imgres?imgurl=https%3A%2F%2Fricardogeek.com%2Fwp-content%2Fuploads%2F2017%2F08%2Fkotlin_250x250.png&imgrefurl=https%3A%2F%2Fricardogeek.com%2Fentendiendo-las-funciones-de-alcance-en-kotlin%2F&tbnid=SZVPYcsv_1MziM&vet=12ahUKEwi9yPrelcT8AhUbVaQEHTk4DpsQMygRegUIARD_AQ..i&docid=cgXL3FVQQROsmM&w=250&h=250&q=Kotlin&ved=2ahUKEwi9yPrelcT8AhUbVaQEHTk4DpsQMygRegUIARD_AQ)
+![Mongo](![download](https://user-images.githubusercontent.com/67174666/212279453-f2a9887b-29d3-4394-a753-b0ef7d3a428a.png)
+)
+![SpringData](![download](https://user-images.githubusercontent.com/67174666/212279518-eca7216b-ab3b-409b-87a7-09ac95461dab.png)
+)
+![Koin]![kotzilla-moodboard_Koin_format-site-web-line](https://user-images.githubusercontent.com/67174666/212279657-d90c0aa4-8741-456c-9f70-e02887f204db.png)
+()
+![Kotlin](![kotlin_250x250](https://user-images.githubusercontent.com/67174666/212279750-122c6f68-7b30-4ba8-a003-1db50df5feec.png)
+)
