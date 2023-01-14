@@ -6,9 +6,10 @@ import models.turno.TurnoResult
 
 interface ITurnoRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Turno>>
-    fun findAll(): TurnoResult<Flow<Turno>>
+    suspend fun findAll(): TurnoResult<List<Turno>>
     suspend fun findById(id: ID): TurnoResult<Turno>
     suspend fun save(entity: Turno): TurnoResult<Turno>
     suspend fun update(entity: Turno): TurnoResult<Turno>
     suspend fun delete(id: ID): TurnoResult<Turno>
+    suspend fun setFinalizado(id: ID): TurnoResult<Turno>
 }
