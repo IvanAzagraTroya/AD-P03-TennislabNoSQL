@@ -11,4 +11,5 @@ interface IUserRepository<ID> {
     suspend fun save(entity: User): UserResult<User>
     suspend fun update(entity: User): UserResult<User>
     suspend fun delete(id: ID): UserResult<User>
+    suspend fun setInactive(id: ID): UserResult<User>
 }
