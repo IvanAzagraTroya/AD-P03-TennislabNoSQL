@@ -100,6 +100,6 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
         if (entity.modelo.isBlank()) { return ProductoErrorBadRequest("Model cannot be blank.") }
         if (entity.precio <= 0.0 ) { return ProductoErrorBadRequest("Price must be greater than 0.") }
         if (entity.stock < 0 ) { return ProductoErrorBadRequest("Stock cannot be a negative value.") }
-        else return null
+        return null
     }
 }

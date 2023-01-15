@@ -1,21 +1,22 @@
 package repositories.maquina
 
 import db.DBManager
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import models.maquina.*
-import models.turno.Turno
-import models.turno.TurnoInternalException
-import models.turno.TurnoSuccess
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
 import java.time.LocalDate
-import java.util.*
 
 private val logger = KotlinLogging.logger{}
+
 class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
-    override suspend fun findAllRealTime(): Flow<List<Maquina>> {
-        TODO("Not yet implemented")
+    override suspend fun findAllRealTime() = flow {
+        do {
+            emit(DBManager.database.getCollection<Maquina>().find().publisher.toList())
+            delay(1000)
+        } while (true)
     }
 
     override suspend fun findAll(): MaquinaResult<List<Maquina>> {
@@ -30,19 +31,24 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
 
     override suspend fun save(entity: Maquina): MaquinaResult<Maquina> {
         logger.debug { "save($entity)" }
-        if(entity.tipo != TipoMaquina.ENCORDADORA || entity.tipo != TipoMaquina.PERSONALIZADORA){
-            return MaquinaErrorBadRequest("There's no machine with type ${entity.tipo}")
-        }
-        if(entity.fechaAdquisicion > LocalDate.now()){
-            return MaquinaErrorBadRequest("There's an error on adquisition date")
-        }
+
+        val check = checkFieldsAreCorrect(entity)
+        if (check != null) return check
+
         return DBManager.database.getCollection<Maquina>().save(entity)
             .let { MaquinaSuccess(201, entity) }
             .run { MaquinaInternalException("There has been a problem inserting $entity.") }
     }
 
     override suspend fun update(entity: Maquina): MaquinaResult<Maquina> {
-        TODO("Not yet implemented")
+        logger.debug { "update($entity)" }
+
+        val check = checkFieldsAreCorrect(entity)
+        if (check != null) return check
+
+        return DBManager.database.getCollection<Maquina>().save(entity)
+            .let { MaquinaSuccess(200, entity) }
+            .run { MaquinaInternalException("There has been a problem updating $entity.") }
     }
 
     override suspend fun setInactive(id: Id<Maquina>): MaquinaResult<Maquina> {
@@ -66,9 +72,9 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
             measuresRigidity = entity.measuresRigidity,
             measuresBalance = entity.measuresBalance
         )
-        return DBManager.database.getCollection<Maquina>().save(entity)
-            .let { MaquinaSuccess(200, entity) }
-            .run { MaquinaInternalException("There has been a problem updating $entity.") }
+        return DBManager.database.getCollection<Maquina>().save(updated)
+            .let { MaquinaSuccess(200, updated) }
+            .run { MaquinaInternalException("There has been a problem updating $updated.") }
     }
 
     override suspend fun delete(id: Id<Maquina>): MaquinaResult<Maquina> {
@@ -93,5 +99,25 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
         } else {
             MaquinaErrorNotFound("Turno with id $id not found.")
         }
+    }
+
+    private fun checkFieldsAreCorrect(entity: Maquina): MaquinaResult<Maquina>? {
+        if (entity.modelo.isBlank()) { return MaquinaErrorBadRequest("Model cannot be blank.") }
+        if (entity.marca.isBlank()) { return MaquinaErrorBadRequest("Brand cannot be blank.") }
+        if (entity.numeroSerie.isBlank()) { return MaquinaErrorBadRequest("Serial number cannot be blank.") }
+        if(entity.fechaAdquisicion > LocalDate.now()) {
+            return MaquinaErrorBadRequest("Acquisition date cannot be in the future.") }
+        if (entity.tipo == TipoMaquina.ENCORDADORA &&
+            (entity.isManual == null || entity.minTension == null || entity.maxTension == null) ) {
+            return MaquinaErrorBadRequest("Maquina of type ENCORDADORA with invalid data.") }
+        if (entity.tipo == TipoMaquina.PERSONALIZADORA &&
+            (entity.measuresManeuverability == null || entity.measuresBalance == null ||
+            entity.measuresRigidity == null) ) {
+            return MaquinaErrorBadRequest("Maquina of type PERSONALIZADORA with invalid data.") }
+        if (entity.tipo == TipoMaquina.ENCORDADORA && entity.maxTension!! <= entity.minTension!!) {
+            return MaquinaErrorBadRequest("ENCORDADORA: Max tension cannot be lower or equal than min tension.") }
+        if (entity.tipo == TipoMaquina.ENCORDADORA && entity.minTension!! <= 0 ) {
+            return MaquinaErrorBadRequest("ENCORDADORA: There must not be negative values in tension parameters.") }
+        return null
     }
 }
