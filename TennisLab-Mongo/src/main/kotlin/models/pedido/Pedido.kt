@@ -20,6 +20,8 @@ data class Pedido(
     val id: Id<Pedido> = newId(),
     @Serializable(with = UUIDSerializer::class)
     val uuid: UUID = UUID.randomUUID(),
+    @Serializable(with = UUIDSerializer::class)
+    val userId: UUID,
     val state: PedidoState,
     @Serializable(with = LocalDateSerializer::class)
     val fechaEntrada: LocalDate,
@@ -27,5 +29,5 @@ data class Pedido(
     val fechaSalida: LocalDate,
     @Serializable(with = LocalDateSerializer::class)
     val topeEntrega: LocalDate,
-    val precio: Double
+    var precio: Double
 )

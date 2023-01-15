@@ -22,9 +22,11 @@ data class Tarea(
     val uuid: UUID = UUID.randomUUID(),
     @Serializable(with = UUIDSerializer::class)
     val raquetaId: UUID,
-    val precio: Double,
+    var precio: Double,
     val tipo: TipoTarea,
     val finalizada: Boolean,
+    @Serializable(with = UUIDSerializer::class)
+    val pedidoId: UUID,
 
     // esto es para adquisiciones
     @Serializable(with = UUIDSerializer::class)
