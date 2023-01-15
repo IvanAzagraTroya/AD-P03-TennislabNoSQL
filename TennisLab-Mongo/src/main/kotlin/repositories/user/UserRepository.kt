@@ -105,6 +105,6 @@ class UserRepository: IUserRepository<Id<User>> {
         if (entity.email.isBlank() || !entity.email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex()))
         { return UserErrorBadRequest("Incorrect format for email.") }
         if (entity.password.isBlank()) { return UserErrorBadRequest("Password cannot be blank.") }
-        else return null
+        return null
     }
 }
