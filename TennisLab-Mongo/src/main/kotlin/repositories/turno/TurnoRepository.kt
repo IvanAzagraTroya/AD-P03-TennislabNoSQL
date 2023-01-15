@@ -79,9 +79,9 @@ class TurnoRepository: ITurnoRepository<Id<Turno>> {
             tarea2Id = entity.tarea2Id,
             finalizado = true
         )
-        return DBManager.database.getCollection<Turno>().save(entity)
-            .let { TurnoSuccess(200, entity) }
-            .run { TurnoInternalException("There has been a problem updating $entity.") }
+        return DBManager.database.getCollection<Turno>().save(updated)
+            .let { TurnoSuccess(200, updated) }
+            .run { TurnoInternalException("There has been a problem updating $updated.") }
     }
 
     override suspend fun delete(id: Id<Turno>): TurnoResult<Turno> {
