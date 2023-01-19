@@ -14,7 +14,9 @@ import models.tarea.TareaInternalException
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
+import org.litote.kmongo.eq
 import repositories.producto.ProductoRepository
+import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -87,6 +89,12 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
         } else {
             null
         }
+    }
+
+    override suspend fun findByUUID(id: UUID): Tarea? = withContext(Dispatchers.IO) {
+        logger.debug { "findByUUID($id)" }
+
+        DBManager.database.getCollection<Tarea>().findOne(Tarea::uuid eq id)
     }
 
     /*private suspend fun checkFieldsAreCorrect(entity: Tarea): TareaResult<Tarea>? {
