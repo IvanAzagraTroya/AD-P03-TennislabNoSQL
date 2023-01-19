@@ -2,7 +2,9 @@ package repositories.producto
 
 import db.DBManager
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.reactive.asFlow
 import models.producto.*
 import mu.KotlinLogging
 import org.litote.kmongo.Id
@@ -18,45 +20,24 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
         } while (true)
     }
 
-    override suspend fun findAll(): ProductoResult<List<Producto>> {
+    override fun findAll(): Flow<Producto> {
         logger.debug { "findAll()" }
 
-        val productos: List<Producto> = DBManager.database.getCollection<Producto>().find().publisher.toList()
-        return if (productos.isEmpty()) {
-            ProductoErrorNotFound("Could not find any productos.")
-        } else {
-            ProductoSuccess(200, productos)
-        }
+        return DBManager.database.getCollection<Producto>().find().publisher.asFlow()
     }
 
-    override suspend fun save(entity: Producto): ProductoResult<Producto> {
+    override suspend fun save(entity: Producto): Producto? {
         logger.debug { "save($entity)" }
 
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<Producto>().save(entity)
-            .let { ProductoSuccess(201, entity) }
-            .run { ProductoInternalException("There has been a problem inserting $entity.") }
+        return DBManager.database.getCollection<Producto>().save(entity).let { entity }
     }
 
-    override suspend fun update(entity: Producto): ProductoResult<Producto> {
-        logger.debug { "update($entity)" }
-
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<Producto>().save(entity)
-            .let { ProductoSuccess(200, entity) }
-            .run { ProductoInternalException("There has been a problem updating $entity.") }
-    }
-
-    override suspend fun decreaseStock(id: Id<Producto>): ProductoResult<Producto> {
+    override suspend fun decreaseStock(id: Id<Producto>): Producto? {
         logger.debug { "setInactive($id)" }
 
         val entity = DBManager.database.getCollection<Producto>().findOneById(id)
-            ?: return ProductoErrorNotFound("Producto with id $id not found.")
-        if (entity.stock == 0) return ProductoSuccess(200, entity)
+            ?: return null
+        if (entity.stock == 0) return entity
         val updated = Producto(
             id = entity.id,
             uuid = entity.uuid,
@@ -67,39 +48,26 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
             stock = entity.stock - 1
         )
         return DBManager.database.getCollection<Producto>().save(updated)
-            .let { ProductoSuccess(200, updated) }
-            .run { ProductoInternalException("There has been a problem updating $updated.") }
+            .let { updated }
+            .run { null }
     }
 
-    override suspend fun delete(id: Id<Producto>): ProductoResult<Producto> {
+    override suspend fun delete(id: Id<Producto>): Producto? {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<Producto>().findOneById(id)
         return if (entity == null) {
-            ProductoErrorNotFound("Could not delete producto with id $id. Producto not found.")
+            null
         } else {
             DBManager.database.getCollection<Producto>().deleteOneById(id)
-                .let { ProductoSuccess(200, entity) }
-                .run { ProductoInternalException("Could not delete due to unexpected exception.") }
+                .let { entity }
+                .run { null }
         }
     }
 
-    override suspend fun findById(id: Id<Producto>): ProductoResult<Producto> {
+    override suspend fun findById(id: Id<Producto>): Producto? {
         logger.debug { "findById($id)" }
 
-        val producto = DBManager.database.getCollection<Producto>().findOneById(id)
-        return if (producto != null) {
-            ProductoSuccess(200, producto)
-        } else {
-            ProductoErrorNotFound("Producto with id $id not found.")
-        }
-    }
-
-    private fun checkFieldsAreCorrect(entity: Producto): ProductoResult<Producto>? {
-        if (entity.marca.isBlank()) { return ProductoErrorBadRequest("Marca cannot be blank.") }
-        if (entity.modelo.isBlank()) { return ProductoErrorBadRequest("Model cannot be blank.") }
-        if (entity.precio <= 0.0 ) { return ProductoErrorBadRequest("Price must be greater than 0.") }
-        if (entity.stock < 0 ) { return ProductoErrorBadRequest("Stock cannot be a negative value.") }
-        return null
+        return DBManager.database.getCollection<Producto>().findOneById(id)
     }
 }
