@@ -6,7 +6,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
+import models.producto.Producto
 import models.user.*
 import mu.KotlinLogging
 import org.litote.kmongo.Id
@@ -25,37 +27,20 @@ class UserRepository: IUserRepository<Id<User>> {
     override suspend fun findAll(): Flow<User> {
         logger.debug { "findAll()" }
 
-        val users: List<User> = DBManager.database.getCollection<User>().find().publisher.toList()
-        return users.asFlow()
+        return DBManager.database.getCollection<User>().find().publisher.asFlow()
     }
 
     override suspend fun save(entity: User): User = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
 
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<User>().save(entity)
-            .let { UserSuccess(201, entity) }
-            .run { UserInternalException("There has been a problem inserting $entity.") }
+        return@withContext DBManager.database.getCollection<User>().save(entity).let {entity}
     }
 
-    override suspend fun update(entity: User): UserResult<User> {
-        logger.debug { "update($entity)" }
-
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<User>().save(entity)
-            .let { UserSuccess(200, entity) }
-            .run { UserInternalException("There has been a problem updating $entity.") }
-    }
-
-    override suspend fun setInactive(id: Id<User>): UserResult<User> {
+    override suspend fun setInactive(id: Id<User>): User? = withContext(Dispatchers.IO) {
         logger.debug { "setInactive($id)" }
 
         val entity = DBManager.database.getCollection<User>().findOneById(id)
-            ?: return UserErrorNotFound("User with id $id not found.")
+            ?: return@withContext null
         val updated = User(
             id = entity.id,
             uuid = entity.uuid,
@@ -67,33 +52,28 @@ class UserRepository: IUserRepository<Id<User>> {
             perfil = entity.perfil,
             activo = false
         )
-        return DBManager.database.getCollection<User>().save(updated)
-            .let { UserSuccess(200, updated) }
-            .run { UserInternalException("There has been a problem updating $updated.") }
+        return@withContext DBManager.database.getCollection<User>().save(updated)
+            .let { updated }
+            .run { null }
     }
 
-    override suspend fun delete(id: Id<User>): UserResult<User> {
+    override suspend fun delete(id: Id<User>): User? = withContext(Dispatchers.IO) {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<User>().findOneById(id)
-        return if (entity == null) {
-            UserErrorNotFound("Could not delete user with id $id. User not found.")
+        return@withContext if (entity == null) {
+            null
         } else {
             DBManager.database.getCollection<User>().deleteOneById(id)
-                .let { UserSuccess(200, entity) }
-                .run { UserInternalException("Could not delete due to unexpected exception.") }
+                .let { entity }
+                .run { null }
         }
     }
 
-    override suspend fun findById(id: Id<User>): UserResult<User> {
+    override suspend fun findById(id: Id<User>): User? = withContext(Dispatchers.IO){
         logger.debug { "findById($id)" }
 
-        val user = DBManager.database.getCollection<User>().findOneById(id)
-        return if (user != null) {
-            UserSuccess(200, user)
-        } else {
-            UserErrorNotFound("User with id $id not found.")
-        }
+        return@withContext DBManager.database.getCollection<User>().findOneById(id)
     }
 
     private fun checkFieldsAreCorrect(entity: User) : UserResult<User>? {
