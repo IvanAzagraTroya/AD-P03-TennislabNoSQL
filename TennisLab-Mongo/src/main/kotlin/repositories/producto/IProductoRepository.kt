@@ -1,13 +1,16 @@
 package repositories.producto
 
 import kotlinx.coroutines.flow.Flow
+import models.pedido.Pedido
 import models.producto.Producto
+import java.util.*
 
 interface IProductoRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Producto>>
     fun findAll(): Flow<Producto>
     suspend fun findById(id: ID): Producto?
-    suspend fun save(entity: Producto): Producto?
+    suspend fun findByUUID(id: UUID): Producto?
+    suspend fun save(entity: Producto): Producto
     suspend fun delete(id: ID): Producto?
     suspend fun decreaseStock(id: ID): Producto?
 }
