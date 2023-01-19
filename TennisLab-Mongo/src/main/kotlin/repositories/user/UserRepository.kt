@@ -1,8 +1,12 @@
 package repositories.user
 
 import db.DBManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import models.user.*
 import mu.KotlinLogging
 import org.litote.kmongo.Id
@@ -18,18 +22,14 @@ class UserRepository: IUserRepository<Id<User>> {
         } while (true)
     }
 
-    override suspend fun findAll(): UserResult<List<User>> {
+    override suspend fun findAll(): Flow<User> {
         logger.debug { "findAll()" }
 
         val users: List<User> = DBManager.database.getCollection<User>().find().publisher.toList()
-        return if (users.isEmpty()) {
-            UserErrorNotFound("Could not find any users.")
-        } else {
-            UserSuccess(200, users)
-        }
+        return users.asFlow()
     }
 
-    override suspend fun save(entity: User): UserResult<User> {
+    override suspend fun save(entity: User): User = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
 
         val check = checkFieldsAreCorrect(entity)
