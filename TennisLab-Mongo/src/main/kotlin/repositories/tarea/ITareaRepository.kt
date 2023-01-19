@@ -8,9 +8,9 @@ import java.util.*
 
 interface ITareaRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Tarea>>
-    suspend fun findAll(): Flow<Tarea>
+    fun findAll(): Flow<Tarea>
     suspend fun findById(id: ID): Tarea?
-    suspend fun save(entity: Tarea): Tarea?
+    suspend fun save(entity: Tarea): Tarea
     suspend fun delete(id: ID): Tarea?
     suspend fun setFinalizada(id: ID): Tarea?
     suspend fun findByUUID(id: UUID): Tarea?
