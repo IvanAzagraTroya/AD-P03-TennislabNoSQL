@@ -33,7 +33,7 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
     }
 
     override suspend fun decreaseStock(id: Id<Producto>): Producto? {
-        logger.debug { "setInactive($id)" }
+        logger.debug { "decreaseStock($id)" }
 
         val entity = DBManager.database.getCollection<Producto>().findOneById(id)
             ?: return null
@@ -56,13 +56,8 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<Producto>().findOneById(id)
-        return if (entity == null) {
-            null
-        } else {
-            DBManager.database.getCollection<Producto>().deleteOneById(id)
-                .let { entity }
-                .run { null }
-        }
+
+        return DBManager.database.getCollection<Producto>().deleteOneById(id).let { entity }
     }
 
     override suspend fun findById(id: Id<Producto>): Producto? {
