@@ -2,8 +2,6 @@ package repositories.maquina
 
 import kotlinx.coroutines.flow.Flow
 import models.maquina.Maquina
-import models.maquina.MaquinaResult
-import models.pedido.Pedido
 import java.util.*
 
 interface IMaquinaRepository<ID> {

@@ -8,11 +8,14 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
+import models.maquina.Maquina
 import models.producto.Producto
 import models.user.*
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
+import org.litote.kmongo.eq
+import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -24,16 +27,22 @@ class UserRepository: IUserRepository<Id<User>> {
         } while (true)
     }
 
-    override suspend fun findAll(): Flow<User> {
+    override fun findAll(): Flow<User> {
         logger.debug { "findAll()" }
 
         return DBManager.database.getCollection<User>().find().publisher.asFlow()
     }
 
+    override suspend fun findByUUID(id: UUID): User? = withContext(Dispatchers.IO) {
+        logger.debug { "findByUUID($id)" }
+
+        DBManager.database.getCollection<User>().findOne(User::uuid eq id)
+    }
+
     override suspend fun save(entity: User): User = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
 
-        return@withContext DBManager.database.getCollection<User>().save(entity).let {entity}
+        DBManager.database.getCollection<User>().save(entity).let {entity}
     }
 
     override suspend fun setInactive(id: Id<User>): User? = withContext(Dispatchers.IO) {
@@ -52,39 +61,19 @@ class UserRepository: IUserRepository<Id<User>> {
             perfil = entity.perfil,
             activo = false
         )
-        return@withContext DBManager.database.getCollection<User>().save(updated)
-            .let { updated }
-            .run { null }
+        DBManager.database.getCollection<User>().save(updated).let { updated }
     }
 
     override suspend fun delete(id: Id<User>): User? = withContext(Dispatchers.IO) {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<User>().findOneById(id)
-        return@withContext if (entity == null) {
-            null
-        } else {
-            DBManager.database.getCollection<User>().deleteOneById(id)
-                .let { entity }
-                .run { null }
-        }
+        DBManager.database.getCollection<User>().deleteOneById(id).let { entity }
     }
 
     override suspend fun findById(id: Id<User>): User? = withContext(Dispatchers.IO){
         logger.debug { "findById($id)" }
 
-        return@withContext DBManager.database.getCollection<User>().findOneById(id)
-    }
-
-    private fun checkFieldsAreCorrect(entity: User) : UserResult<User>? {
-        if (entity.nombre.isBlank()) { return UserErrorBadRequest("Name cannot be blank.") }
-        if (entity.apellido.isBlank()) { return UserErrorBadRequest("Surname cannot be blank.") }
-        if (entity.telefono.isBlank() || !entity.telefono.matches("[1-9][0-9]{8}".toRegex()))
-        { return UserErrorBadRequest("Incorrect format for phone number.") }
-        // expresion regular del email sacada de: https://regexr.com/3e48o
-        if (entity.email.isBlank() || !entity.email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex()))
-        { return UserErrorBadRequest("Incorrect format for email.") }
-        if (entity.password.isBlank()) { return UserErrorBadRequest("Password cannot be blank.") }
-        return null
+        DBManager.database.getCollection<User>().findOneById(id)
     }
 }
