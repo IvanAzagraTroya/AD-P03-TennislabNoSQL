@@ -7,10 +7,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
+import models.maquina.Maquina
 import models.producto.*
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
+import org.litote.kmongo.eq
+import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -28,13 +31,19 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
         return DBManager.database.getCollection<Producto>().find().publisher.asFlow()
     }
 
-    override suspend fun save(entity: Producto): Producto? = withContext(Dispatchers.IO) {
-        logger.debug { "save($entity)" }
+    override suspend fun findByUUID(id: UUID): Producto? = withContext(Dispatchers.IO) {
+        logger.debug { "findByUUID($id)" }
 
-        return@withContext DBManager.database.getCollection<Producto>().save(entity).let { entity }
+        DBManager.database.getCollection<Producto>().findOne(Producto::uuid eq id)
     }
 
-    override suspend fun decreaseStock(id: Id<Producto>): Producto? {
+    override suspend fun save(entity: Producto): Producto = withContext(Dispatchers.IO) {
+        logger.debug { "save($entity)" }
+
+        DBManager.database.getCollection<Producto>().save(entity).let { entity }
+    }
+
+    override suspend fun decreaseStock(id: Id<Producto>): Producto? = withContext(Dispatchers.IO) {
         logger.debug { "decreaseStock($id)" }
 
         val entity = DBManager.database.getCollection<Producto>().findOneById(id)
@@ -49,9 +58,7 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
             precio = entity.precio,
             stock = entity.stock - 1
         )
-        return@withContext DBManager.database.getCollection<Producto>().save(updated)
-            .let { updated }
-            .run { null }
+        DBManager.database.getCollection<Producto>().save(updated).let { updated }
     }
 
     override suspend fun delete(id: Id<Producto>): Producto? = withContext(Dispatchers.IO) {
@@ -59,18 +66,12 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
 
         val entity = DBManager.database.getCollection<Producto>().findOneById(id)
 
-        return@withContext if (entity == null) {
-            null
-        } else {
-            DBManager.database.getCollection<Producto>().deleteOneById(id)
-                .let { entity }
-                .run { null }
-        }
+        DBManager.database.getCollection<Producto>().deleteOneById(id).let { entity }
     }
 
     override suspend fun findById(id: Id<Producto>): Producto? = withContext(Dispatchers.IO) {
         logger.debug { "findById($id)" }
 
-        return@withContext DBManager.database.getCollection<Producto>().findOneById(id)
+        DBManager.database.getCollection<Producto>().findOneById(id)
     }
 }
