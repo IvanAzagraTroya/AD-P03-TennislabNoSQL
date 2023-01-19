@@ -1,19 +1,18 @@
 package repositories.pedido
 
 import db.DBManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import models.pedido.*
+import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.withContext
 import models.pedido.Pedido
-import models.pedido.PedidoErrorNotFound
-import models.pedido.PedidoInternalException
-import models.pedido.PedidoSuccess
-import models.tarea.Tarea
-import models.tarea.TareaSuccess
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
-import repositories.tarea.TareaRepository
+import org.litote.kmongo.eq
+import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -25,73 +24,34 @@ class PedidoRepository: IPedidoRepository<Id<Pedido>> {
         } while (true)
     }
 
-    override suspend fun findAll(): PedidoResult<List<Pedido>> {
+    override fun findAll(): Flow<Pedido> {
         logger.debug { "findAll()" }
 
-        val pedidos: List<Pedido> = DBManager.database.getCollection<Pedido>().find().publisher.toList()
-        return if (pedidos.isEmpty()) {
-            PedidoErrorNotFound("Could not find any pedidos.")
-        } else {
-            PedidoSuccess(200, pedidos)
-        }
+        return DBManager.database.getCollection<Pedido>().find().publisher.asFlow()
     }
 
-    override suspend fun save(entity: Pedido): PedidoResult<Pedido> {
+    override suspend fun findByUUID(id: UUID): Pedido? = withContext(Dispatchers.IO) {
+        logger.debug { "findByUUID($id)" }
+
+        DBManager.database.getCollection<Pedido>().findOne(Pedido::uuid eq id)
+    }
+
+    override suspend fun save(entity: Pedido): Pedido = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
 
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<Pedido>().save(entity)
-            .let { PedidoSuccess(201, entity) }
-            .run { PedidoInternalException("There has been a problem inserting $entity.") }
+        DBManager.database.getCollection<Pedido>().save(entity).let { entity }
     }
 
-    override suspend fun update(entity: Pedido): PedidoResult<Pedido> {
-        logger.debug { "update($entity)" }
-
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<Pedido>().save(entity)
-            .let { PedidoSuccess(200, entity) }
-            .run { PedidoInternalException("There has been a problem updating $entity.") }
-    }
-
-    override suspend fun delete(id: Id<Pedido>): PedidoResult<Pedido> {
+    override suspend fun delete(id: Id<Pedido>): Pedido? = withContext(Dispatchers.IO) {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<Pedido>().findOneById(id)
-        return if (entity == null) {
-            PedidoErrorNotFound("Could not delete pedido with id $id. Pedido not found.")
-        } else {
-            DBManager.database.getCollection<Pedido>().deleteOneById(id)
-                .let { PedidoSuccess(200, entity) }
-                .run { PedidoInternalException("Could not delete due to unexpected exception.") }
-        }
+        DBManager.database.getCollection<Pedido>().deleteOneById(id).let { entity }
     }
 
-    override suspend fun findById(id: Id<Pedido>): PedidoResult<Pedido> {
+    override suspend fun findById(id: Id<Pedido>): Pedido? = withContext(Dispatchers.IO) {
         logger.debug { "findById($id)" }
 
-        val pedido = DBManager.database.getCollection<Pedido>().findOneById(id)
-        return if (pedido != null) {
-            PedidoSuccess(200, pedido)
-        } else {
-            PedidoErrorNotFound("Pedido with id $id not found.")
-        }
-    }
-
-    private suspend fun checkFieldsAreCorrect(entity: Pedido): PedidoResult<Pedido>? {
-        if (entity.fechaSalida.isBefore(entity.fechaEntrada)) {
-            return PedidoErrorBadRequest("FechaSalida cannot be before FechaEntrada.") }
-        if (entity.topeEntrega.isBefore(entity.fechaSalida)) {
-            return PedidoErrorBadRequest("TopeEntrega cannot be before FechaSalida.") }
-        val tareasResult = TareaRepository().findAll()
-        if (tareasResult is TareaSuccess<List<Tarea>>) {
-            entity.precio = 0.0
-            tareasResult.data.filter { it.pedidoId == entity.uuid }.forEach { entity.precio += it.precio }
-        } else return PedidoErrorBadRequest("Error in Pedido : No tareas found.")
-        return null
+        DBManager.database.getCollection<Pedido>().findOneById(id)
     }
 }

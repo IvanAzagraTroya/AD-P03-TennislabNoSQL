@@ -2,7 +2,6 @@ package repositories.producto
 
 import kotlinx.coroutines.flow.Flow
 import models.producto.Producto
-import models.producto.ProductoResult
 
 interface IProductoRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Producto>>
