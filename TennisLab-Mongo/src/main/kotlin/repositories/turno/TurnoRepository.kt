@@ -1,15 +1,18 @@
 package repositories.turno
 
 import db.DBManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import models.turno.*
+import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.withContext
 import models.turno.Turno
-import models.turno.TurnoErrorNotFound
-import models.turno.TurnoSuccess
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
+import org.litote.kmongo.eq
+import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -21,52 +24,23 @@ class TurnoRepository: ITurnoRepository<Id<Turno>> {
         } while (true)
     }
 
-    override suspend fun findAll(): TurnoResult<List<Turno>> {
+    override suspend fun findAll(): Flow<Turno> {
         logger.debug { "findAll()" }
 
-        val turnos: List<Turno> = DBManager.database.getCollection<Turno>().find().publisher.toList()
-        return if (turnos.isEmpty()) {
-            TurnoErrorNotFound("Could not find any turnos.")
-        } else {
-            TurnoSuccess(200, turnos)
-        }
+       return DBManager.database.getCollection<Turno>().find().publisher.asFlow()
     }
 
-    override suspend fun save(entity: Turno): TurnoResult<Turno> {
+    override suspend fun save(entity: Turno): Turno = withContext(Dispatchers.IO){
         logger.debug { "save($entity)" }
 
-        if (entity.numPedidosActivos < 0 || entity.numPedidosActivos > 2) {
-            return TurnoErrorBadRequest("Number of active pedidos cannot exceed 2 or be lower than 0.")
-        }
-        if (entity.tarea2Id == null && entity.numPedidosActivos > 1) {
-            return TurnoErrorBadRequest("Number of active pedidos cannot exceed 1 when there is only 1 task.")
-        }
-
-        return DBManager.database.getCollection<Turno>().save(entity)
-            .let { TurnoSuccess(201, entity) }
-            .run { TurnoInternalException("There has been a problem inserting $entity.") }
+        DBManager.database.getCollection<Turno>().save(entity).let { entity }
     }
 
-    override suspend fun update(entity: Turno): TurnoResult<Turno> {
-        logger.debug { "update($entity)" }
-
-        if (entity.numPedidosActivos < 0 || entity.numPedidosActivos > 2) {
-            return TurnoErrorBadRequest("Number of active pedidos cannot exceed 2 or be lower than 0.")
-        }
-        if (entity.tarea2Id == null && entity.numPedidosActivos > 1) {
-            return TurnoErrorBadRequest("Number of active pedidos cannot exceed 1 when there is only 1 task.")
-        }
-
-        return DBManager.database.getCollection<Turno>().save(entity)
-            .let { TurnoSuccess(200, entity) }
-            .run { TurnoInternalException("There has been a problem updating $entity.") }
-    }
-
-    override suspend fun setFinalizado(id: Id<Turno>): TurnoResult<Turno> {
+    override suspend fun setFinalizado(id: Id<Turno>): Turno? = withContext(Dispatchers.IO) {
         logger.debug { "setFinalizado($id)" }
 
         val entity = DBManager.database.getCollection<Turno>().findOneById(id)
-            ?: return TurnoErrorNotFound("Turno with id $id not found.")
+            ?: return@withContext null
         val updated = Turno(
             id = entity.id,
             uuid = entity.uuid,
@@ -79,32 +53,33 @@ class TurnoRepository: ITurnoRepository<Id<Turno>> {
             tarea2Id = entity.tarea2Id,
             finalizado = true
         )
-        return DBManager.database.getCollection<Turno>().save(updated)
-            .let { TurnoSuccess(200, updated) }
-            .run { TurnoInternalException("There has been a problem updating $updated.") }
+        return@withContext DBManager.database.getCollection<Turno>().save(updated)
+            .let { updated }
+            .run { null }
     }
 
-    override suspend fun delete(id: Id<Turno>): TurnoResult<Turno> {
+    override suspend fun delete(id: Id<Turno>): Turno? = withContext(Dispatchers.IO) {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<Turno>().findOneById(id)
-        return if (entity == null) {
-            TurnoErrorNotFound("Could not delete turno with id $id. Turno not found.")
+        return@withContext if (entity == null) {
+            null
         } else {
             DBManager.database.getCollection<Turno>().deleteOneById(id)
-                .let { TurnoSuccess(200, entity) }
-                .run { TurnoInternalException("Could not delete due to unexpected exception.") }
+                .let { entity }
+                .run { null }
         }
     }
 
-    override suspend fun findById(id: Id<Turno>): TurnoResult<Turno> {
+    override suspend fun findById(id: Id<Turno>): Turno? = withContext(Dispatchers.IO) {
         logger.debug { "findById($id)" }
 
-        val turno = DBManager.database.getCollection<Turno>().findOneById(id)
-        return if (turno != null) {
-            TurnoSuccess(200, turno)
-        } else {
-            TurnoErrorNotFound("Turno with id $id not found.")
-        }
+        DBManager.database.getCollection<Turno>().findOneById(id)
+    }
+
+    override suspend fun findByUUID(id: UUID): Turno? = withContext(Dispatchers.IO) {
+        logger.debug { "findByUUID($id)" }
+
+        DBManager.database.getCollection<Turno>().findOne(Turno::uuid eq id)
     }
 }
