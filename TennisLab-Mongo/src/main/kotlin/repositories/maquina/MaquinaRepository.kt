@@ -70,7 +70,7 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
 
         val entity = DBManager.database.getCollection<Maquina>().findOneById(id)
         DBManager.database.getCollection<Maquina>().deleteOneById(id).let { entity }
-        }
+    }
 
     override suspend fun findById(id: Id<Maquina>): Maquina? = withContext(Dispatchers.IO) {
         logger.debug { "findById($id)" }

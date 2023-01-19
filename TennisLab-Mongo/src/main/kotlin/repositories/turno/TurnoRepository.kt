@@ -24,10 +24,9 @@ class TurnoRepository: ITurnoRepository<Id<Turno>> {
         } while (true)
     }
 
-    override suspend fun findAll(): Flow<Turno> {
+    override fun findAll(): Flow<Turno> {
         logger.debug { "findAll()" }
-
-       return DBManager.database.getCollection<Turno>().find().publisher.asFlow()
+        return DBManager.database.getCollection<Turno>().find().publisher.asFlow()
     }
 
     override suspend fun save(entity: Turno): Turno = withContext(Dispatchers.IO){
@@ -53,22 +52,14 @@ class TurnoRepository: ITurnoRepository<Id<Turno>> {
             tarea2Id = entity.tarea2Id,
             finalizado = true
         )
-        return@withContext DBManager.database.getCollection<Turno>().save(updated)
-            .let { updated }
-            .run { null }
+        DBManager.database.getCollection<Turno>().save(updated).let { updated }
     }
 
     override suspend fun delete(id: Id<Turno>): Turno? = withContext(Dispatchers.IO) {
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<Turno>().findOneById(id)
-        return@withContext if (entity == null) {
-            null
-        } else {
-            DBManager.database.getCollection<Turno>().deleteOneById(id)
-                .let { entity }
-                .run { null }
-        }
+        DBManager.database.getCollection<Turno>().deleteOneById(id).let { entity }
     }
 
     override suspend fun findById(id: Id<Turno>): Turno? = withContext(Dispatchers.IO) {

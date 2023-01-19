@@ -8,7 +8,7 @@ import java.util.*
 
 interface ITurnoRepository<ID> {
     suspend fun findAllRealTime(): Flow<List<Turno>>
-    suspend fun findAll(): Flow<Turno>
+    fun findAll(): Flow<Turno>
     suspend fun findById(id: ID): Turno?
     suspend fun save(entity: Turno): Turno
     suspend fun delete(id: ID): Turno?
