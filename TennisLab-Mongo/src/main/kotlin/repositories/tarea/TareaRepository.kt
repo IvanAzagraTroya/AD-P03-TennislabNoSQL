@@ -1,8 +1,12 @@
 package repositories.tarea
 
 import db.DBManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.withContext
 import models.producto.Producto
 import models.producto.ProductoSuccess
 import models.tarea.*
@@ -22,44 +26,23 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
         } while (true)
     }
 
-    override suspend fun findAll(): TareaResult<List<Tarea>> {
+    override suspend fun findAll(): Flow<Tarea> {
         logger.debug { "findAll()" }
 
-        val tareas: List<Tarea> = DBManager.database.getCollection<Tarea>().find().publisher.toList()
-        return if (tareas.isEmpty()) {
-            TareaErrorNotFound("Could not find any tareas.")
-        } else {
-            TareaSuccess(200, tareas)
-        }
+        return DBManager.database.getCollection<Tarea>().find().publisher.asFlow()
     }
 
-    override suspend fun save(entity: Tarea): TareaResult<Tarea> {
+    override suspend fun save(entity: Tarea): Tarea = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
         
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<Tarea>().save(entity)
-            .let { TareaSuccess(201, entity) }
-            .run { TareaInternalException("There has been a problem inserting $entity.") }
+        return@withContext DBManager.database.getCollection<Tarea>().save(entity).let { entity }
     }
 
-    override suspend fun update(entity: Tarea): TareaResult<Tarea> {
-        logger.debug { "update($entity)" }
-
-        val check = checkFieldsAreCorrect(entity)
-        if (check != null) return check
-
-        return DBManager.database.getCollection<Tarea>().save(entity)
-            .let { TareaSuccess(200, entity) }
-            .run { TareaInternalException("There has been a problem updating $entity.") }
-    }
-
-    override suspend fun setFinalizada(id: Id<Tarea>): TareaResult<Tarea> {
+    override suspend fun setFinalizada(id: Id<Tarea>): Tarea? {
         logger.debug { "setFinalizada($id)" }
 
         val entity = DBManager.database.getCollection<Tarea>().findOneById(id)
-            ?: return TareaErrorNotFound("Tarea with id $id not found.")
+            ?: return null
         val updated = Tarea(
             id = entity.id,
             uuid = entity.uuid,
@@ -79,43 +62,42 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
             dosNudos = entity.dosNudos
         )
         return DBManager.database.getCollection<Tarea>().save(updated)
-            .let { TareaSuccess(200, updated) }
-            .run { TareaInternalException("There has been a problem updating $updated.") }
+            .let { updated }
+            .run { null }
     }
 
-    override suspend fun delete(id: Id<Tarea>): TareaResult<Tarea> {
+    override suspend fun delete(id: Id<Tarea>): Tarea? = withContext(Dispatchers.IO){
         logger.debug { "delete($id)" }
 
         val entity = DBManager.database.getCollection<Tarea>().findOneById(id)
-        return if (entity == null) {
-            TareaErrorNotFound("Could not delete tarea with id $id. Tarea not found.")
-        } else {
+        return@withContext if (entity == null) null
+            else{
             DBManager.database.getCollection<Tarea>().deleteOneById(id)
-                .let { TareaSuccess(200, entity) }
-                .run { TareaInternalException("Could not delete due to unexpected exception.") }
+                .let { entity }
+                .run { null }
         }
     }
 
-    override suspend fun findById(id: Id<Tarea>): TareaResult<Tarea> {
+    override suspend fun findById(id: Id<Tarea>): Tarea? = withContext(Dispatchers.IO){
         logger.debug { "findById($id)" }
 
         val tarea = DBManager.database.getCollection<Tarea>().findOneById(id)
-        return if (tarea != null) {
-            TareaSuccess(200, tarea)
+        return@withContext if (tarea != null) {
+            tarea
         } else {
-            TareaErrorNotFound("Tarea with id $id not found.")
+            null
         }
     }
 
-    private suspend fun checkFieldsAreCorrect(entity: Tarea): TareaResult<Tarea>? {
-        if (entity.tipo == TipoTarea.ADQUISICION && entity.productoAdquiridoId == null ) { 
+    /*private suspend fun checkFieldsAreCorrect(entity: Tarea): TareaResult<Tarea>? {
+        if (entity.tipo == TipoTarea.ADQUISICION && entity.productoAdquiridoId == null ) {
             return TareaErrorBadRequest("Tarea of type ADQUISICION with invalid productoAdquiridoId.") }
-        if (entity.tipo == TipoTarea.PERSONALIZACION && 
+        if (entity.tipo == TipoTarea.PERSONALIZACION &&
             (entity.peso == null || entity.balance == null || entity.rigidez == null) ) {
             return TareaErrorBadRequest("Tarea of type PERSONALIZACION with invalid data.") }
         if (entity.tipo == TipoTarea.ENCORDADO &&
-            (entity.tensionHorizontal == null || entity.cordajeHorizontalId == null 
-            || entity.tensionVertical == null || entity.cordajeVerticalId == null 
+            (entity.tensionHorizontal == null || entity.cordajeHorizontalId == null
+            || entity.tensionVertical == null || entity.cordajeVerticalId == null
             || entity.dosNudos == null) ) {
             return TareaErrorBadRequest("Tarea of type ENCORDADO with invalid data.") }
         val productosResult = ProductoRepository().findAll()
@@ -139,5 +121,5 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
             } else return TareaErrorBadRequest("Error in Tarea of type ENCORDADO : No products found.")
         }
         return null
-    }
+    }*/
 }
