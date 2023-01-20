@@ -3,6 +3,8 @@ package dto
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
+import models.pedido.Pedido
+import models.tarea.Tarea
 import java.time.LocalDateTime
 import java.util.UUID
 
