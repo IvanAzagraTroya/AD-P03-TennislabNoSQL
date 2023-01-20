@@ -29,6 +29,10 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
     implementation("ch.qos.logback:logback-classic:1.4.5")
 
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.10.1")
+
+
     // Koin Core features
     implementation("io.insert-koin:koin-core:$koin_version")
 // Koin Test features
