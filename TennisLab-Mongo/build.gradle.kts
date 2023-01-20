@@ -22,6 +22,9 @@ dependencies {
     // Usamos corrutinas para ello
     implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")
 
+    // Para cifrar las contraseñas
+    implementation("com.ToxicBakery.library.bcrypt:bcrypt:+")
+
     // Corrutinas
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
