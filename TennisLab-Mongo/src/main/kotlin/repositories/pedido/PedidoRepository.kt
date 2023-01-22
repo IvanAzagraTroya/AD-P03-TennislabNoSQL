@@ -9,6 +9,7 @@ import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import models.pedido.Pedido
 import mu.KotlinLogging
+import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
 import org.litote.kmongo.eq
@@ -16,6 +17,7 @@ import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
+@Single
 class PedidoRepository: IPedidoRepository<Id<Pedido>> {
     override suspend fun findAllRealTime() = flow {
         do {

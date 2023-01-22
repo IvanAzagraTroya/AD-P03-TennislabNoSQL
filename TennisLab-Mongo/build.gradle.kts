@@ -38,10 +38,14 @@ dependencies {
 
     // Koin Core features
     implementation("io.insert-koin:koin-core:$koin_version")
+    implementation("io.insert-koin:koin-annotations:$koin_ksp_version")
 // Koin Test features
     testImplementation("io.insert-koin:koin-test:$koin_version")
 
     testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
+
+    // cache
+    implementation("io.github.reactivecircus.cache4k:cache4k:0.9.0")
 
     testImplementation(kotlin("test"))
 }
