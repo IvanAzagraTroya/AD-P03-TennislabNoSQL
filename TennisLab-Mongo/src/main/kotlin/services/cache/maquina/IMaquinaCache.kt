@@ -1,6 +1,6 @@
-package cache.maquina
+package services.cache.maquina
 
-import cache.ICache
+import services.cache.ICache
 import models.maquina.Maquina
 import java.util.*
 

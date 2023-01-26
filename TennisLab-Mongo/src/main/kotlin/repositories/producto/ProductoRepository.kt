@@ -9,6 +9,7 @@ import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import models.producto.*
 import mu.KotlinLogging
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
@@ -18,18 +19,12 @@ import java.util.*
 private val logger = KotlinLogging.logger {}
 
 @Single
+@Named("ProductoRepository")
 class ProductoRepository: IProductoRepository<Id<Producto>> {
-    override suspend fun findAllRealTime() = flow {
-        do {
-            emit(DBManager.database.getCollection<Producto>().find().publisher.toList())
-            delay(1000)
-        } while (true)
-    }
-
-    override fun findAll(): Flow<Producto> {
+    override suspend fun findAll(): Flow<Producto> = withContext(Dispatchers.IO) {
         logger.debug { "findAll()" }
 
-        return DBManager.database.getCollection<Producto>().find().publisher.asFlow()
+        DBManager.database.getCollection<Producto>().find().publisher.asFlow()
     }
 
     override suspend fun findByUUID(id: UUID): Producto? = withContext(Dispatchers.IO) {

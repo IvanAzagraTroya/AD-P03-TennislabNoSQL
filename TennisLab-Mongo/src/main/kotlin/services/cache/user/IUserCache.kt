@@ -1,6 +1,6 @@
-package cache.user
+package services.cache.user
 
-import cache.ICache
+import services.cache.ICache
 import models.user.User
 import java.util.*
 

@@ -5,8 +5,7 @@ import models.maquina.Maquina
 import java.util.*
 
 interface IMaquinaRepository<ID> {
-    suspend fun findAllRealTime(): Flow<List<Maquina>>
-    fun findAll(): Flow<Maquina>
+    suspend fun findAll(): Flow<Maquina>
     suspend fun findById(id: ID): Maquina?
     suspend fun findByUUID(id: UUID): Maquina?
     suspend fun save(entity: Maquina): Maquina

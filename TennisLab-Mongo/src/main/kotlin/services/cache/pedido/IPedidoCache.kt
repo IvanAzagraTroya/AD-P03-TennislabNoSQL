@@ -1,6 +1,6 @@
-package cache.pedido
+package services.cache.pedido
 
-import cache.ICache
+import services.cache.ICache
 import models.pedido.Pedido
 import java.util.*
 
