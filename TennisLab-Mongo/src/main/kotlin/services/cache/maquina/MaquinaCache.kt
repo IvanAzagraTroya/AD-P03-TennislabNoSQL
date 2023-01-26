@@ -1,7 +1,7 @@
-package cache.pedido
+package services.cache.maquina
 
 import io.github.reactivecircus.cache4k.Cache
-import models.pedido.Pedido
+import models.maquina.Maquina
 import mu.KotlinLogging
 import org.koin.core.annotation.Single
 import java.util.*
@@ -10,13 +10,13 @@ import kotlin.time.Duration.Companion.minutes
 private val logger = KotlinLogging.logger {  }
 
 @Single
-class PedidoCache : IPedidoCache {
+class MaquinaCache : IMaquinaCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
     override val cache = Cache.Builder()
         .maximumCacheSize(50)
         .expireAfterAccess(1.minutes)
-        .build<UUID, Pedido>()
+        .build<UUID, Maquina>()
 
-    init { logger.debug { "Initializing PedidoCache..." } }
+    init { logger.debug { "Initializing MaquinaCache..." } }
 }

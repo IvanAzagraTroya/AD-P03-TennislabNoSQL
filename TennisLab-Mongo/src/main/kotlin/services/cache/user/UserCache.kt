@@ -1,7 +1,7 @@
-package cache.tarea
+package services.cache.user
 
 import io.github.reactivecircus.cache4k.Cache
-import models.tarea.Tarea
+import models.user.User
 import mu.KotlinLogging
 import org.koin.core.annotation.Single
 import java.util.*
@@ -10,13 +10,13 @@ import kotlin.time.Duration.Companion.minutes
 private val logger = KotlinLogging.logger {  }
 
 @Single
-class TareaCache : ITareaCache {
+class UserCache : IUserCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
     override val cache = Cache.Builder()
         .maximumCacheSize(50)
         .expireAfterAccess(1.minutes)
-        .build<UUID, Tarea>()
+        .build<UUID, User>()
 
-    init { logger.debug { "Initializing TareaCache..." } }
+    init { logger.debug { "Initializing UserCache..." } }
 }

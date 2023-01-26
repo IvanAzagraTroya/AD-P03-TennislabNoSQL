@@ -26,3 +26,10 @@ data class UserDTOvisualize(
     val perfil: UserProfile,
     val activo: Boolean
 )
+
+@Serializable
+data class UserDTOfromAPI(
+    val name: String,
+    val email: String,
+    val phone: String
+)

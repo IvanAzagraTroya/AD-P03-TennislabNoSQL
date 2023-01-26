@@ -9,6 +9,7 @@ import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import models.tarea.*
 import mu.KotlinLogging
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
@@ -18,18 +19,12 @@ import java.util.*
 private val logger = KotlinLogging.logger {}
 
 @Single
+@Named("TareaRepository")
 class TareaRepository: ITareaRepository<Id<Tarea>> {
-    override suspend fun findAllRealTime() = flow {
-        do {
-            emit(DBManager.database.getCollection<Tarea>().find().publisher.toList())
-            delay(1000)
-        } while (true)
-    }
-
-    override fun findAll(): Flow<Tarea> {
+    override suspend fun findAll(): Flow<Tarea> = withContext(Dispatchers.IO) {
         logger.debug { "findAll()" }
 
-        return DBManager.database.getCollection<Tarea>().find().publisher.asFlow()
+        DBManager.database.getCollection<Tarea>().find().publisher.asFlow()
     }
 
     override suspend fun save(entity: Tarea): Tarea = withContext(Dispatchers.IO) {

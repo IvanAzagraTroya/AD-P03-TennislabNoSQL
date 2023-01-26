@@ -4,6 +4,10 @@ plugins {
     kotlin("jvm") version "1.7.20"
     application
     kotlin("plugin.serialization") version "1.7.20"
+
+    // Para ktorfit que usa KSP
+    // Plugin KSP para generar código en tiempo de compilación ktorfit
+    id("com.google.devtools.ksp") version "1.7.21-1.0.8"
 }
 
 group = "es.ivanloli"
@@ -35,16 +39,23 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation("com.google.code.gson:gson:2.10.1")
 
+    // Ktorfit, es decir Ktor client modificado para parecerse a Retrofit
+    ksp("de.jensklingenberg.ktorfit:ktorfit-ksp:1.0.0-beta16")
+    implementation("de.jensklingenberg.ktorfit:ktorfit-lib:1.0.0-beta16")
+    // Para serializar en Json con Ktor
+    implementation("io.ktor:ktor-client-serialization:2.1.3")
+    implementation("io.ktor:ktor-client-content-negotiation:2.1.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.1.3")
 
     // Koin Core features
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-annotations:$koin_ksp_version")
-// Koin Test features
+    // Koin Test features
     testImplementation("io.insert-koin:koin-test:$koin_version")
 
     testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
 
-    // cache
+    // services.cache
     implementation("io.github.reactivecircus.cache4k:cache4k:0.9.0")
 
     testImplementation(kotlin("test"))

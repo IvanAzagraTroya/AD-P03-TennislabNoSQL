@@ -4,14 +4,12 @@ import db.DBManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
-import models.maquina.Maquina
-import models.producto.Producto
 import models.user.*
 import mu.KotlinLogging
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import org.litote.kmongo.coroutine.toList
@@ -21,18 +19,12 @@ import java.util.*
 private val logger = KotlinLogging.logger {}
 
 @Single
+@Named("UserRepository")
 class UserRepository: IUserRepository<Id<User>> {
-    override suspend fun findAllRealTime() = flow {
-        do {
-            emit(DBManager.database.getCollection<User>().find().publisher.toList())
-            delay(1000)
-        } while (true)
-    }
-
-    override fun findAll(): Flow<User> {
+    override suspend fun findAll(): Flow<User> = withContext(Dispatchers.IO){
         logger.debug { "findAll()" }
 
-        return DBManager.database.getCollection<User>().find().publisher.asFlow()
+        DBManager.database.getCollection<User>().find().publisher.asFlow()
     }
 
     override suspend fun findByUUID(id: UUID): User? = withContext(Dispatchers.IO) {
