@@ -1,6 +1,7 @@
 package models.tarea
 
 import kotlinx.serialization.Contextual
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
@@ -16,7 +17,7 @@ import java.util.UUID
  */
 @Serializable
 data class Tarea(
-    @BsonId @Contextual
+    @BsonId @Contextual @SerialName("mongo_id")
     val id: Id<Tarea> = newId(),
     @Serializable(with = UUIDSerializer::class)
     val uuid: UUID = UUID.randomUUID(),
@@ -24,6 +25,7 @@ data class Tarea(
     val raquetaId: UUID,
     var precio: Double,
     val tipo: TipoTarea,
+    @SerialName("completed")
     val finalizada: Boolean,
     @Serializable(with = UUIDSerializer::class)
     val pedidoId: UUID,

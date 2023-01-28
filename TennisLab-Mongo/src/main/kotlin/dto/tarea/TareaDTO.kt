@@ -2,9 +2,14 @@ package dto.tarea
 
 import dto.producto.ProductoDTOcreate
 import dto.producto.ProductoDTOvisualize
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import models.tarea.Tarea
 import models.tarea.TipoTarea
+import org.bson.codecs.pojo.annotations.BsonId
+import org.litote.kmongo.Id
+import org.litote.kmongo.newId
 import serializers.UUIDSerializer
 import java.util.*
 
@@ -143,3 +148,24 @@ import java.util.*
     val balance: Double,
     val rigidez: Int
 ) : TareaDTOvisualize
+
+@Serializable data class TareaDTOFromApi (
+    @SerialName("mongo_id")
+    val id: String?,
+    val uuid: String?,
+    val raquetaId: String?,
+    var precio: Double?,
+    val tipo: TipoTarea?,
+    @SerialName("completed")
+    val finalizada: Boolean?,
+    val pedidoId: String?,
+    val productoAdquiridoId: String?,
+    val peso: Int?,
+    val balance: Double?,
+    val rigidez: Int?,
+    val tensionHorizontal: Double?,
+    val cordajeHorizontalId: String?,
+    val tensionVertical: Double?,
+    val cordajeVerticalId: String?,
+    val dosNudos: Boolean?
+)
