@@ -1,11 +1,13 @@
 package models.maquina
 
+import kotlinx.serialization.Serializable
+
 /**
  * @author Daniel Rodriguez Muñoz
  * Esta clase sellada es la base de las respuestas de Maquinas,
  * que seran devueltas por el MaquinaController.
  */
-sealed class MaquinaResponse<Maquina>
+@Serializable sealed class MaquinaResponse<Maquina>
 
 /**
  * @author Daniel Rodriguez Muñoz
@@ -15,7 +17,7 @@ sealed class MaquinaResponse<Maquina>
  * @param code codigo HTTP que dice el estado de la operacion.
  * @param data objeto resultante de la operacion.
  */
-class MaquinaResponseSuccess<T: Any>(val code: Int, val data: T) : MaquinaResponse<T>()
+@Serializable class MaquinaResponseSuccess<T: Any>(val code: Int, val data: T) : MaquinaResponse<T>()
 
 /**
  * @author Daniel Rodriguez Muñoz
@@ -25,4 +27,4 @@ class MaquinaResponseSuccess<T: Any>(val code: Int, val data: T) : MaquinaRespon
  * @param code codigo HTTP que dice el estado de la operacion.
  * @param message mensaje de error resultante de la operacion.
  */
-class MaquinaResponseError(val code: Int, val message: String?) : MaquinaResponse<Nothing>()
+@Serializable class MaquinaResponseError(val code: Int, val message: String?) : MaquinaResponse<Nothing>()
