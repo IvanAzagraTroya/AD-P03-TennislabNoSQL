@@ -1,11 +1,13 @@
 package models.user
 
+import kotlinx.serialization.Serializable
+
 /**
  * @author Daniel Rodriguez Muñoz
  * Esta clase sellada es la base de las respuestas de Users,
  * que seran devueltas por el UserController.
  */
-sealed class UserResponse<User>
+@Serializable sealed class UserResponse<User>
 
 /**
  * @author Daniel Rodriguez Muñoz
@@ -15,7 +17,7 @@ sealed class UserResponse<User>
  * @param code codigo HTTP que dice el estado de la operacion.
  * @param data objeto resultante de la operacion.
  */
-class UserResponseSuccess<T: Any>(val code: Int, val data: T) : UserResponse<T>()
+@Serializable class UserResponseSuccess<T: Any>(val code: Int, val data: T) : UserResponse<T>()
 
 /**
  * @author Daniel Rodriguez Muñoz
@@ -25,4 +27,4 @@ class UserResponseSuccess<T: Any>(val code: Int, val data: T) : UserResponse<T>(
  * @param code codigo HTTP que dice el estado de la operacion.
  * @param message mensaje de error resultante de la operacion.
  */
-class UserResponseError(val code: Int, val message: String?) : UserResponse<Nothing>()
+@Serializable class UserResponseError(val code: Int, val message: String?) : UserResponse<Nothing>()
