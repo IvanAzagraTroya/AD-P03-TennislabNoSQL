@@ -54,6 +54,8 @@ dependencies {
     testImplementation("io.insert-koin:koin-test:$koin_version")
 
     testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
+    // Para testear con corrutinas
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
     // services.cache
     implementation("io.github.reactivecircus.cache4k:cache4k:0.9.0")

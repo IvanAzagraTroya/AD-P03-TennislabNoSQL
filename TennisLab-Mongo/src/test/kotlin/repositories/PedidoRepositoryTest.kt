@@ -6,27 +6,42 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import models.producto.Producto
-import models.producto.TipoProducto
+import models.pedido.Pedido
+import models.pedido.PedidoState
+import models.user.User
+import models.user.UserProfile
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.litote.kmongo.newId
-import repositories.producto.ProductoRepository
+import repositories.pedido.PedidoRepository
 import utils.toUUID
+import java.time.LocalDate
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ProductoRepositoryTest {
-    private val repository = ProductoRepository()
+class PedidoRepositoryTest {
+    private val repository = PedidoRepository()
 
-    val producto = Producto(
+    val client = User(
         id = newId(),
-        uuid = UUID.fromString("93a98d69-6da6-48a7-b34f-05b596ea83aa"),
-        tipo = TipoProducto.FUNDAS,
-        marca = "MarcaZ",
-        modelo = "ModeloZ",
-        precio = 36.4,
-        stock = 8
+        uuid = UUID.fromString("93a98d69-0006-48a7-b34f-05b596ea839a"),
+        nombre = "Maria",
+        apellido = "Martinez",
+        telefono = "632120281",
+        email = "email2@email.com",
+        password = "contra",
+        perfil = UserProfile.CLIENT,
+        activo = true
+    )
+    val pedido = Pedido(
+        id = newId(),
+        uuid = UUID.fromString("93a98d69-0010-48a7-b34f-05b596ea8acc"),
+        userId = client.uuid,
+        state = PedidoState.PROCESO,
+        fechaEntrada = LocalDate.parse("2013-10-10"),
+        fechaSalida = LocalDate.parse("2023-12-12"),
+        topeEntrega = LocalDate.parse("2023-12-14"),
+        precio = 0.0
     )
     companion object{
         @JvmStatic
@@ -63,7 +78,7 @@ class ProductoRepositoryTest {
 
         assertAll(
             { assertNotNull(result) },
-            { assertEquals("93a98d69-6da6-48a7-b34f-05b596ea83aa".toUUID(), result[0].uuid) },
+            { assertEquals("93a98d69-0010-48a7-b34f-05b596ea8acc".toUUID(), result[0].uuid) },
             { assertEquals(0, result.size) },
         )
     }
@@ -71,11 +86,11 @@ class ProductoRepositoryTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findById() = runTest {
-        val result = repository.findById(producto.id)
+        val result = repository.findById(pedido.id)
 
         Assertions.assertAll(
-            { assertEquals("93a98d69-6da6-48a7-b34f-05b596ea83aa".toUUID(), result?.uuid) },
-            { assertEquals("MarcaZ", result?.marca) },
+            { assertEquals("93a98d69-0010-48a7-b34f-05b596ea8acc".toUUID(), result?.uuid) },
+            { assertEquals(PedidoState.PROCESO, result?.state) },
         )
     }
 
@@ -91,54 +106,44 @@ class ProductoRepositoryTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findByUuid() = runTest {
-        val result = repository.findByUUID("93a98d69-6da6-48a7-b34f-05b596ea83aa".toUUID())
+        val result = repository.findByUUID("93a98d69-0010-48a7-b34f-05b596ea8acc".toUUID())
 
         assertAll(
             { assertNotNull(result) },
-            { assertEquals("MarcaZ", result!!.marca) }
+            { assertEquals(PedidoState.PROCESO, result?.state) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun save() = runTest {
-        val result = repository.save(producto)
+        val result = repository.save(pedido)
 
         assertAll(
-            { assertEquals(result.uuid, producto.uuid) },
-            { assertEquals(result.marca, producto.marca) }
+            { assertEquals(result.uuid, pedido.uuid) },
+            { assertEquals(result.state, pedido.state) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun delete() = runTest {
-        val res = repository.save(producto)
+        val res = repository.save(pedido)
         val result = repository.delete(res.id)
 
         assertAll(
             { assertEquals(result?.uuid, res.uuid) },
-            { assertEquals(result?.marca, res.marca) }
+            { assertEquals(result?.state, res.state) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun deleteNotExists() = runTest {
-        val delete = producto.copy(id = newId())
+        val delete = pedido.copy(id = newId())
         val result = repository.delete(delete.id)
 
         assertNull(result)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun decreaseStock() = runTest {
-        val result = repository.decreaseStock(producto.id)
-
-        assertAll(
-            { assertNotNull(result) },
-            { assertEquals(result!!.stock, producto.stock-1)}
-        )
-    }
 }

@@ -6,27 +6,29 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import models.producto.Producto
-import models.producto.TipoProducto
+import models.user.User
+import models.user.UserProfile
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.litote.kmongo.newId
-import repositories.producto.ProductoRepository
+import repositories.user.UserRepository
 import utils.toUUID
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ProductoRepositoryTest {
-    private val repository = ProductoRepository()
+class UserRepositoryTest {
+    private val repository = UserRepository()
 
-    val producto = Producto(
+    val user = User(
         id = newId(),
-        uuid = UUID.fromString("93a98d69-6da6-48a7-b34f-05b596ea83aa"),
-        tipo = TipoProducto.FUNDAS,
-        marca = "MarcaZ",
-        modelo = "ModeloZ",
-        precio = 36.4,
-        stock = 8
+        uuid = UUID.fromString("93a98d69-0000-1111-0000-05b596ea83ba"),
+        nombre = "loli",
+        apellido = "test",
+        telefono = "123456789",
+        email = "loli@test.com",
+        password = "lolitest",
+        perfil = UserProfile.ADMIN,
+        activo = true
     )
     companion object{
         @JvmStatic
@@ -63,7 +65,7 @@ class ProductoRepositoryTest {
 
         assertAll(
             { assertNotNull(result) },
-            { assertEquals("93a98d69-6da6-48a7-b34f-05b596ea83aa".toUUID(), result[0].uuid) },
+            { assertEquals("93a98d69-0000-1111-0000-05b596ea83ba".toUUID(), result[0].uuid) },
             { assertEquals(0, result.size) },
         )
     }
@@ -71,11 +73,11 @@ class ProductoRepositoryTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findById() = runTest {
-        val result = repository.findById(producto.id)
+        val result = repository.findById(user.id)
 
         Assertions.assertAll(
-            { assertEquals("93a98d69-6da6-48a7-b34f-05b596ea83aa".toUUID(), result?.uuid) },
-            { assertEquals("MarcaZ", result?.marca) },
+            { assertEquals("93a98d69-0000-1111-0000-05b596ea83ba".toUUID(), result?.uuid) },
+            { assertEquals("loli", result?.nombre) },
         )
     }
 
@@ -91,41 +93,41 @@ class ProductoRepositoryTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findByUuid() = runTest {
-        val result = repository.findByUUID("93a98d69-6da6-48a7-b34f-05b596ea83aa".toUUID())
+        val result = repository.findByUUID("93a98d69-0000-1111-0000-05b596ea83ba".toUUID())
 
         assertAll(
             { assertNotNull(result) },
-            { assertEquals("MarcaZ", result!!.marca) }
+            { assertEquals("loli", result?.nombre) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun save() = runTest {
-        val result = repository.save(producto)
+        val result = repository.save(user)
 
         assertAll(
-            { assertEquals(result.uuid, producto.uuid) },
-            { assertEquals(result.marca, producto.marca) }
+            { assertEquals(result.uuid, user.uuid) },
+            { assertEquals(result.nombre, user.nombre) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun delete() = runTest {
-        val res = repository.save(producto)
+        val res = repository.save(user)
         val result = repository.delete(res.id)
 
         assertAll(
             { assertEquals(result?.uuid, res.uuid) },
-            { assertEquals(result?.marca, res.marca) }
+            { assertEquals(result?.nombre, res.nombre) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun deleteNotExists() = runTest {
-        val delete = producto.copy(id = newId())
+        val delete = user.copy(id = newId())
         val result = repository.delete(delete.id)
 
         assertNull(result)
@@ -133,12 +135,12 @@ class ProductoRepositoryTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun decreaseStock() = runTest {
-        val result = repository.decreaseStock(producto.id)
+    fun setInactive() = runTest {
+        val result = repository.setInactive(user.id)
 
         assertAll(
             { assertNotNull(result) },
-            { assertEquals(result!!.stock, producto.stock-1)}
+            { assertEquals(result?.activo, user.activo)}
         )
     }
 }
