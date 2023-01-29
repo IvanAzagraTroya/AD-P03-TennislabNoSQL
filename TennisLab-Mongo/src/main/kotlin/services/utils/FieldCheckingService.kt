@@ -1,4 +1,4 @@
-package services
+package services.utils
 
 import dto.maquina.EncordadoraDTOcreate
 import dto.maquina.MaquinaDTOcreate
@@ -11,6 +11,7 @@ import dto.tarea.PersonalizacionDTOcreate
 import dto.tarea.TareaDTOcreate
 import dto.turno.TurnoDTOcreate
 import dto.user.UserDTOcreate
+import repositories.user.UserRepositoryCached
 import java.time.LocalDate
 
 fun fieldsAreIncorrect(user: UserDTOcreate): Boolean {
@@ -79,4 +80,13 @@ fun fieldsAreIncorrect(turno: TurnoDTOcreate): Boolean {
     return fieldsAreIncorrect(turno.worker) || fieldsAreIncorrect(turno.maquina) ||
             turno.horaInicio.isBefore(turno.horaFin) || fieldsAreIncorrect(turno.tarea1) ||
             turno.tarea2?.let { fieldsAreIncorrect(it) } == true
+}
+
+suspend fun checkUserEmailAndPhone(user: UserDTOcreate, uRepo: UserRepositoryCached): Boolean {
+    val u = uRepo.findByUUID(user.uuid)
+    val uMail = uRepo.findByEmail(user.email)
+    val uPhone = uRepo.findByPhone(user.telefono)
+    if ((u == null && uMail != null) || (u == null && uPhone != null))
+        return true
+    return false
 }

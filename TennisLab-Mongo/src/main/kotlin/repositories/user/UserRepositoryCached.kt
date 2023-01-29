@@ -96,4 +96,12 @@ class UserRepositoryCached(
         if (result != null) listSearches.add(result)
         result
     }
+
+    suspend fun findByEmail(email: String): User? = withContext(Dispatchers.IO) {
+        findAll().toList().firstOrNull { it.email == email }
+    }
+
+    suspend fun findByPhone(phone: String): User? = withContext(Dispatchers.IO) {
+        findAll().toList().firstOrNull { it.telefono == phone }
+    }
 }

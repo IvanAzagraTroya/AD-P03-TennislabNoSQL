@@ -33,3 +33,18 @@ data class UserDTOfromAPI(
     val email: String,
     val phone: String
 )
+
+@Serializable
+data class UserDTOLogin(
+    val email: String,
+    val password: String
+)
+
+@Serializable
+data class UserDTORegister(
+    val nombre: String,
+    val apellido: String,
+    val telefono: String,
+    val email: String,
+    val password: String
+)

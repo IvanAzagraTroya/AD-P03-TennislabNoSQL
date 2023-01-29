@@ -1,12 +1,12 @@
 package mappers
 
+import dto.user.UserDTORegister
 import dto.user.UserDTOcreate
 import dto.user.UserDTOfromAPI
 import dto.user.UserDTOvisualize
 import models.user.User
 import models.user.UserProfile
-import org.litote.kmongo.newId
-import services.cipher
+import services.utils.cipher
 
 fun User.toDTO() =
     UserDTOvisualize (nombre, apellido, email, perfil, activo)
@@ -20,6 +20,16 @@ fun UserDTOcreate.fromDTO() = User (
     password = cipher(password),
     perfil = perfil,
     activo = activo
+)
+
+fun UserDTORegister.fromDTO() = UserDTOcreate (
+    nombre = nombre,
+    apellido = apellido,
+    telefono = telefono,
+    email = email,
+    password = password,
+    perfil = UserProfile.CLIENT,
+    activo = true
 )
 
 fun UserDTOfromAPI.toVisualizeDTO() = UserDTOvisualize(
