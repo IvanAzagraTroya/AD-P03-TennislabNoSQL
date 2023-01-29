@@ -27,7 +27,7 @@ data class Turno(
     @Serializable(with = LocalDateTimeSerializer::class)
     val horaInicio: LocalDateTime,
     @Serializable(with = LocalDateTimeSerializer::class)
-    val horaFin: LocalDateTime?,
+    val horaFin: LocalDateTime,
     val numPedidosActivos: Int,
     @Serializable(with = UUIDSerializer::class)
     val tarea1Id: UUID,

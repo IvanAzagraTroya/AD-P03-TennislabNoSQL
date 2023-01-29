@@ -60,6 +60,8 @@ dependencies {
     // services.cache
     implementation("io.github.reactivecircus.cache4k:cache4k:0.9.0")
 
+    implementation("com.auth0:java-jwt:4.2.1")
+
     testImplementation(kotlin("test"))
 }
 
