@@ -63,6 +63,8 @@ dependencies {
     implementation("com.auth0:java-jwt:4.2.1")
 
     testImplementation(kotlin("test"))
+    // MockK para testear Mockito con Kotlin
+    testImplementation("io.mockk:mockk:1.13.4")
 }
 
 tasks.test {

@@ -1,35 +1,43 @@
-package repositories
+package cached_repositories
 
-import db.DBManager
-import db.readProperties
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.extension.ExtendWith
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.SpyK
+import io.mockk.junit5.MockKExtension
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import models.maquina.Maquina
-import models.maquina.TipoMaquina
 import models.pedido.Pedido
 import models.pedido.PedidoState
-import models.user.User
-import models.user.UserProfile
+import models.maquina.Maquina
+import models.maquina.TipoMaquina
 import models.producto.Producto
 import models.producto.TipoProducto
 import models.tarea.Tarea
 import models.tarea.TipoTarea
 import models.turno.Turno
-import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import models.user.User
+import models.user.UserProfile
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import org.litote.kmongo.newId
+import repositories.tarea.TareaRepositoryCached
 import repositories.turno.TurnoRepository
-import utils.toUUID
+import repositories.turno.TurnoRepositoryCached
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class TurnoRepositoryTest {
-    private val repository = TurnoRepository()
+@ExtendWith(MockKExtension::class)
+class TurnoRepositoryCachedTest {
 
     val client = User(
         id= newId(),
@@ -146,86 +154,103 @@ class TurnoRepositoryTest {
         finalizado = false
     )
 
-    /**
-     * Inicializacion de la base de datos para testing y carga de datos necesarios.
-     */
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun initialize() = runBlocking {
-            val properties = readProperties()
-            val MONGO_TYPE = DBManager.properties.getProperty("MONGO_TYPE")
-            val HOST = DBManager.properties.getProperty("HOST")
-            val PORT = DBManager.properties.getProperty("PORT")
-            val DATABASE = DBManager.properties.getProperty("DATABASE")
-            val USERNAME = DBManager.properties.getProperty("USERNAME")
-            val PASSWORD = DBManager.properties.getProperty("PASSWORD")
-            val OPTIONS = DBManager.properties.getProperty("OPTIONS")
+    @MockK
+    lateinit var repo: TurnoRepository
 
-            val MONGO_URI = "$MONGO_TYPE$USERNAME:$PASSWORD@$HOST/$DATABASE"
-        }
+    @SpyK
+    var cache = TurnoRepositoryCached()
+
+    @InjectMockKs
+    lateinit var repository: TurnoRepositoryCached
+
+    init {
+        MockKAnnotations.init(this)
     }
 
-    @BeforeEach
-    fun setUp() = runBlocking {
-
-    }
-
-    @AfterEach
-    fun tearDown() = runBlocking {
-
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    @DisplayName("find by id")
-    fun findById() = runTest {
-        val result = repository.findById(turno.id)
-
-        assertAll(
-            { assertNotNull(result) },
-            { assertEquals("93a98d69-0019-48a7-b34f-05b596ea8abc".toUUID(), result!!.id) }
-        )
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    @DisplayName("find all")
     fun findAll() = runTest {
+        coEvery { repo.findAll() } returns flowOf(turno)
+
         val result = repository.findAll().toList()
 
         assertAll(
-            {assertNotNull(result)},
-            {assertEquals("93a98d69-0019-48a7-b34f-05b596ea8abc".toUUID(), turno.uuid)}
+            { assertEquals(turno, result[0]) }
         )
+        coVerify(exactly = 1) { repo.findAll() }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    @DisplayName("find by id not exists")
-    fun findByIdNotExists() = runTest {
-        val res = repository.findById(newId())
-        Assertions.assertNull(res)
-    }
+    fun findByUUID() = runTest {
+        coEvery { repo.findByUUID(any()) } returns turno
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    @DisplayName("insert")
-    fun save() = runTest {
-        val res = repository.save(turno)
-        Assertions.assertEquals(turno.id, res.id)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    @DisplayName("delete")
-    fun delete() = runTest {
-        val res = repository.save(turno)
-        val result = repository.delete(res.id)
+        val result = repository.findByUUID(turno.uuid)
 
         assertAll(
-            { Assertions.assertEquals(result?.uuid, res.uuid) },
-            { Assertions.assertEquals(result?.horaInicio, res.horaInicio) }
+            { assertEquals(turno.uuid, result!!.uuid)},
+            { assertEquals(turno.horaInicio, result!!.horaInicio)}
         )
+        coVerify {repo.findByUUID(any())}
+    }
+
+    @Test
+    fun findById() = runTest {
+        coEvery { repo.findById(any()) } returns turno
+
+        val result = repository.findById(turno.id)
+
+        assertAll(
+            { assertEquals(turno.id, result!!.id)},
+            { assertEquals(turno.horaInicio, result!!.horaInicio)}
+        )
+        coVerify {repo.findById(any())}
+    }
+
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery{ repo.findById(any())} returns null
+
+        val result = repository.findById(newId())
+        assertNull(result)
+
+        coVerify {repo.findById(any())}
+    }
+
+    @Test
+    fun findByUUIDNotExists() = runTest {
+        coEvery{ repo.findByUUID(any())} returns null
+
+        val result = repository.findByUUID(UUID.randomUUID())
+        assertNull(result)
+
+        coVerify {repo.findByUUID(any())}
+    }
+
+    @Test
+    fun save() = runTest {
+        coEvery { repo.save(any()) } returns turno
+
+        val result = repository.save(turno)
+
+        assertAll(
+            { assertEquals(turno.uuid, result.uuid) },
+            { assertEquals(turno.horaInicio, result.horaInicio) },
+        )
+
+        coVerify(exactly = 1) { repo.save(any()) }
+    }
+
+    @Test
+    fun delete() = runTest {
+        coEvery { repo.findById(any()) } returns turno
+        coEvery { repo.delete(any()) } returns turno
+
+        val result = repository.delete(turno.id)!!
+
+        assertAll(
+            { assertEquals(turno.uuid, result.uuid) },
+            { assertEquals(turno.horaInicio, result.horaInicio) },
+        )
+
+        coVerify { repo.delete(any()) }
     }
 }

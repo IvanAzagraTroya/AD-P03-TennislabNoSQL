@@ -3,7 +3,6 @@ package repositories.maquina
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import models.maquina.Maquina
-import models.tarea.Tarea
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
