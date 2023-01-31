@@ -1,9 +1,7 @@
 package repositories.turno
 
 import kotlinx.coroutines.flow.Flow
-import models.tarea.Tarea
 import models.turno.Turno
-import models.turno.TurnoResult
 import java.util.*
 
 interface ITurnoRepository<ID> {

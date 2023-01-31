@@ -4,6 +4,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.toList
+import mappers.fromAPItoUser
 import mappers.fromDTO
 import models.user.User
 import org.koin.core.annotation.Named
@@ -45,7 +46,7 @@ class UserRepositoryCached(
     override suspend fun findAll(): Flow<User> = withContext(Dispatchers.IO) {
         val res = mutableSetOf<User>()
         res.addAll(uRepo.findAll().toList())
-        res.addAll(fromDTO(client.getAll()))
+        res.addAll(fromAPItoUser(client.getAll()))
         res.asFlow()
     }
 

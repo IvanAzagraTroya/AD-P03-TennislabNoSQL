@@ -1,5 +1,6 @@
 package models
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 /**
@@ -26,5 +27,5 @@ import kotlinx.serialization.Serializable
  * @param code codigo HTTP que dice el estado de la operacion.
  * @param message mensaje de error resultante de la operacion.
  */
-@Serializable class ResponseError(val code: Int, val message: String?) : Response<Nothing>()
+@Serializable class ResponseError(val code: Int, val message: String?) : Response<@Contextual Nothing>()
 

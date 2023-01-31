@@ -79,7 +79,7 @@ fun fromDTO(list: List<TareaDTOcreate>) : List<Tarea> {
     return res
 }
 
-fun fromDTO(list: List<TareaDTOFromApi>) : List<Tarea> {
+fun fromAPItoTarea(list: List<TareaDTOFromApi>) : List<Tarea> {
     val res = mutableListOf<Tarea>()
     list.forEach { res.add(it.fromDTO()) }
     return res

@@ -1,5 +1,6 @@
 package services.ktorfit
 
+import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.Path
@@ -18,5 +19,5 @@ interface IKtorFit {
     suspend fun getAllTareas(): List<TareaDTOFromApi>
 
     @POST("todos")
-    suspend fun saveTareas(tarea: Tarea)
+    suspend fun saveTareas(@Body tarea: Tarea): Tarea
 }
