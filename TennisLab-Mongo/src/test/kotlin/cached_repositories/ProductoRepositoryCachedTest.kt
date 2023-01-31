@@ -12,14 +12,14 @@ import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import models.producto.Producto
-import models.producto.TipoProducto
+import koin.models.producto.Producto
+import koin.models.producto.TipoProducto
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.litote.kmongo.newId
-import repositories.producto.ProductoRepository
-import repositories.producto.ProductoRepositoryCached
+import koin.repositories.producto.ProductoRepository
+import koin.repositories.producto.ProductoRepositoryCached
 import java.util.*
 import kotlin.test.assertEquals
 

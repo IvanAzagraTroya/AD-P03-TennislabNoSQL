@@ -6,12 +6,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import models.maquina.Maquina
-import models.maquina.TipoMaquina
+import koin.models.maquina.Maquina
+import koin.models.maquina.TipoMaquina
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.litote.kmongo.newId
-import repositories.maquina.MaquinaRepository
+import koin.repositories.maquina.MaquinaRepository
 import utils.toUUID
 import java.time.LocalDate
 import java.util.*
