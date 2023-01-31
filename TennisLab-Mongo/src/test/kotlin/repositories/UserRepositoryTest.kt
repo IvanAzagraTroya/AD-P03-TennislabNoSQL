@@ -6,12 +6,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import models.user.User
-import models.user.UserProfile
+import koin.models.user.User
+import koin.models.user.UserProfile
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.litote.kmongo.newId
-import repositories.user.UserRepository
+import koin.repositories.user.UserRepository
 import utils.toUUID
 import java.util.*
 

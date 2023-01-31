@@ -1,0 +1,50 @@
+package koin.dto.user
+
+import kotlinx.serialization.Serializable
+import koin.models.user.UserProfile
+import koin.serializers.UUIDSerializer
+import java.util.*
+
+@Serializable
+data class UserDTOcreate(
+    @Serializable(with = UUIDSerializer::class)
+    val uuid: UUID = UUID.randomUUID(),
+    val nombre: String,
+    val apellido: String,
+    val telefono: String,
+    val email: String,
+    val password: String,
+    val perfil: UserProfile = UserProfile.CLIENT,
+    val activo: Boolean = true
+)
+
+@Serializable
+data class UserDTOvisualize(
+    val nombre: String,
+    val apellido: String,
+    val email: String,
+    val perfil: UserProfile,
+    val activo: Boolean
+)
+
+@Serializable
+data class UserDTOfromAPI(
+    val name: String,
+    val email: String,
+    val phone: String
+)
+
+@Serializable
+data class UserDTOLogin(
+    val email: String,
+    val password: String
+)
+
+@Serializable
+data class UserDTORegister(
+    val nombre: String,
+    val apellido: String,
+    val telefono: String,
+    val email: String,
+    val password: String
+)
