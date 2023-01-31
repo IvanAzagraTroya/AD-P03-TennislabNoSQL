@@ -1,9 +1,7 @@
 package repositories.tarea
 
 import kotlinx.coroutines.flow.Flow
-import models.producto.Producto
 import models.tarea.Tarea
-import models.tarea.TareaResult
 import java.util.*
 
 interface ITareaRepository<ID> {

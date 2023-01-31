@@ -4,6 +4,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.toList
+import mappers.fromAPItoTarea
 import mappers.fromDTO
 import models.tarea.Tarea
 import org.koin.core.annotation.Named
@@ -44,7 +45,7 @@ class TareaRepositoryCached(
 
     override suspend fun findAll(): Flow<Tarea> = withContext(Dispatchers.IO) {
         val findAllDB = repo.findAll().toList()
-        val findAllApi = fromDTO(client.getAllTareas())
+        val findAllApi = fromAPItoTarea(client.getAllTareas())
         val set = mutableSetOf<Tarea>()
         set.addAll(findAllDB)
         set.addAll(findAllApi)

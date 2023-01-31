@@ -56,7 +56,7 @@ fun toDTO(list: List<User>) : List<UserDTOvisualize> {
     return res
 }
 
-fun toDTO(list: List<UserDTOfromAPI>) : List<UserDTOvisualize> {
+fun toDTOfromAPI(list: List<UserDTOfromAPI>) : List<UserDTOvisualize> {
     val res = mutableListOf<UserDTOvisualize>()
     list.forEach { res.add(it.toVisualizeDTO()) }
     return res
@@ -68,7 +68,7 @@ fun fromDTO(list: List<UserDTOcreate>) : List<User> {
     return res
 }
 
-fun fromDTO(list: List<UserDTOfromAPI>) : List<User> {
+fun fromAPItoUser(list: List<UserDTOfromAPI>) : List<User> {
     val res = mutableListOf<User>()
     list.forEach { res.add(it.fromDTO()) }
     return res

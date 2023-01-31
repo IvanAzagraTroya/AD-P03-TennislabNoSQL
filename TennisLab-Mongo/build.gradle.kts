@@ -10,6 +10,10 @@ plugins {
     id("com.google.devtools.ksp") version "1.7.21-1.0.8"
 }
 
+sourceSets.main {
+    java.srcDirs("build/generated/ksp/main/kotlin")
+}
+
 group = "es.ivanloli"
 version = "1.0-SNAPSHOT"
 val koin_version= "3.3.2"
@@ -50,6 +54,7 @@ dependencies {
     // Koin Core features
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-annotations:$koin_ksp_version")
+    ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version")
     // Koin Test features
     testImplementation("io.insert-koin:koin-test:$koin_version")
 
