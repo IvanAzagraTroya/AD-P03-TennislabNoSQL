@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="koin.repositories.producto.ProductoRepositoryCachedTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-02-01T20:50:31" hostname="LOLI-LAPTOP" time="0.118">
+  <properties/>
+  <testcase name="delete()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.048"/>
+  <testcase name="findAll()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.012"/>
+  <testcase name="findById()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.011"/>
+  <testcase name="decreaseStock()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.011"/>
+  <testcase name="findByUUID()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.012"/>
+  <testcase name="save()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.009"/>
+  <testcase name="findByUUIDNotExists()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.007"/>
+  <testcase name="findByIdNotExists()" classname="koin.repositories.producto.ProductoRepositoryCachedTest" time="0.006"/>
+  <system-out><![CDATA[21:50:31.395 [Test worker] DEBUG koin.services.cache.producto.ProductoCache - Initializing ProductoCache...
+21:50:31.402 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for ProductoCache name=cache#20
+21:50:31.424 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for ProductoRepository name=repo#21
+21:50:31.463 [DefaultDispatcher-worker-1 @coroutine#221] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on ProductoCache(cache#20).getRefreshTime()
+21:50:31.501 [Test worker @coroutine#222] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#22
+21:50:31.504 [Test worker @coroutine#222] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#23
+21:50:31.506 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Producto(id=63dad097922725009b7009be, uuid=93a98d69-6da6-48a7-b34f-05b596ea83aa, tipo=FUNDAS, marca=MarcaZ, modelo=ModeloZ, precio=36.4, stock=1) on ProductoRepository(repo#21).delete(63dad097922725009b7009be, continuation {})
+21:50:31.508 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@1e19063c on ProductoCache(cache#20).getCache()
+21:50:31.516 [Test worker @coroutine#230] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#21#24
+21:50:31.518 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@1731f840 on ProductoRepository(repo#21).findAll(continuation {})
+21:50:31.528 [Test worker @coroutine#236] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#25
+21:50:31.530 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Producto(id=63dad097922725009b7009be, uuid=93a98d69-6da6-48a7-b34f-05b596ea83aa, tipo=FUNDAS, marca=MarcaZ, modelo=ModeloZ, precio=36.4, stock=1) on ProductoRepository(repo#21).findById(63dad097922725009b7009be, continuation {})
+21:50:31.539 [Test worker @coroutine#242] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#26
+21:50:31.542 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Producto(id=63dad097922725009b7009be, uuid=93a98d69-6da6-48a7-b34f-05b596ea83aa, tipo=FUNDAS, marca=MarcaZ, modelo=ModeloZ, precio=36.4, stock=1) on ProductoRepository(repo#21).decreaseStock(63dad097922725009b7009be, continuation {})
+21:50:31.551 [Test worker @coroutine#248] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#27
+21:50:31.554 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@1e19063c on ProductoCache(cache#20).getCache()
+21:50:31.555 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Producto(id=63dad097922725009b7009be, uuid=93a98d69-6da6-48a7-b34f-05b596ea83aa, tipo=FUNDAS, marca=MarcaZ, modelo=ModeloZ, precio=36.4, stock=1) on ProductoRepository(repo#21).findByUUID(93a98d69-6da6-48a7-b34f-05b596ea83aa, continuation {})
+21:50:31.558 [Test worker @background work runner#251] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#28
+21:50:31.563 [Test worker @coroutine#254] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Producto name=child of repo#21#29
+21:50:31.564 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Producto(id=63dad097922725009b7009be, uuid=93a98d69-6da6-48a7-b34f-05b596ea83aa, tipo=FUNDAS, marca=MarcaZ, modelo=ModeloZ, precio=36.4, stock=1) on ProductoRepository(repo#21).save(Producto(id=63dad097922725009b7009be, uuid=93a98d69-6da6-48a7-b34f-05b596ea83aa, tipo=FUNDAS, marca=MarcaZ, modelo=ModeloZ, precio=36.4, stock=1), continuation {})
+21:50:31.572 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@1e19063c on ProductoCache(cache#20).getCache()
+21:50:31.573 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on ProductoRepository(repo#21).findByUUID(19232479-46a5-49a7-b9c1-552823e67e30, continuation {})
+21:50:31.579 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on ProductoRepository(repo#21).findById(63dad097922725009b7009bf, continuation {})
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

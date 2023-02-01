@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - TurnoRepositoryCachedTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>TurnoRepositoryCachedTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/koin.repositories.turno.html">koin.repositories.turno</a> &gt; TurnoRepositoryCachedTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">8</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.108s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">delete()</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findById()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByIdNotExists()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByUUID()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByUUIDNotExists()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">save()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">setFinalizado()</td>
+<td class="success">0.052s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>21:50:35.070 [Test worker] DEBUG koin.services.cache.turno.TurnoCache - Initializing TurnoCache...
+21:50:35.074 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for TurnoCache name=cache#40
+21:50:35.101 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for TurnoRepository name=repo#41
+21:50:35.142 [DefaultDispatcher-worker-4 @coroutine#444] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on TurnoCache(cache#40).getRefreshTime()
+21:50:35.186 [Test worker @coroutine#445] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#42
+21:50:35.188 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Turno(id=63dad09b922725009b700a90, uuid=93a98d69-0019-48a7-b34f-05b596ea8abc, workerId=93a98d69-0007-48a7-b34f-05b596ea839c, maquinaId=93a98d69-0008-48a7-b34f-05b596ea83bb, horaInicio=2002-10-14T10:09, horaFin=2002-10-14T16:49, numPedidosActivos=2, tarea1Id=93a98d69-0015-48a7-b34f-05b596ea8aab, tarea2Id=93a98d69-0011-48a7-b34f-05b596ea83ca, finalizado=false) on TurnoRepository(repo#41).setFinalizado(63dad09b922725009b700a90, continuation {})
+21:50:35.196 [Test worker @coroutine#451] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#43
+21:50:35.198 [Test worker @coroutine#451] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#44
+21:50:35.200 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Turno(id=63dad09b922725009b700a90, uuid=93a98d69-0019-48a7-b34f-05b596ea8abc, workerId=93a98d69-0007-48a7-b34f-05b596ea839c, maquinaId=93a98d69-0008-48a7-b34f-05b596ea83bb, horaInicio=2002-10-14T10:09, horaFin=2002-10-14T16:49, numPedidosActivos=2, tarea1Id=93a98d69-0015-48a7-b34f-05b596ea8aab, tarea2Id=93a98d69-0011-48a7-b34f-05b596ea83ca, finalizado=false) on TurnoRepository(repo#41).delete(63dad09b922725009b700a90, continuation {})
+21:50:35.201 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@6afcc64e on TurnoCache(cache#40).getCache()
+21:50:35.207 [Test worker @coroutine#459] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#41#45
+21:50:35.208 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@1828ed1f on TurnoRepository(repo#41).findAll(continuation {})
+21:50:35.214 [Test worker @coroutine#465] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#46
+21:50:35.216 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Turno(id=63dad09b922725009b700a90, uuid=93a98d69-0019-48a7-b34f-05b596ea8abc, workerId=93a98d69-0007-48a7-b34f-05b596ea839c, maquinaId=93a98d69-0008-48a7-b34f-05b596ea83bb, horaInicio=2002-10-14T10:09, horaFin=2002-10-14T16:49, numPedidosActivos=2, tarea1Id=93a98d69-0015-48a7-b34f-05b596ea8aab, tarea2Id=93a98d69-0011-48a7-b34f-05b596ea83ca, finalizado=false) on TurnoRepository(repo#41).findById(63dad09b922725009b700a90, continuation {})
+21:50:35.223 [Test worker @coroutine#471] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#47
+21:50:35.224 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@6afcc64e on TurnoCache(cache#40).getCache()
+21:50:35.225 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Turno(id=63dad09b922725009b700a90, uuid=93a98d69-0019-48a7-b34f-05b596ea8abc, workerId=93a98d69-0007-48a7-b34f-05b596ea839c, maquinaId=93a98d69-0008-48a7-b34f-05b596ea83bb, horaInicio=2002-10-14T10:09, horaFin=2002-10-14T16:49, numPedidosActivos=2, tarea1Id=93a98d69-0015-48a7-b34f-05b596ea8aab, tarea2Id=93a98d69-0011-48a7-b34f-05b596ea83ca, finalizado=false) on TurnoRepository(repo#41).findByUUID(93a98d69-0019-48a7-b34f-05b596ea8abc, continuation {})
+21:50:35.227 [Test worker @background work runner#474] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#48
+21:50:35.231 [Test worker @coroutine#477] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Turno name=child of repo#41#49
+21:50:35.232 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Turno(id=63dad09b922725009b700a90, uuid=93a98d69-0019-48a7-b34f-05b596ea8abc, workerId=93a98d69-0007-48a7-b34f-05b596ea839c, maquinaId=93a98d69-0008-48a7-b34f-05b596ea83bb, horaInicio=2002-10-14T10:09, horaFin=2002-10-14T16:49, numPedidosActivos=2, tarea1Id=93a98d69-0015-48a7-b34f-05b596ea8aab, tarea2Id=93a98d69-0011-48a7-b34f-05b596ea83ca, finalizado=false) on TurnoRepository(repo#41).save(Turno(id=63dad09b922725009b700a90, uuid=93a98d69-0019-48a7-b34f-05b596ea8abc, workerId=93a98d69-0007-48a7-b34f-05b596ea839c, maquinaId=93a98d69-0008-48a7-b34f-05b596ea83bb, horaInicio=2002-10-14T10:09, horaFin=2002-10-14T16:49, numPedidosActivos=2, tarea1Id=93a98d69-0015-48a7-b34f-05b596ea8aab, tarea2Id=93a98d69-0011-48a7-b34f-05b596ea83ca, finalizado=false), continuation {})
+21:50:35.239 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@6afcc64e on TurnoCache(cache#40).getCache()
+21:50:35.239 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on TurnoRepository(repo#41).findByUUID(19639d7c-1dab-4e9f-a49c-41aff8b418d0, continuation {})
+21:50:35.247 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on TurnoRepository(repo#41).findById(63dad09b922725009b700a91, continuation {})
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 1, 2023, 9:50:46 PM</p>
+</div>
+</div>
+</body>
+</html>

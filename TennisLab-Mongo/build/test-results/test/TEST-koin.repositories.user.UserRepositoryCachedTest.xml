@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="koin.repositories.user.UserRepositoryCachedTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2023-02-01T20:50:36" hostname="LOLI-LAPTOP" time="9.292">
+  <properties/>
+  <testcase name="delete()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.054"/>
+  <testcase name="findAll()" classname="koin.repositories.user.UserRepositoryCachedTest" time="2.951"/>
+  <testcase name="findById()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.011"/>
+  <testcase name="findByUUID()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.012"/>
+  <testcase name="save()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.011"/>
+  <testcase name="findByUUIDNotExists()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.007"/>
+  <testcase name="findByIdNotExists()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.007"/>
+  <testcase name="findByEmail()" classname="koin.repositories.user.UserRepositoryCachedTest" time="2.881"/>
+  <testcase name="findByPhone()" classname="koin.repositories.user.UserRepositoryCachedTest" time="2.934"/>
+  <testcase name="findByIdNumerical()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.414"/>
+  <testcase name="setInactive()" classname="koin.repositories.user.UserRepositoryCachedTest" time="0.009"/>
+  <system-out><![CDATA[21:50:36.313 [Test worker] DEBUG koin.services.cache.user.UserCache - Initializing UserCache...
+21:50:36.316 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for UserCache name=cache#50
+21:50:36.340 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for UserRepository name=repo#51
+21:50:36.378 [DefaultDispatcher-worker-6 @coroutine#538] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on UserCache(cache#50).getRefreshTime()
+21:50:36.421 [Test worker @coroutine#539] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#52
+21:50:36.423 [Test worker @coroutine#539] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#53
+21:50:36.425 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63dad09c922725009b700a95, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#51).delete(63dad09c922725009b700a95, continuation {})
+21:50:36.426 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@55d475ea on UserCache(cache#50).getCache()
+21:50:36.435 [Test worker @coroutine#547] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#51#54
+21:50:36.437 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@e3e5b39 on UserRepository(repo#51).findAll(continuation {})
+21:50:39.386 [Test worker @coroutine#566] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#55
+21:50:39.388 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63dad09c922725009b700a95, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#51).findById(63dad09c922725009b700a95, continuation {})
+21:50:39.399 [Test worker @coroutine#572] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#56
+21:50:39.402 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@55d475ea on UserCache(cache#50).getCache()
+21:50:39.402 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63dad09c922725009b700a95, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#51).findByUUID(93a98d69-0000-1111-0000-05b596ea83ba, continuation {})
+21:50:39.406 [Test worker @background work runner#575] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#57
+21:50:39.411 [Test worker @coroutine#578] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#58
+21:50:39.413 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63dad09c922725009b700a95, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#51).save(User(id=63dad09c922725009b700a95, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true), continuation {})
+21:50:39.422 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@55d475ea on UserCache(cache#50).getCache()
+21:50:39.422 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on UserRepository(repo#51).findByUUID(6916d501-bd68-43dc-9178-3701aaf54d7c, continuation {})
+21:50:39.429 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on UserRepository(repo#51).findById(63dad09f922725009b700aa0, continuation {})
+21:50:39.437 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@111f0e0b on UserRepository(repo#51).findAll(continuation {})
+21:50:42.317 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@38c45e97 on UserRepository(repo#51).findAll(continuation {})
+21:50:45.664 [Test worker @coroutine#649] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#51#59
+21:50:45.665 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63dad09c922725009b700a95, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#51).setInactive(63dad09c922725009b700a95, continuation {})
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
