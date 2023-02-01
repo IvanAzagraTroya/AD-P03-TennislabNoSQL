@@ -57,8 +57,11 @@ private val json = Json {
     ignoreUnknownKeys = true
     prettyPrint = true
 
-    // Esto es para serializar las Responses. Sin esto, no lo serializa bien.
-    // Lo encontre en https://github.com/Kotlin/kotlinx.serialization/issues/1341
+    /**
+     * @author Loli
+     * Esto sirve para serializar las Responses. Sin esto, no lo serializa bien.
+     * Ha sido sacado de: https://github.com/Kotlin/kotlinx.serialization/issues/1341
+     */
     useArrayPolymorphism = true
     encodeDefaults = true
     serializersModule = SerializersModule {
