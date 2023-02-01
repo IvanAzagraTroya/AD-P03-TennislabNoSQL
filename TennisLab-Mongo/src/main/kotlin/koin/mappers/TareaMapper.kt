@@ -6,6 +6,7 @@ import koin.models.tarea.TipoTarea
 import org.litote.kmongo.newId
 import org.litote.kmongo.toId
 import koin.repositories.producto.ProductoRepository
+import org.litote.kmongo.util.idValue
 import java.util.*
 
 private val pRepo = ProductoRepository()
@@ -48,22 +49,45 @@ suspend fun Tarea.toDTO() : TareaDTOvisualize {
     }
 }
 
-fun TareaDTOFromApi.fromDTO() = Tarea (
-    id = id?.toId() ?: newId(),
-    uuid = UUID.fromString(uuid) ?: UUID.fromString("00000000-0000-0000-0000-000000000000"),
-    raquetaId = UUID.fromString(raquetaId) ?: UUID.fromString("00000000-0000-0000-0000-000000000001"),
-    precio = precio ?: 0.0,
-    tipo = tipo ?: TipoTarea.ADQUISICION,
-    finalizada = finalizada ?: true,
-    pedidoId = UUID.fromString(pedidoId) ?: UUID.fromString("00000000-0000-0000-0000-000000000002"),
-    productoAdquiridoId = UUID.fromString(pedidoId) ?: UUID.fromString("00000000-0000-0000-0000-000000000002"),
+fun Tarea.toDTOapi() = TareaDTOFromApi(
+    id = id.idValue.toString(),
+    uuid = uuid.toString(),
+    raquetaId = raquetaId.toString(),
+    precio = precio,
+    tipo = tipo,
+    finalizada = finalizada,
+    pedidoId = pedidoId.toString(),
+    productoAdquiridoId = productoAdquiridoId.toString(),
     peso = peso,
     balance = balance,
     rigidez = rigidez,
     tensionHorizontal = tensionHorizontal,
-    cordajeHorizontalId = UUID.fromString(cordajeHorizontalId) ?: null,
+    cordajeHorizontalId = cordajeHorizontalId.toString(),
     tensionVertical = tensionVertical,
-    cordajeVerticalId = UUID.fromString(cordajeVerticalId) ?: null,
+    cordajeVerticalId = cordajeVerticalId.toString(),
+    dosNudos = dosNudos
+)
+
+fun TareaDTOFromApi.fromDTO() = Tarea (
+    id = id?.toId() ?: newId(),
+    uuid = uuid?.let {UUID.fromString(it)}
+        .run { UUID.fromString("00000000-0000-0000-0000-000000000000") },
+    raquetaId = raquetaId?.let { UUID.fromString(it) }
+        .run {UUID.fromString("00000000-0000-0000-0000-000000000001") },
+    precio = precio ?: 0.0,
+    tipo = tipo ?: TipoTarea.ADQUISICION,
+    finalizada = finalizada ?: true,
+    pedidoId = pedidoId?.let { UUID.fromString(it) }
+        .run { UUID.fromString("00000000-0000-0000-0000-000000000002") },
+    productoAdquiridoId = productoAdquiridoId?.let { UUID.fromString(it) }
+        .run { UUID.fromString("00000000-0000-0000-0000-000000000002") },
+    peso = peso,
+    balance = balance,
+    rigidez = rigidez,
+    tensionHorizontal = tensionHorizontal,
+    cordajeHorizontalId = cordajeHorizontalId?.let { UUID.fromString(it) }.run { null },
+    tensionVertical = tensionVertical,
+    cordajeVerticalId = cordajeVerticalId?.let { UUID.fromString(it) }.run { null },
     dosNudos = dosNudos
 )
 

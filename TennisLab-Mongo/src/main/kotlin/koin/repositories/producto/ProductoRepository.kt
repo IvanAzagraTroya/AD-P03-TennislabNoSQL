@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import koin.models.producto.*
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.firstOrNull
 import mu.KotlinLogging
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
-import org.litote.kmongo.eq
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
@@ -28,7 +29,8 @@ class ProductoRepository: IProductoRepository<Id<Producto>> {
     override suspend fun findByUUID(id: UUID): Producto? = withContext(Dispatchers.IO) {
         logger.debug { "findByUUID($id)" }
 
-        DBManager.database.getCollection<Producto>().findOne(Producto::uuid eq id)
+        DBManager.database.getCollection<Producto>()
+            .find().publisher.asFlow().filter { it.uuid == id }.firstOrNull()
     }
 
     override suspend fun save(entity: Producto): Producto = withContext(Dispatchers.IO) {

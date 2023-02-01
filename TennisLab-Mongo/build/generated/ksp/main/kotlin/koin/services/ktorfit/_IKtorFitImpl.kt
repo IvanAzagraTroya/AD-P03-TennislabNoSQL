@@ -41,13 +41,13 @@ public class _IKtorFitImpl(
     return client.suspendRequest<List<TareaDTOFromApi>, TareaDTOFromApi>(requestData)!!
   }
 
-  public override suspend fun saveTareas(tarea: Tarea): Tarea {
+  public override suspend fun saveTareas(tarea: TareaDTOFromApi): TareaDTOFromApi {
     val requestData = RequestData(method="POST",
         relativeUrl="todos",
         bodyData = tarea,
-        returnTypeData=TypeData("koin.models.tarea.Tarea")) 
+        returnTypeData=TypeData("koin.dto.tarea.TareaDTOFromApi")) 
 
-    return client.suspendRequest<Tarea, Tarea>(requestData)!!
+    return client.suspendRequest<TareaDTOFromApi, TareaDTOFromApi>(requestData)!!
   }
 }
 

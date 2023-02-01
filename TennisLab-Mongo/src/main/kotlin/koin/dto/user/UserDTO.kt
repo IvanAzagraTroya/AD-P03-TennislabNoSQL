@@ -3,6 +3,7 @@ package koin.dto.user
 import kotlinx.serialization.Serializable
 import koin.models.user.UserProfile
 import koin.serializers.UUIDSerializer
+import kotlinx.serialization.SerialName
 import java.util.*
 
 @Serializable
@@ -19,6 +20,7 @@ data class UserDTOcreate(
 )
 
 @Serializable
+@SerialName("UserDTOvisualize")
 data class UserDTOvisualize(
     val nombre: String,
     val apellido: String,
@@ -26,6 +28,10 @@ data class UserDTOvisualize(
     val perfil: UserProfile,
     val activo: Boolean
 )
+
+@Serializable
+@SerialName("UserDTOvisualizeList")
+data class UserDTOvisualizeList(val users: List<UserDTOvisualize>)
 
 @Serializable
 data class UserDTOfromAPI(

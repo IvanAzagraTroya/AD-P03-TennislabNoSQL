@@ -9,6 +9,7 @@ import koin.dto.user.UserDTOvisualize
 import kotlinx.serialization.Serializable
 import koin.serializers.LocalDateTimeSerializer
 import koin.serializers.UUIDSerializer
+import kotlinx.serialization.SerialName
 import java.time.LocalDateTime
 import java.util.*
 
@@ -28,6 +29,7 @@ data class TurnoDTOcreate(
 )
 
 @Serializable
+@SerialName("TurnoDTOvisualize")
 data class TurnoDTOvisualize(
     val worker: UserDTOvisualize?,
     val maquina: MaquinaDTOvisualize?,
@@ -40,3 +42,7 @@ data class TurnoDTOvisualize(
     val tarea2: TareaDTOvisualize?,
     val finalizado: Boolean
 )
+
+@Serializable
+@SerialName("TurnoDTOvisualizeList")
+data class TurnoDTOvisualizeList(val turnos: List<TurnoDTOvisualize>)

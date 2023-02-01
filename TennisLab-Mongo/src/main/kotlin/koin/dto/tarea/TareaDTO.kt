@@ -11,7 +11,9 @@ import java.util.*
 
 @Serializable sealed interface TareaDTO
 @Serializable sealed interface TareaDTOcreate : TareaDTO { fun fromDTO() : Tarea }
-@Serializable sealed interface TareaDTOvisualize : TareaDTO
+@Serializable
+@SerialName("TareaDTOvisualize")
+sealed interface TareaDTOvisualize : TareaDTO
 
 @Serializable data class AdquisicionDTOcreate (
     @Serializable(with = UUIDSerializer::class)
@@ -109,7 +111,9 @@ import java.util.*
     )
 }
 
-@Serializable data class AdquisicionDTOvisualize (
+@Serializable
+@SerialName("AdquisicionDTOvisualize")
+data class AdquisicionDTOvisualize (
     val raqueta: ProductoDTOvisualize?,
     var precio: Double,
     val finalizada: Boolean,
@@ -119,7 +123,9 @@ import java.util.*
     val productoAdquirido: ProductoDTOvisualize?
 ) : TareaDTOvisualize
 
-@Serializable data class EncordadoDTOvisualize (
+@Serializable
+@SerialName("EncordadoDTOvisualize")
+data class EncordadoDTOvisualize (
     val raqueta: ProductoDTOvisualize?,
     var precio: Double,
     val finalizada: Boolean,
@@ -133,7 +139,9 @@ import java.util.*
     val dosNudos: Boolean
 ) : TareaDTOvisualize
 
-@Serializable data class PersonalizacionDTOvisualize (
+@Serializable
+@SerialName("PersonalizacionDTOvisualize")
+data class PersonalizacionDTOvisualize (
     val raqueta: ProductoDTOvisualize?,
     var precio: Double,
     val finalizada: Boolean,
@@ -145,23 +153,27 @@ import java.util.*
     val rigidez: Int
 ) : TareaDTOvisualize
 
+@Serializable
+@SerialName("TareaDTOvisualizeList")
+data class TareaDTOvisualizeList(val tareas: List<TareaDTOvisualize>)
+
 @Serializable data class TareaDTOFromApi (
     @SerialName("mongo_id")
-    val id: String?,
-    val uuid: String?,
-    val raquetaId: String?,
-    var precio: Double?,
-    val tipo: TipoTarea?,
+    val id: String? = null,
+    val uuid: String? = null,
+    val raquetaId: String? = null,
+    var precio: Double? = null,
+    val tipo: TipoTarea? = null,
     @SerialName("completed")
-    val finalizada: Boolean?,
-    val pedidoId: String?,
-    val productoAdquiridoId: String?,
-    val peso: Int?,
-    val balance: Double?,
-    val rigidez: Int?,
-    val tensionHorizontal: Double?,
-    val cordajeHorizontalId: String?,
-    val tensionVertical: Double?,
-    val cordajeVerticalId: String?,
-    val dosNudos: Boolean?
+    val finalizada: Boolean? = null,
+    val pedidoId: String? = null,
+    val productoAdquiridoId: String? = null,
+    val peso: Int? = null,
+    val balance: Double? = null,
+    val rigidez: Int? = null,
+    val tensionHorizontal: Double? = null,
+    val cordajeHorizontalId: String? = null,
+    val tensionVertical: Double? = null,
+    val cordajeVerticalId: String? = null,
+    val dosNudos: Boolean? = null
 )

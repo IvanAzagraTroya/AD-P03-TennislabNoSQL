@@ -7,12 +7,8 @@ import koin.dto.producto.ProductoDTOcreate
 import koin.dto.tarea.AdquisicionDTOcreate
 import koin.dto.turno.TurnoDTOcreate
 import koin.dto.user.UserDTOcreate
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import koin.models.Response
-import koin.models.ResponseError
-import koin.models.ResponseSuccess
 import koin.models.pedido.PedidoState
 import koin.models.producto.TipoProducto
 import koin.models.user.UserProfile
@@ -121,8 +117,8 @@ fun menuTurnos(input: DataInputStream, output: DataOutputStream, token: String):
                         1. no
                         2. Yes
                     """.trimIndent())
+                i = readln().toIntOrNull() ?: 0
             }
-            i = readln().toIntOrNull() ?: 0
             val request = when (i) {
                 1 -> Request(token, 6_1, null, Request.Type.REQUEST)
                 else -> {
@@ -136,8 +132,8 @@ fun menuTurnos(input: DataInputStream, output: DataOutputStream, token: String):
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 6_2, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -157,8 +153,8 @@ fun menuTurnos(input: DataInputStream, output: DataOutputStream, token: String):
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 6_4, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -166,8 +162,8 @@ fun menuTurnos(input: DataInputStream, output: DataOutputStream, token: String):
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 6_5, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -203,8 +199,8 @@ fun menuPedidos(input: DataInputStream, output: DataOutputStream, token: String)
                         3. Yes (TERMINADO)
                         4. Yes (RECIBIDO)
                     """.trimIndent())
+                i = readln().toIntOrNull() ?: 0
             }
-            i = readln().toIntOrNull() ?: 0
             val request = when (i) {
                 1 -> Request(token, 5_1, null, Request.Type.REQUEST)
                 2 -> Request(token, 5_1, PedidoState.PROCESO.name, Request.Type.REQUEST)
@@ -217,15 +213,13 @@ fun menuPedidos(input: DataInputStream, output: DataOutputStream, token: String)
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 5_2, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
         3 -> {
-            val entity = json.encodeToString(
-                PedidoDTOcreate(user = user)
-            )
+            val entity = json.encodeToString(PedidoDTOcreate(user = user))
             val request = Request(token, 5_3, entity, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -233,8 +227,8 @@ fun menuPedidos(input: DataInputStream, output: DataOutputStream, token: String)
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 5_5, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -270,8 +264,8 @@ fun menuTareas(input: DataInputStream, output: DataOutputStream, token: String):
                         2. Yes (show uncompleted tasks)
                         3. Yes (show completed tasks)
                     """.trimIndent())
+                i = readln().toIntOrNull() ?: 0
             }
-            i = readln().toIntOrNull() ?: 0
             val request = when (i) {
                 1 -> Request(token, 4_1, null, Request.Type.REQUEST)
                 2 -> Request(token, 4_1, false.toString(), Request.Type.REQUEST)
@@ -284,8 +278,8 @@ fun menuTareas(input: DataInputStream, output: DataOutputStream, token: String):
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 4_2, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -298,8 +292,8 @@ fun menuTareas(input: DataInputStream, output: DataOutputStream, token: String):
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 4_4, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -307,8 +301,8 @@ fun menuTareas(input: DataInputStream, output: DataOutputStream, token: String):
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 4_5, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -342,8 +336,8 @@ fun menuMaquinas(input: DataInputStream, output: DataOutputStream, token: String
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 3_2, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -356,8 +350,8 @@ fun menuMaquinas(input: DataInputStream, output: DataOutputStream, token: String
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 3_4, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -365,8 +359,8 @@ fun menuMaquinas(input: DataInputStream, output: DataOutputStream, token: String
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 3_5, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -401,8 +395,8 @@ fun menuProductos(input: DataInputStream, output: DataOutputStream, token: Strin
                         1. no
                         2. Yes
                     """.trimIndent())
+                i = readln().toIntOrNull() ?: 0
             }
-            i = readln().toIntOrNull() ?: 0
             val request = when (i) {
                 1 -> Request(token, 2_1, null, Request.Type.REQUEST)
                 2 -> Request(token, 2_1, "disponibles", Request.Type.REQUEST)
@@ -414,8 +408,8 @@ fun menuProductos(input: DataInputStream, output: DataOutputStream, token: Strin
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 2_2, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -436,8 +430,8 @@ fun menuProductos(input: DataInputStream, output: DataOutputStream, token: Strin
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 2_4, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -445,8 +439,8 @@ fun menuProductos(input: DataInputStream, output: DataOutputStream, token: Strin
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 2_5, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -482,8 +476,8 @@ fun menuUsers(input: DataInputStream, output: DataOutputStream, token: String): 
                         2. Yes (show active users)
                         3. Yes (show inactive users)
                     """.trimIndent())
+                i = readln().toIntOrNull() ?: 0
             }
-            i = readln().toIntOrNull() ?: 0
             val request = when (i) {
                 1 -> Request(token, 1_1, null, Request.Type.REQUEST)
                 2 -> Request(token, 1_1, true.toString(), Request.Type.REQUEST)
@@ -496,8 +490,8 @@ fun menuUsers(input: DataInputStream, output: DataOutputStream, token: String): 
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 1_2, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -518,8 +512,8 @@ fun menuUsers(input: DataInputStream, output: DataOutputStream, token: String): 
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 1_4, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -527,8 +521,8 @@ fun menuUsers(input: DataInputStream, output: DataOutputStream, token: String): 
             var i = ""
             while (i.isBlank()) {
                 println("Type the id:")
+                i = readln()
             }
-            i = readln()
             val request = Request(token, 1_5, i, Request.Type.REQUEST)
             sendRequest(input, output, request)
         }
@@ -540,14 +534,6 @@ fun menuUsers(input: DataInputStream, output: DataOutputStream, token: String): 
 fun sendRequest(input: DataInputStream, output: DataOutputStream, request: Request): Boolean {
     output.writeUTF(json.encodeToString(request))
     val responseJSON = input.readUTF()
-    return try {
-        when (val response = json.decodeFromString<Response<out Any>>(responseJSON)) {
-            is ResponseError -> println("CODE ${response.code} - ${response.message}")
-            is ResponseSuccess -> println("CODE ${response.code} - ${response.data}")
-        }
-        false
-    } catch (e: Exception) {
-        println("Server sent an unexpected response type. Closing connection.")
-        true
-    }
+    println(responseJSON)
+    return false
 }

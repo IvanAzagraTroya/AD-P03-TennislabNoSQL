@@ -78,8 +78,8 @@ fun fieldsAreIncorrect(maquina: MaquinaDTOcreate): Boolean {
 
 fun fieldsAreIncorrect(turno: TurnoDTOcreate): Boolean {
     return fieldsAreIncorrect(turno.worker) || fieldsAreIncorrect(turno.maquina) ||
-            turno.horaInicio.isBefore(turno.horaFin) || fieldsAreIncorrect(turno.tarea1) ||
-            turno.tarea2?.let { fieldsAreIncorrect(it) } == true
+            turno.horaFin.isBefore(turno.horaInicio) || fieldsAreIncorrect(turno.tarea1) ||
+            (turno.tarea2 != null && fieldsAreIncorrect(turno.tarea2))
 }
 
 suspend fun checkUserEmailAndPhone(user: UserDTOcreate, uRepo: UserRepositoryCached): Boolean {
