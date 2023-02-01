@@ -1,7 +1,7 @@
 package repositories
 
-import db.DBManager
-import db.readProperties
+import koin.db.DBManager
+import koin.db.readProperties
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.litote.kmongo.newId
 import koin.repositories.turno.TurnoRepository
-import utils.toUUID
+import koin.utils.toUUID
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*

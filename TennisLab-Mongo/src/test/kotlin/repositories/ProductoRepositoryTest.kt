@@ -1,7 +1,7 @@
 package repositories
 
-import db.DBManager
-import db.readProperties
+import koin.db.DBManager
+import koin.db.readProperties
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.litote.kmongo.newId
 import koin.repositories.producto.ProductoRepository
-import utils.toUUID
+import koin.utils.toUUID
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
