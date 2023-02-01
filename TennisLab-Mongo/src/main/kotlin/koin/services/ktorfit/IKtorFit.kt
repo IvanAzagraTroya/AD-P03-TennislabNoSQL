@@ -19,5 +19,5 @@ interface IKtorFit {
     suspend fun getAllTareas(): List<TareaDTOFromApi>
 
     @POST("todos")
-    suspend fun saveTareas(@Body tarea: Tarea): Tarea
+    suspend fun saveTareas(@Body tarea: TareaDTOFromApi): TareaDTOFromApi
 }

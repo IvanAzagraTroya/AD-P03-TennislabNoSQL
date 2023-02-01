@@ -7,9 +7,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import koin.models.Response
-import koin.models.ResponseError
-import koin.models.ResponseSuccess
+import kotlinx.serialization.SerializationException
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.net.Socket
@@ -37,6 +35,11 @@ fun main() = runBlocking {
         output = DataOutputStream(socket.outputStream)
 
         salir = token?.let { menu(input, output, it) } ?: menuLogin(input, output)
+        if (salir) {
+            input.close()
+            output.close()
+            socket.close()
+        }
     }
 }
 
@@ -70,16 +73,19 @@ fun menuLogin(input: DataInputStream, output: DataOutputStream): Boolean {
             output.writeUTF(json.encodeToString(request))
             val responseJSON = input.readUTF()
             try {
-                when (val response = json.decodeFromString<Response<out String>>(responseJSON)) {
-                    is ResponseError -> println("CODE ${response.code} - ${response.message}")
-                    is ResponseSuccess -> {
-                        println("CODE ${response.code} - Token acquired.")
-                        token = response.data
+                val response = json.decodeFromString<ServerResponse<String>>(responseJSON)
+                if (response.code !in 200..299) println(responseJSON)
+                else {
+                    println("Logged in: CODE ${response.code} - Token acquired.")
+                    println(responseJSON)
+                    token = response.data
                     }
-                }
                 false
-            } catch (e: Exception) {
-                println("Server sent an unexpected response type. Closing connection.")
+            } catch (e: SerializationException) {
+                println("SERIALIZATION EXCEPTION - Cannot deserialize. Closing connection.")
+                true
+            } catch (e: IllegalArgumentException) {
+                println("ILLEGAL ARGUMENT EXCEPTION - Server sent an unexpected response type. Closing connection.")
                 true
             }
         }
@@ -127,16 +133,19 @@ fun menuLogin(input: DataInputStream, output: DataOutputStream): Boolean {
             output.writeUTF(json.encodeToString(request))
             val responseJSON = input.readUTF()
             try {
-                when (val response = json.decodeFromString<Response<out String>>(responseJSON)) {
-                    is ResponseError -> println("CODE ${response.code} - ${response.message}")
-                    is ResponseSuccess -> {
-                        println("CODE ${response.code} - Token acquired.")
-                        token = response.data
-                    }
+                val response = json.decodeFromString<ServerResponse<String>>(responseJSON)
+                if (response.code !in 200..299) println(responseJSON)
+                else {
+                    println("Register: CODE ${response.code} - Token acquired.")
+                    println(responseJSON)
+                    token = response.data
                 }
                 false
-            } catch (e: Exception) {
-                println("Server sent an unexpected response type. Closing connection.")
+            } catch (e: SerializationException) {
+                println("SERIALIZATION EXCEPTION - Cannot deserialize. Closing connection.")
+                true
+            } catch (e: IllegalArgumentException) {
+                println("ILLEGAL ARGUMENT EXCEPTION - Server sent an unexpected response type. Closing connection.")
                 true
             }
         }

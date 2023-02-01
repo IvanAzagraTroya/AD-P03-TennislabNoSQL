@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import koin.models.tarea.*
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.firstOrNull
 import mu.KotlinLogging
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
-import org.litote.kmongo.eq
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
@@ -73,6 +74,7 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
     override suspend fun findByUUID(id: UUID): Tarea? = withContext(Dispatchers.IO) {
         logger.debug { "findByUUID($id)" }
 
-        DBManager.database.getCollection<Tarea>().findOne(Tarea::uuid eq id)
+        DBManager.database.getCollection<Tarea>()
+            .find().publisher.asFlow().filter { it.uuid == id }.firstOrNull()
     }
 }

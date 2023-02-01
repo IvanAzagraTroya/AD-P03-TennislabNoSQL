@@ -3,6 +3,7 @@ package koin.dto.producto
 import kotlinx.serialization.Serializable
 import koin.models.producto.TipoProducto
 import koin.serializers.UUIDSerializer
+import kotlinx.serialization.SerialName
 import java.util.*
 
 @Serializable
@@ -17,6 +18,7 @@ data class ProductoDTOcreate(
 )
 
 @Serializable
+@SerialName("ProductoDTOvisualize")
 data class ProductoDTOvisualize(
     val tipo: TipoProducto,
     val marca: String,
@@ -24,3 +26,7 @@ data class ProductoDTOvisualize(
     var precio: Double,
     val stock: Int
 )
+
+@Serializable
+@SerialName("ProductoDTOvisualizeList")
+data class ProductoDTOvisualizeList(val productos: List<ProductoDTOvisualize>)

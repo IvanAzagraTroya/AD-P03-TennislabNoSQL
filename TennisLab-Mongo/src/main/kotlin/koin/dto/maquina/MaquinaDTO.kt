@@ -5,12 +5,15 @@ import koin.models.maquina.Maquina
 import koin.models.maquina.TipoMaquina
 import koin.serializers.LocalDateSerializer
 import koin.serializers.UUIDSerializer
+import kotlinx.serialization.SerialName
 import java.time.LocalDate
 import java.util.*
 
 @Serializable sealed interface MaquinaDTO
 @Serializable sealed interface MaquinaDTOcreate : MaquinaDTO { fun fromDTO() : Maquina }
-@Serializable sealed interface MaquinaDTOvisualize : MaquinaDTO
+@Serializable
+@SerialName("MaquinaDTOvisualize")
+sealed interface MaquinaDTOvisualize : MaquinaDTO
 
 @Serializable data class EncordadoraDTOcreate (
     @Serializable(with = UUIDSerializer::class)
@@ -63,7 +66,7 @@ import java.util.*
         marca = marca,
         fechaAdquisicion = fechaAdquisicion,
         numeroSerie = numeroSerie,
-        tipo = TipoMaquina.ENCORDADORA,
+        tipo = TipoMaquina.PERSONALIZADORA,
         activa = activa,
         isManual = null,
         maxTension = null,
@@ -74,7 +77,9 @@ import java.util.*
     )
 }
 
-@Serializable data class EncordadoraDTOvisualize (
+@Serializable
+@SerialName("EncordadoraDTOvisualize")
+data class EncordadoraDTOvisualize (
     val modelo: String,
     val marca: String,
     @Serializable(with = LocalDateSerializer::class)
@@ -87,7 +92,9 @@ import java.util.*
     val minTension: Double
 ) : MaquinaDTOvisualize
 
-@Serializable data class PersonalizadoraDTOvisualize (
+@Serializable
+@SerialName("PersonalizadoraDTOvisualize")
+data class PersonalizadoraDTOvisualize (
     val modelo: String,
     val marca: String,
     @Serializable(with = LocalDateSerializer::class)
@@ -99,3 +106,7 @@ import java.util.*
     val measuresRigidity: Boolean,
     val measuresBalance: Boolean
 ) : MaquinaDTOvisualize
+
+@Serializable
+@SerialName("MaquinaDTOvisualizeList")
+data class MaquinaDTOvisualizeList(val maquina: List<MaquinaDTOvisualize>)

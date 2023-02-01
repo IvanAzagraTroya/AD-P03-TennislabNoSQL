@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.toList
 import koin.mappers.fromAPItoTarea
+import koin.mappers.toDTOapi
 import koin.models.tarea.Tarea
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
@@ -54,7 +55,7 @@ class TareaRepositoryCached(
     override suspend fun save(entity: Tarea): Tarea = withContext(Dispatchers.IO) {
         listSearches.add(entity)
         repo.save(entity)
-        client.saveTareas(entity)
+        client.saveTareas(entity.toDTOapi())
         entity
     }
 

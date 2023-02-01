@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 import koin.models.pedido.PedidoState
 import koin.serializers.LocalDateSerializer
 import koin.serializers.UUIDSerializer
+import kotlinx.serialization.SerialName
 import java.time.LocalDate
 import java.util.*
 
@@ -15,7 +16,6 @@ import java.util.*
 data class PedidoDTOcreate(
     @Serializable(with = UUIDSerializer::class)
     val uuid: UUID = UUID.randomUUID(),
-    @Serializable(with = UUIDSerializer::class)
     val user: UserDTOcreate,
     val state: PedidoState = PedidoState.PROCESO,
     @Serializable(with = LocalDateSerializer::class)
@@ -28,6 +28,7 @@ data class PedidoDTOcreate(
 )
 
 @Serializable
+@SerialName("PedidoDTOvisualize")
 data class PedidoDTOvisualize(
     val user: UserDTOvisualize?,
     val state: PedidoState,
@@ -40,3 +41,7 @@ data class PedidoDTOvisualize(
     val tareas: List<TareaDTOvisualize>,
     val precio: Double
 )
+
+@Serializable
+@SerialName("PedidoDTOvisualizeList")
+data class PedidoDTOvisualizeList(val pedidos: List<PedidoDTOvisualize>)

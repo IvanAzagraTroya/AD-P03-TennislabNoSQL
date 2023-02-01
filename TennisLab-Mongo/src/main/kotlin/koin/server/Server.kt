@@ -3,21 +3,31 @@ package koin.server
 import koin.common.Request
 import koin.controllers.Controller
 import koin.db.*
-import koin.dto.maquina.MaquinaDTOcreate
+import koin.dto.maquina.*
 import koin.dto.pedido.PedidoDTOcreate
+import koin.dto.pedido.PedidoDTOvisualize
+import koin.dto.pedido.PedidoDTOvisualizeList
 import koin.dto.producto.ProductoDTOcreate
-import koin.dto.tarea.TareaDTOcreate
+import koin.dto.producto.ProductoDTOvisualize
+import koin.dto.producto.ProductoDTOvisualizeList
+import koin.dto.tarea.*
 import koin.dto.turno.TurnoDTOcreate
-import koin.dto.user.UserDTOLogin
-import koin.dto.user.UserDTORegister
-import koin.dto.user.UserDTOcreate
+import koin.dto.turno.TurnoDTOvisualize
+import koin.dto.turno.TurnoDTOvisualizeList
+import koin.dto.user.*
 import kotlinx.coroutines.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import koin.mappers.fromDTO
 import koin.models.ResponseError
+import koin.models.maquina.Maquina
+import koin.models.pedido.Pedido
 import koin.models.pedido.PedidoState
+import koin.models.producto.Producto
+import koin.models.tarea.Tarea
+import koin.models.turno.Turno
+import koin.models.user.User
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -29,6 +39,13 @@ import java.net.Socket
 import javax.net.ServerSocketFactory
 import org.koin.ksp.generated.*
 import koin.services.login.create
+import kotlinx.serialization.PolymorphicSerializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.nullable
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import java.time.LocalDateTime
 import java.util.*
 
@@ -37,6 +54,31 @@ private const val PORT = 1708
 private val json = Json {
     ignoreUnknownKeys = true
     prettyPrint = true
+    useArrayPolymorphism = true
+    encodeDefaults = true
+    serializersModule = SerializersModule {
+        polymorphic(Any::class) {
+            subclass(String::class, String.serializer())
+            subclass(UserDTOvisualize::class)
+            subclass(UserDTOvisualizeList::class)
+            subclass(ProductoDTOvisualize::class)
+            subclass(ProductoDTOvisualizeList::class)
+            subclass(PedidoDTOvisualize::class)
+            subclass(PedidoDTOvisualizeList::class)
+            //subclass(TareaDTOvisualize::class)
+            subclass(AdquisicionDTOvisualize::class)
+            subclass(EncordadoDTOvisualize::class)
+            subclass(PersonalizacionDTOvisualize::class)
+            subclass(TareaDTOvisualizeList::class)
+            //subclass(MaquinaDTOvisualize::class)
+            subclass(EncordadoraDTOvisualize::class)
+            subclass(PersonalizadoraDTOvisualize::class)
+            subclass(MaquinaDTOvisualizeList::class)
+            subclass(TurnoDTOvisualize::class)
+            subclass(TurnoDTOvisualizeList::class)
+            subclass(List::class, ListSerializer(PolymorphicSerializer(Any::class).nullable))
+        }
+    }
 }
 
 private lateinit var input: DataInputStream
@@ -51,31 +93,35 @@ fun main() = runBlocking {
     val serverSocket = serverFactory.createServerSocket(PORT) as ServerSocket
 
     while (true) {
+        println("Awaiting clients...")
         val socket = serverSocket.accept()
         numClients++
         println("Attending client $numClients : ${socket.remoteSocketAddress}")
 
-        coroutineScope { processClient(socket, numClients, app) }
+        coroutineScope { processClient(socket, app) }
     }
 }
 
-suspend fun processClient(socket: Socket, numClients: Int, app: Application) {
+suspend fun processClient(socket: Socket, app: Application) {
     input = DataInputStream(socket.inputStream)
     output = DataOutputStream(socket.outputStream)
-    println("Attending client $numClients : ${socket.remoteSocketAddress}")
 
-    val requestJson = input.readUTF()
-    val request = json.decodeFromString<Request>(requestJson)
+    try{
+        val requestJson = input.readUTF()
+        val request = json.decodeFromString<Request>(requestJson)
 
-    when(request.type) {
-        Request.Type.LOGIN -> { sendLogin(output, request, app) }
-        Request.Type.REGISTER -> { sendRegister(output, request, app) }
-        Request.Type.REQUEST -> { processRequest(output, request, app) }
+        when(request.type) {
+            Request.Type.LOGIN -> { sendLogin(output, request, app) }
+            Request.Type.REGISTER -> { sendRegister(output, request, app) }
+            Request.Type.REQUEST -> { processRequest(output, request, app) }
+        }
     }
-
-    output.close()
-    input.close()
-    socket.close()
+    catch (e: Exception) { println(e) }
+    finally {
+        output.close()
+        input.close()
+        socket.close()
+    }
 }
 
 fun processRequest(output: DataOutputStream, request: Request, app: Application) = runBlocking {
@@ -144,9 +190,11 @@ fun processRequest(output: DataOutputStream, request: Request, app: Application)
                 response = if (request.body.isNullOrBlank())
                     json.encodeToString(ResponseError(400, "BAD REQUEST: No body for code 2_2."))
                 else try {
+                    println(request.body)
                     val id = UUID.fromString(request.body)
                     app.controller.findProductoById(id)
                 } catch (e: Exception) {
+                    println(e)
                     json.encodeToString(ResponseError(400, "BAD REQUEST: Body for code 2_2 is not an ID."))
                 }
             }
@@ -397,17 +445,25 @@ class Application : KoinComponent {
 }
 
 suspend fun loadData(app: Application) = runBlocking {
+    DBManager.database.getCollection<User>().drop()
+    DBManager.database.getCollection<Producto>().drop()
+    DBManager.database.getCollection<Tarea>().drop()
+    DBManager.database.getCollection<Pedido>().drop()
+    DBManager.database.getCollection<Maquina>().drop()
+    DBManager.database.getCollection<Turno>().drop()
+    println("Loading data...")
     val users = getUsers()
     val admin = users[0]
     val adminToken = create(admin.fromDTO())
 
-    val job1: Job = launch { users.forEach { app.controller.createUser(it, adminToken) } }
-    val job2: Job = launch { getProducts().forEach { app.controller.createProducto(it, adminToken) } }
-    val job3: Job = launch { getMaquinas().forEach { app.controller.createMaquina(it, adminToken) } }
+    val job1: Job = launch { users.forEach { println(app.controller.createUser(it, adminToken)) } }
+    val job2: Job = launch { getProducts().forEach { println(app.controller.createProducto(it, adminToken)) } }
+    val job3: Job = launch { getMaquinas().forEach { println(app.controller.createMaquina(it, adminToken)) } }
     joinAll(job1, job2, job3)
-    val job4: Job = launch { getTareas().forEach { app.controller.createTarea(it, adminToken) } }
+    val job4: Job = launch { getTareas().forEach { println(app.controller.createTarea(it, adminToken)) } }
     job4.join()
-    val job5: Job = launch { getPedidos().forEach { app.controller.createPedido(it, adminToken) } }
-    val job6: Job = launch { getTurnos().forEach { app.controller.createTurno(it, adminToken) } }
+    val job5: Job = launch { getPedidos().forEach { println(app.controller.createPedido(it, adminToken)) } }
+    val job6: Job = launch { getTurnos().forEach { println(app.controller.createTurno(it, adminToken)) } }
     joinAll(job5, job6)
+    println("Data loaded.")
 }

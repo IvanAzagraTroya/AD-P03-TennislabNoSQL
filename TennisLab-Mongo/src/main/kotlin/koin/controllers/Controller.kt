@@ -1,16 +1,17 @@
 package koin.controllers
 
-import koin.dto.maquina.MaquinaDTOcreate
+import koin.dto.maquina.*
 import koin.dto.pedido.PedidoDTOcreate
+import koin.dto.pedido.PedidoDTOvisualize
+import koin.dto.pedido.PedidoDTOvisualizeList
 import koin.dto.producto.ProductoDTOcreate
-import koin.dto.tarea.AdquisicionDTOcreate
-import koin.dto.tarea.EncordadoDTOcreate
-import koin.dto.tarea.PersonalizacionDTOcreate
-import koin.dto.tarea.TareaDTOcreate
+import koin.dto.producto.ProductoDTOvisualize
+import koin.dto.producto.ProductoDTOvisualizeList
+import koin.dto.tarea.*
 import koin.dto.turno.TurnoDTOcreate
-import koin.dto.user.UserDTOLogin
-import koin.dto.user.UserDTORegister
-import koin.dto.user.UserDTOcreate
+import koin.dto.turno.TurnoDTOvisualize
+import koin.dto.turno.TurnoDTOvisualizeList
+import koin.dto.user.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.toList
@@ -42,12 +43,45 @@ import koin.repositories.user.UserRepositoryCached
 import koin.services.login.checkToken
 import koin.services.utils.checkUserEmailAndPhone
 import koin.services.utils.fieldsAreIncorrect
+import kotlinx.serialization.PolymorphicSerializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.nullable
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import java.time.LocalDateTime
 import java.util.*
 
 private val json = Json {
     ignoreUnknownKeys = true
     prettyPrint = true
+
+    // Esto es para serializar las Responses. Sin esto, no lo serializa bien.
+    // Lo encontre en https://github.com/Kotlin/kotlinx.serialization/issues/1341
+    useArrayPolymorphism = true
+    encodeDefaults = true
+    serializersModule = SerializersModule {
+        polymorphic(Any::class) {
+            subclass(String::class, String.serializer())
+            subclass(UserDTOvisualize::class)
+            subclass(UserDTOvisualizeList::class)
+            subclass(ProductoDTOvisualize::class)
+            subclass(ProductoDTOvisualizeList::class)
+            subclass(PedidoDTOvisualize::class)
+            subclass(PedidoDTOvisualizeList::class)
+            subclass(AdquisicionDTOvisualize::class)
+            subclass(EncordadoDTOvisualize::class)
+            subclass(PersonalizacionDTOvisualize::class)
+            subclass(TareaDTOvisualizeList::class)
+            subclass(EncordadoraDTOvisualize::class)
+            subclass(PersonalizadoraDTOvisualize::class)
+            subclass(MaquinaDTOvisualizeList::class)
+            subclass(TurnoDTOvisualize::class)
+            subclass(TurnoDTOvisualizeList::class)
+            subclass(List::class, ListSerializer(PolymorphicSerializer(Any::class).nullable))
+        }
+    }
 }
 
 @Single
@@ -87,7 +121,7 @@ class Controller(
         val users = uRepo.findAll().toList()
 
         val res = if (users.isEmpty()) ResponseError(404, "NOT FOUND: No users found.")
-        else ResponseSuccess(200, toDTO(users))
+        else ResponseSuccess(200, UserDTOvisualizeList(toDTO(users)))
 
         json.encodeToString(res)
     }
@@ -96,7 +130,7 @@ class Controller(
         val users = uRepo.findAll().toList().filter { it.activo == active }
 
         val res = if (users.isEmpty()) ResponseError(404, "NOT FOUND: No users found.")
-        else ResponseSuccess(200, toDTO(users))
+        else ResponseSuccess(200, UserDTOvisualizeList(toDTO(users)))
 
         json.encodeToString(res)
     }
@@ -149,7 +183,7 @@ class Controller(
         val entities = pedRepo.findAll().toList()
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No pedidos found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, PedidoDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -158,7 +192,7 @@ class Controller(
         val entities = pedRepo.findAll().toList().filter { it.state == state }
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No pedidos found with state = $state.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, PedidoDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -169,7 +203,7 @@ class Controller(
 
         if (fieldsAreIncorrect(entity))
             return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert pedido. Incorrect fields."))
-        if (uRepo.findById(entity.user.fromDTO().id) == null)
+        if (uRepo.findByUUID(entity.user.fromDTO().uuid) == null)
             return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert pedido. User not found."))
 
         entity.tareas.forEach { tarRepo.save(it.fromDTO()) }
@@ -202,7 +236,7 @@ class Controller(
         val entities = proRepo.findAll().toList()
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No productos found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, ProductoDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -211,7 +245,7 @@ class Controller(
         val entities = proRepo.findAll().toList().filter { it.stock > 0 }
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: There are no products available.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, ProductoDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -262,7 +296,7 @@ class Controller(
         val entities = maRepo.findAll().toList()
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No maquinas found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, MaquinaDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -313,7 +347,7 @@ class Controller(
         val entities = turRepo.findAll().toList()
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No turnos found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, TurnoDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -322,7 +356,7 @@ class Controller(
         val entities = turRepo.findAll().toList().filter { it.horaInicio == horaInicio }
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No turnos found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, TurnoDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -370,19 +404,19 @@ class Controller(
     }
 
     suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
-        val entities = tarRepo.findAll().toList()
+        val entities = tarRepo.findAll().toList().subList(0, 25)
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No tareas found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, TareaDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
 
     suspend fun findAllTareasFinalizadas(finalizada: Boolean) : String = withContext(Dispatchers.IO) {
-        val entities = tarRepo.findAll().toList().filter { it.finalizada == finalizada }
+        val entities = tarRepo.findAll().toList().filter { it.finalizada == finalizada }.subList(0, 25)
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No tareas found.")
-        else ResponseSuccess(200, toDTO(entities))
+        else ResponseSuccess(200, TareaDTOvisualizeList(toDTO(entities)))
 
         json.encodeToString(res)
     }
@@ -419,6 +453,7 @@ class Controller(
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS)
                     return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert tarea. Parameter raqueta is not of type Raqueta."))
             }
+            else -> {}
         }
 
         val res = tarRepo.save(entity.fromDTO())
@@ -450,12 +485,12 @@ class Controller(
     suspend fun login(user: UserDTOLogin): String = withContext(Dispatchers.IO) {
         val token = koin.services.login.login(user, uRepo)
         if (token == null) json.encodeToString(ResponseError(404, "NOT FOUND: Unable to login. Incorrect email or password."))
-        else json.encodeToString(ResponseSuccess<String>(200, token))
+        else json.encodeToString(ResponseSuccess(200, token))
     }
 
     suspend fun register(user: UserDTORegister): String = withContext(Dispatchers.IO) {
         val token = koin.services.login.register(user, uRepo)
         if (token == null) json.encodeToString(ResponseError(400, "BAD REQUEST: Unable to register. Incorrect parameters."))
-        else json.encodeToString(ResponseSuccess<String>(200, token))
+        else json.encodeToString(ResponseSuccess(200, token))
     }
 }

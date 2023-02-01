@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import koin.models.maquina.*
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.firstOrNull
 import mu.KotlinLogging
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
-import org.litote.kmongo.eq
 import java.util.*
 
 private val logger = KotlinLogging.logger{}
@@ -27,7 +28,8 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
     override suspend fun findByUUID(id: UUID): Maquina? = withContext(Dispatchers.IO) {
         logger.debug { "findByUUID($id)" }
 
-        DBManager.database.getCollection<Maquina>().findOne(Maquina::uuid eq id)
+        DBManager.database.getCollection<Maquina>()
+            .find().publisher.asFlow().filter { it.uuid == id }.firstOrNull()
     }
 
     override suspend fun save(entity: Maquina): Maquina = withContext(Dispatchers.IO) {

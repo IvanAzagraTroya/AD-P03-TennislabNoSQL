@@ -6,11 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.withContext
 import koin.models.turno.Turno
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.firstOrNull
 import mu.KotlinLogging
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
-import org.litote.kmongo.eq
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
@@ -65,6 +66,7 @@ class TurnoRepository: ITurnoRepository<Id<Turno>> {
     override suspend fun findByUUID(id: UUID): Turno? = withContext(Dispatchers.IO) {
         logger.debug { "findByUUID($id)" }
 
-        DBManager.database.getCollection<Turno>().findOne(Turno::uuid eq id)
+        DBManager.database.getCollection<Turno>()
+            .find().publisher.asFlow().filter { it.uuid == id }.firstOrNull()
     }
 }
