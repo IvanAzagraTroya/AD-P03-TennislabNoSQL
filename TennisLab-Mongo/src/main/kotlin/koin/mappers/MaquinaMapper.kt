@@ -7,6 +7,10 @@ import koin.dto.maquina.PersonalizadoraDTOvisualize
 import koin.models.maquina.Maquina
 import koin.models.maquina.TipoMaquina
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Mapeador para pasar de Maquina a el dto correspondiente
+ */
 fun Maquina.toDTO() : MaquinaDTOvisualize {
     return when (tipo) {
         TipoMaquina.ENCORDADORA -> {

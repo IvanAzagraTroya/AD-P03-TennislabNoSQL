@@ -14,6 +14,10 @@ private val mRepo = MaquinaRepository()
 private val tRepo = TareaRepository()
 private val pRepo = PedidoRepository()
 
+/**
+ * @author Iván Azagra Troya
+ * Mapeador de Turno a TurnoDTOVisualize y de TurnoDTOCreate a Turno
+ */
 suspend fun Turno.toDTO() = TurnoDTOvisualize (
     worker = uRepo.findByUUID(workerId)?.toDTO(),
     maquina = mRepo.findByUUID(maquinaId)?.toDTO(),

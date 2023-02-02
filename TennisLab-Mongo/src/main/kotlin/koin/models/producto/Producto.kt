@@ -8,6 +8,10 @@ import org.litote.kmongo.newId
 import koin.serializers.UUIDSerializer
 import java.util.UUID
 
+/**
+ * @author Iván Azagra Troya
+ * Clase POKO de Producto
+ */
 @Serializable
 data class Producto(
     @BsonId @Contextual

@@ -9,6 +9,12 @@ import kotlinx.serialization.SerialName
 import java.time.LocalDate
 import java.util.*
 
+/**
+ * @author Iván Azagra Troya
+ * Clases para el pasado de datos de los diferentes tipos de
+ * máquinas para el paso de datos, creación de máquinas,
+ * para visualización y los métodos para recuperar la Maquina del DTO
+ */
 @Serializable sealed interface MaquinaDTO
 @Serializable sealed interface MaquinaDTOcreate : MaquinaDTO { fun fromDTO() : Maquina }
 @Serializable
