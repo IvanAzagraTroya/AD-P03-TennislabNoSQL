@@ -11,10 +11,17 @@ import java.io.FileNotFoundException
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
+
+/**
+ * Clase para actuar como manejador de la base de datos de mongo
+ */
 object DBManager {
     private var mongoClient: CoroutineClient
     var database: CoroutineDatabase
 
+    /**
+     * Parámetros de la cadena de conexión
+     */
     // configuraciones para mongoAtlas aqui
     val properties = readProperties()
     private val MONGO_TYPE = properties.getProperty("MONGO_TYPE")
@@ -34,6 +41,10 @@ object DBManager {
     }
 }
 
+/**
+ * Este método sirve para leer del archivo de propiedades necesario para establecer la conexión con mongo
+ * @return Objeto Properties con los datos para la conexión
+ */
 fun readProperties(): Properties {
     val properties = Properties()
     try {

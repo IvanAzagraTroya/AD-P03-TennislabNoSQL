@@ -4,6 +4,10 @@ import koin.dto.producto.ProductoDTOcreate
 import koin.dto.producto.ProductoDTOvisualize
 import koin.models.producto.Producto
 
+/**
+ * @author Iván Azagra Troya
+ * Mapeador de Producto a DTO y de ProductoDTOCreate a Producto
+ */
 fun Producto.toDTO() =
     ProductoDTOvisualize (tipo, marca, modelo, precio, stock)
 

@@ -8,6 +8,12 @@ import koin.models.user.User
 import koin.models.user.UserProfile
 import koin.services.utils.cipher
 
+/**
+ * @author Iván Azagra Troya
+ * Mapeador de User a DTOVisualize y de UserRegister a UserDTOCreate,
+ * de UserDTOfromApi a UserDTOVisualize, de UserDTOfromApi a DTOVisualize
+ * y de UserDTOfromApi a User
+ */
 fun User.toDTO() =
     UserDTOvisualize (nombre, apellido, email, perfil, activo)
 

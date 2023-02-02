@@ -11,6 +11,10 @@ import java.util.*
 
 private val pRepo = ProductoRepository()
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Mapeador de Tarea a DTO, de Tarea a DTOApi y de TareaDTOfromApi a Tarea
+ */
 suspend fun Tarea.toDTO() : TareaDTOvisualize {
     return when (tipo) {
         TipoTarea.ADQUISICION -> {

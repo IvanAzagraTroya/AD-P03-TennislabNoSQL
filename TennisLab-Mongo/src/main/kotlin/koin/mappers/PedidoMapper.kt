@@ -11,6 +11,10 @@ import koin.repositories.user.UserRepository
 private val uRepo = UserRepository()
 private val tRepo = TareaRepository()
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Mapeador de pedido a dto y de pedidoDTOCreate a Pedido
+ */
 suspend fun Pedido.toDTO() : PedidoDTOvisualize {
     val tareaList = tRepo.findAll().filter { it.pedidoId == uuid }.toList()
     var precioTotal = 0.0
