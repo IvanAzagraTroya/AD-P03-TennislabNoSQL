@@ -176,7 +176,7 @@ class Controller(
      * Comprueba que el token es válido y si se trata de un usuario de tipo administrador en caso de que validated no sea null
      * @return validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del UserDTOCreate y devuelve
-     * @return ResponseError en formato json en caso de que el usuario se haya instalado de forma incorrecta
+     * @return ResponseError en formato json en caso de que el usuario se haya introducido de forma incorrecta
      * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     suspend fun createUser(user: UserDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
@@ -260,6 +260,13 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los pedidos que con el estado requerido dependiendo del parámetro pasado
+     * @param state el estado en el que se encuentra la lista de pedidos que devuelve el método
+     * @return ResponseError en caso de que no existan pedidos con ese estado
+     * @return ResponseSuccess con los datos de un PedidoDTOVisualizeList con la lista de pedidos con el estado
+     * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
+     */
     suspend fun findAllPedidosWithState(state: PedidoState) : String = withContext(Dispatchers.IO) {
         val entities = pedRepo.findAll().toList().filter { it.state == state }
 
@@ -269,6 +276,17 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para crear pedidos
+     * @param entity de tipo PedidoDTOCreate
+     * @param token de tipo String
+     * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
+     * @return validated respuesta de error por acceso no autorizado
+     * Si validated es null se comprueba los campos del PedidoDTOCreate y devuelve
+     * @return ResponseError en formato json en caso de que el pedido se haya introducido de forma incorrecta o no haya sido encontrado el usuario
+     * en caso de no dar error recoge las tareas del pedido  las guarda usando el repositorio de tareas y después guarda el pedido
+     * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     */
     suspend fun createPedido(entity: PedidoDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -283,6 +301,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(201, res.toDTO()))
     }
 
+    /**
+     * Este método sirve para borrar un pedido
+     * @param id de tipo UUID del pedido que se quiera buscar
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que el pedido no sea encontrado por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado al pedido encontrado
+     * @return ResponseSuccess con formato json
+     */
     suspend fun deletePedido(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -295,6 +322,12 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * @param id Identificador de tipo UUID del objeto Producto
+     * Este método sirve para buscar un objeto de tipo Producto con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista el producto con ese identificador
+     * @return ResponseSuccess si encuentra un producto con ese identificador
+     */
     suspend fun findProductoById(id: UUID) : String = withContext(Dispatchers.IO) {
         val entity = proRepo.findByUUID(id)
 
@@ -304,6 +337,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los productos que se encuentren registrados en la base de datos
+     * @return ResponseError en caso de que no existan productos
+     * @return ResponseSuccess con los datos de un ProductosDTOVisualizeList con la lista de productos
+     * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
+     */
     suspend fun findAllProductos() : String = withContext(Dispatchers.IO) {
         val entities = proRepo.findAll().toList()
 
@@ -313,6 +352,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los productos que se encuentren disponibles
+     * @return ResponseError en caso de que no existan productos con ese estado
+     * @return ResponseSuccess con los datos de un ProductosDTOVisualizeList con la lista de productos con el estado
+     * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
+     */
     suspend fun findAllProductosDisponibles() : String = withContext(Dispatchers.IO) {
         val entities = proRepo.findAll().toList().filter { it.stock > 0 }
 
@@ -322,6 +367,16 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para crear productos
+     * @param entity de tipo ProductosDTOCreate
+     * @param token de tipo String
+     * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
+     * @return validated respuesta de error por acceso no autorizado
+     * Si validated es null se comprueba los campos del ProductosDTOCreate y devuelve
+     * @return ResponseError en formato json en caso de que el producto se haya introducido de forma incorrecta
+     * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     */
     suspend fun createProducto(entity: ProductoDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -333,6 +388,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(201, res.toDTO()))
     }
 
+    /**
+     * Este método sirve para borrar un producto
+     * @param id de tipo UUID del pedido que se quiera buscar
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que el producto no sea encontrado por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado al producto encontrado
+     * @return ResponseSuccess con formato json
+     */
     suspend fun deleteProducto(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -344,6 +408,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * Este método sirve para bajar el stock del producto con el id pasado por parámetro
+     * @param id de tipo UUID del producto
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que el producto no sea encontrado por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado al producto encontrado
+     * @return ResponseSuccess con formato json
+     */
     suspend fun decreaseStockFromProducto(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -355,6 +428,13 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * @param id identificador de tipo UUID del objeto Máquina
+     * Este método sirve para buscar un objeto de tipo Máquina con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista la máquina con ese identificador
+     * @return ResponseSuccess si encuentra una máquina con ese identificador
+     * devuelve la respuesta en formato json
+     */
     suspend fun findMaquinaById(id: UUID) : String = withContext(Dispatchers.IO) {
         val entity = maRepo.findByUUID(id)
 
@@ -364,6 +444,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos las máquinas que se encuentren registradas en la base de datos
+     * @return ResponseError en caso de que no existan máquinas
+     * @return ResponseSuccess con los datos de un MaquinaDTOVisualizeList con la lista de máquinas
+     * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
+     */
     suspend fun findAllMaquinas() : String = withContext(Dispatchers.IO) {
         val entities = maRepo.findAll().toList()
 
@@ -373,6 +459,16 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para crear productos
+     * @param entity de tipo MaquinaDTOCreate
+     * @param token de tipo String
+     * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
+     * @return validated respuesta de error por acceso no autorizado
+     * Si validated es null se comprueba los campos del TurnoDTOCreate y devuelve
+     * @return ResponseError en formato json en caso de que la maquina se haya introducido de forma incorrecta
+     * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     */
     suspend fun createMaquina(entity: MaquinaDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -384,6 +480,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(201, res.toDTO()))
     }
 
+    /**
+     * Este método sirve para borrar un máquina
+     * @param id de tipo UUID de la máquina que se quiera buscar
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que la máquina no sea encontrada por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado a la máquina encontrada
+     * @return ResponseSuccess con formato json
+     */
     suspend fun deleteMaquina(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -395,6 +500,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * Este método sirve para poner en estado inactivo la máquina con el identificador pasado por parámetro
+     * @param id de tipo UUID de la máquina
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que la máquina no sea encontrada por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el cambio a inactivo de la máquina encontrada
+     * @return ResponseSuccess con formato json
+     */
     suspend fun setInactiveMaquina(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -406,6 +520,13 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * @param id identificador de tipo UUID del objeto Turno
+     * Este método sirve para buscar un objeto de tipo Turno con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista el turno con ese identificador
+     * @return ResponseSuccess si encuentra un turno con ese identificador
+     * devuelve la respuesta en formato json
+     */
     suspend fun findTurnoById(id: UUID) : String = withContext(Dispatchers.IO) {
         val entity = turRepo.findByUUID(id)
 
@@ -415,6 +536,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los turnos que se encuentren registrados en la base de datos
+     * @return ResponseError en caso de que no existan turnos
+     * @return ResponseSuccess con los datos de un TurnoDTOVisualizeList con la lista de turnos
+     * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
+     */
     suspend fun findAllTurnos() : String = withContext(Dispatchers.IO) {
         val entities = turRepo.findAll().toList()
 
@@ -424,6 +551,14 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para buscar turnos por fecha y hora de inicio
+     * @param horaInicio la fecha y hora del turno o turnos que se quieran buscar
+     * Este método sirve para buscar un objeto de tipo Turno con la fecha pasada por parámetro
+     * @return ResponseError en caso de que no existan turnos con esa fecha
+     * @return ResponseSuccess si encuentra un turno con esa fecha
+     * devuelve la respuesta en formato json
+     */
     suspend fun findAllTurnosByFecha(horaInicio: LocalDateTime) : String = withContext(Dispatchers.IO) {
         val entities = turRepo.findAll().toList().filter { it.horaInicio == horaInicio }
 
@@ -433,6 +568,16 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para crear turnos
+     * @param entity de tipo TurnoDTOCreate
+     * @param token de tipo String
+     * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
+     * @return validated respuesta de error por acceso no autorizado
+     * Si validated es null se comprueba los campos del TurnoDTOCreate y devuelve
+     * @return ResponseError en formato json en caso de que el turno se haya introducido de forma incorrecta
+     * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     */
     suspend fun createTurno(entity: TurnoDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.WORKER)
         if (validated != null) return@withContext validated
@@ -444,6 +589,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(201, res.toDTO()))
     }
 
+    /**
+     * Este método sirve para borrar un turno
+     * @param id de tipo UUID del turno que se quiera buscar
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que el turno no sea encontrada por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado al turno encontrado
+     * @return ResponseSuccess con formato json
+     */
     suspend fun deleteTurno(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -455,6 +609,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * Este método sirve para poner en estado finalizado el turno con el identificador pasado por parámetro
+     * @param id de tipo UUID del turno
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que el turno no sea encontrada por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el cambio a inactivo del turno encontrado
+     * @return ResponseSuccess con formato json
+     */
     suspend fun setFinalizadoTurno(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -466,6 +629,13 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * @param id identificador de tipo UUID del objeto Tarea
+     * Este método sirve para buscar un objeto de tipo Tarea con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista la tarea con ese identificador
+     * @return ResponseSuccess si encuentra una tarea con ese identificador
+     * devuelve la respuesta en formato json
+     */
     suspend fun findTareaById(id: UUID) : String = withContext(Dispatchers.IO) {
         val entity = tarRepo.findByUUID(id)
 
@@ -475,6 +645,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos las tareas que se encuentren registrados en la base de datos
+     * @return ResponseError en caso de que no existan tareas
+     * @return ResponseSuccess con los datos de un TareaDTOVisualizeList con la lista de tareas
+     * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
+     */
     suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
         val entities = tarRepo.findAll().toList().subList(0, 25)
 
@@ -484,6 +660,13 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para buscar tareas finalizadas
+     * @param finalizada de tipo Boolean para definir el estado de las tareas a buscar
+     * @return ResponseError en caso de que no existan tareas con ese estado
+     * @return ResponseSuccess si encuentra una tarea con ese estado true/false
+     * devuelve la respuesta en formato json
+     */
     suspend fun findAllTareasFinalizadas(finalizada: Boolean) : String = withContext(Dispatchers.IO) {
         val entities = tarRepo.findAll().toList().filter { it.finalizada == finalizada }.subList(0, 25)
 
@@ -493,6 +676,20 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para crear una Tarea
+     * @param entity de tipo TareaDTOCreate
+     * @param token para validar el método
+     * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
+     * @return validated respuesta de error por acceso no autorizado
+     * Si validated es null se comprueba los campos del TareaDTOCreate y devuelve
+     * @return ResponseError en formato json en caso de que la tarea se haya introducido de forma incorrecta
+     * @return ResponseError en caso de que no se hayan pasado datos suficientes para el cordaje
+     * @return ResponseError en caso de que haya una incoherencia de tipos en el EncordadoDTOCreate
+     * @return ResponseError en caso de que el parámetro no sea del tipo requerido en AdquisicionDTOCreate
+     * @return ResponseError en caso de que el parámetro no sea del tipo requerido en PersonalizacionDTOCreate
+     * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     */
     suspend fun createTarea(entity: TareaDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -519,11 +716,11 @@ class Controller(
             }
             is AdquisicionDTOcreate -> {
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS)
-                    return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert tarea. Parameter raqueta is not of type Raqueta."))
+                    return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert tarea. Parameter is not of type Raqueta."))
             }
             is PersonalizacionDTOcreate -> {
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS)
-                    return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert tarea. Parameter raqueta is not of type Raqueta."))
+                    return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert tarea. Parameter is not of type Raqueta."))
             }
         }
 
@@ -531,6 +728,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(201, res.toDTO()))
     }
 
+    /**
+     * Este método sirve para borrar una tarea
+     * @param id de tipo UUID del turno que se quiera buscar
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que la tarea no sea encontrada por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado a la tarea encontrada
+     * @return ResponseSuccess con formato json
+     */
     suspend fun deleteTarea(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -542,6 +748,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * Este método sirve para poner en estado finalizado la tarea con el identificador pasado por parámetro
+     * @param id de tipo UUID del turno
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que la tarea no sea encontrada por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el cambio a finalizada de la tarea encontrada
+     * @return ResponseSuccess con formato json
+     */
     suspend fun setFinalizadaTarea(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -553,12 +768,24 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * Este método sirve para iniciar sesión de un usuario
+     * @param user de tipo UserDTOLogin
+     * @return ResponseError en caso de que el token sea null
+     * @return ResponseSuccess si el token no es null
+     */
     suspend fun login(user: UserDTOLogin): String = withContext(Dispatchers.IO) {
         val token = koin.services.login.login(user, uRepo)
         if (token == null) json.encodeToString(ResponseError(404, "NOT FOUND: Unable to login. Incorrect email or password."))
         else json.encodeToString(ResponseSuccess(200, token))
     }
 
+    /**
+     * Este método sirve para registrar un usuario
+     * @param user de tipo UserDTORegister
+     * @return ResponseError en caso de que el token sea null
+     * @return ResponseSuccess si el token no es null
+     */
     suspend fun register(user: UserDTORegister): String = withContext(Dispatchers.IO) {
         val token = koin.services.login.register(user, uRepo)
         if (token == null) json.encodeToString(ResponseError(400, "BAD REQUEST: Unable to register. Incorrect parameters."))
