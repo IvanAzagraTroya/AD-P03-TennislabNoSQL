@@ -144,7 +144,7 @@ fun processRequest(output: DataOutputStream, request: Request, app: Application)
                     app.controller.findUserById(request.body.toInt())
                 else try {
                     val id = UUID.fromString(request.body)
-                    app.controller.findUserById(id)
+                    app.controller.findUserByUuid(id)
                 } catch (e: Exception) {
                     json.encodeToString(ResponseError(400, "BAD REQUEST: Body for code 1_2 is not an ID."))
                 }

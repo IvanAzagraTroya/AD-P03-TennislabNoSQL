@@ -1,4 +1,4 @@
-package controller
+package koin.controllers
 
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

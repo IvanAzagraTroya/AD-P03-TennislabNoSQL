@@ -525,7 +525,6 @@ class Controller(
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS)
                     return@withContext json.encodeToString(ResponseError(400, "BAD REQUEST: Cannot insert tarea. Parameter raqueta is not of type Raqueta."))
             }
-            else -> {}
         }
 
         val res = tarRepo.save(entity.fromDTO())

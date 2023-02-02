@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d305494-9832-440d-94d2-67b0567994a0" name="Changes" comment="Arreglo archivos de configuración">
+    <list default="true" id="9d305494-9832-440d-94d2-67b0567994a0" name="Changes" comment="Test reorganizados">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/repositories/maquina/MaquinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/repositories/maquina/MaquinaRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/de/jensklingenberg/ktorfit/KtorfitExt.kt" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/de/jensklingenberg/ktorfit/KtorfitExt.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/koin/services/ktorfit/_IKtorFitImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/koin/services/ktorfit/_IKtorFitImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/org/koin/ksp/generated/KoinModuleGenkoin$services$koin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/org/koin/ksp/generated/KoinModuleGenkoin$services$koin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/controllers/Controller.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/controllers/Controller.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/server/Server.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/server/Server.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +27,20 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2KGfZgrAJvdcoNjauiMqZNsVA2D" />
   <component name="ProjectViewState">
@@ -36,30 +48,154 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "liberica-17",
+    "ktor.last.update.timestamp": "1675275091123",
+    "last_opened_file_path": "C:/Users/BlobTheVod/Documents/Programacion/Asignaturas/Acceso a Datos/tenistas-rest-ktor-2022-2023",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\main\kotlin\dto" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\test\koin" />
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\test" />
       <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\gradle\wrapper" />
     </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="dto" />
+    </key>
   </component>
-  <component name="RunManager">
-    <configuration name="MainKt (1)" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MainKt" />
-      <module name="TennisLab-Mongo.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Gradle.ControllerTest">
+    <configuration name="ControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controller.ControllerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ControllerTest.findMaquinaById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controller.ControllerTest.findMaquinaById&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MaquinaRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;repositories.MaquinaRepositoryTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UserRepositoryCachedTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;cached_repositories.UserRepositoryCachedTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UserRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;repositories.UserRepositoryTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.MainKt (1)" />
+        <item itemvalue="Gradle.ControllerTest" />
+        <item itemvalue="Gradle.ControllerTest.findMaquinaById" />
+        <item itemvalue="Gradle.UserRepositoryCachedTest" />
+        <item itemvalue="Gradle.MaquinaRepositoryTest" />
+        <item itemvalue="Gradle.UserRepositoryTest" />
       </list>
     </recent_temporary>
   </component>
@@ -74,7 +210,19 @@
       <workItem from="1673605900754" duration="237000" />
       <workItem from="1673642120361" duration="709000" />
       <workItem from="1673778841984" duration="37000" />
-      <workItem from="1673803095429" duration="3037000" />
+      <workItem from="1673803095429" duration="3726000" />
+      <workItem from="1674148758385" duration="8933000" />
+      <workItem from="1674200373732" duration="5713000" />
+      <workItem from="1674386177956" duration="7263000" />
+      <workItem from="1674459703717" duration="691000" />
+      <workItem from="1674915689116" duration="978000" />
+      <workItem from="1674997102219" duration="10798000" />
+      <workItem from="1675064964965" duration="9236000" />
+      <workItem from="1675159697004" duration="411000" />
+      <workItem from="1675188159586" duration="1305000" />
+      <workItem from="1675274368051" duration="10760000" />
+      <workItem from="1675323251457" duration="1398000" />
+      <workItem from="1675326176237" duration="7276000" />
     </task>
     <task id="LOCAL-00001" summary="Arreglo archivos de configuración">
       <created>1673606546140</created>
@@ -83,7 +231,126 @@
       <option name="project" value="LOCAL" />
       <updated>1673606546140</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Maquinarepository">
+      <created>1673807063884</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673807063884</updated>
+    </task>
+    <task id="LOCAL-00003" summary="userrepo">
+      <created>1674157197215</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674157197215</updated>
+    </task>
+    <task id="LOCAL-00004" summary="UserRepository y ProouctoRepository con corrutinas">
+      <created>1674158800827</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674158800827</updated>
+    </task>
+    <task id="LOCAL-00005" summary="TareaRepository con corrutinas">
+      <created>1674159921673</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674159921673</updated>
+    </task>
+    <task id="LOCAL-00006" summary="TareaRepository con corrutinas">
+      <created>1674160987163</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1674160987163</updated>
+    </task>
+    <task id="LOCAL-00007" summary="TurnoRepository con corrutinas">
+      <created>1674161825808</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1674161825808</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Tarea, Turno y User DTOs">
+      <created>1674205068022</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1674205068022</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Dtos">
+      <created>1674206039389</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1674206039389</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Comienzo test repositorios">
+      <created>1674408144985</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1674408144986</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Test repositorios sin cache">
+      <created>1675013040904</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675013040904</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Test repositorios con cache, revisar @SpyK val cache">
+      <created>1675071789100</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675071789100</updated>
+    </task>
+    <task id="LOCAL-00013" summary="import fixes">
+      <created>1675274807119</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675274807119</updated>
+    </task>
+    <task id="LOCAL-00014" summary="controller test sin terminar">
+      <created>1675285874779</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1675285874779</updated>
+    </task>
+    <task id="LOCAL-00015" summary=".">
+      <created>1675323310954</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1675323310954</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Documentación y cambios ControllerTest">
+      <created>1675329972346</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1675329972347</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Test reorganizados">
+      <created>1675334675442</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1675334675442</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Test reorganizados">
+      <created>1675334812994</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1675334812994</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,6 +366,25 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Arreglo archivos de configuración" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglo archivos de configuración" />
+    <MESSAGE value="Maquinarepository" />
+    <MESSAGE value="userrepo" />
+    <MESSAGE value="UserRepository y ProouctoRepository con corrutinas" />
+    <MESSAGE value="TareaRepository con corrutinas" />
+    <MESSAGE value="TurnoRepository con corrutinas" />
+    <MESSAGE value="Tarea, Turno y User DTOs" />
+    <MESSAGE value="Dtos" />
+    <MESSAGE value="Comienzo test repositorios" />
+    <MESSAGE value="Test repositorios sin cache" />
+    <MESSAGE value="Test repositorios con cache, revisar @SpyK val cache" />
+    <MESSAGE value="import fixes" />
+    <MESSAGE value="controller test sin terminar" />
+    <MESSAGE value="." />
+    <MESSAGE value="Documentación y cambios ControllerTest" />
+    <MESSAGE value="Test reorganizados" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test reorganizados" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TennisLab_Mongo$ControllerTest_findMaquinaById.ic" NAME="ControllerTest.findMaquinaById Coverage Results" MODIFIED="1675280366063" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/TennisLab_Mongo$ControllerTest.ic" NAME="ControllerTest Coverage Results" MODIFIED="1675280518132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
