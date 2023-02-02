@@ -86,7 +86,7 @@ suspend fun checkUserEmailAndPhone(user: UserDTOcreate, uRepo: UserRepositoryCac
     val u = uRepo.findByUUID(user.uuid)
     val uMail = uRepo.findByEmail(user.email)
     val uPhone = uRepo.findByPhone(user.telefono)
-    if ((u == null && uMail != null) || (u == null && uPhone != null))
+    if ((u == null && uMail != null) || (u == null && uPhone != null) || u != null)
         return true
     return false
 }

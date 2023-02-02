@@ -49,7 +49,7 @@ fun readProperties(): Properties {
     val properties = Properties()
     try {
         properties.load(
-            FileInputStream("${System.getProperty("user.dir")}${File.separator}" +
+            FileInputStream(".${File.separator}" +
                     "TennisLab-Mongo${File.separator}src${File.separator}main${File.separator}" +
                     "resources${File.separator}config.properties")
         )
@@ -61,7 +61,7 @@ fun readProperties(): Properties {
     // AD-P03-TennislabNoSQL
     catch (e: FileNotFoundException) {
         properties.load(
-            FileInputStream("${System.getProperty("user.dir")}${File.separator}" +
+            FileInputStream(".${File.separator}" +
                     "src${File.separator}main${File.separator}" +
                     "resources${File.separator}config.properties")
         )
