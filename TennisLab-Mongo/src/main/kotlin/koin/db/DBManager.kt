@@ -7,6 +7,7 @@ import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
@@ -35,10 +36,25 @@ object DBManager {
 
 fun readProperties(): Properties {
     val properties = Properties()
-    properties.load(
-        FileInputStream("${System.getProperty("user.dir")}${File.separator}" +
-            "TennisLab-Mongo${File.separator}src${File.separator}main${File.separator}" +
-            "resources${File.separator}config.properties")
-    )
+    try {
+        properties.load(
+            FileInputStream("${System.getProperty("user.dir")}${File.separator}" +
+                    "TennisLab-Mongo${File.separator}src${File.separator}main${File.separator}" +
+                    "resources${File.separator}config.properties")
+        )
+
+    }
+    // esto porque por algun motivo en los tests nos lo lee como que user.dir es
+    // AD-P03-TennislabNoSQL/TennisLab-Mongo
+    // pero en el proyecto normal nos lo lee como que user.dir es
+    // AD-P03-TennislabNoSQL
+    catch (e: FileNotFoundException) {
+        properties.load(
+            FileInputStream("${System.getProperty("user.dir")}${File.separator}" +
+                    "src${File.separator}main${File.separator}" +
+                    "resources${File.separator}config.properties")
+        )
+    }
+
     return properties
 }
