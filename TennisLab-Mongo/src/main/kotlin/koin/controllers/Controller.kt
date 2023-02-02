@@ -87,6 +87,12 @@ private val json = Json {
     }
 }
 
+/**
+ * @author Loli
+ * Clase que actúa como controlador de los distintos repositorios haciendo uso de los métodos requeridos y
+ * devolviendo en cada caso dos tipos de respuesta: ResponseError y ResponseSuccess por cada caso de los métodos
+ */
+
 @Single
 class Controller(
     @Named("UserRepositoryCached")
@@ -102,7 +108,13 @@ class Controller(
     @Named("MaquinaRepositoryCached")
     private val maRepo: IMaquinaRepository<Id<Maquina>>,
 ) {
-    suspend fun findUserById(id: UUID) : String = withContext(Dispatchers.IO) {
+    /**
+     * @param id Identificador de tipo UUID del objeto User
+     * Este método sirve para buscar un objeto de tipo User con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista el usuario con ese identificador
+     * @return ResponseSuccess si encuentra un usuario con ese identificador
+     */
+    suspend fun findUserByUuid(id: UUID) : String = withContext(Dispatchers.IO) {
         val user = uRepo.findByUUID(id)
 
         val res = if (user == null) ResponseError(404, "NOT FOUND: User with id $id not found.")
@@ -111,6 +123,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * @param id Identificador de tipo int del objeto User
+     * Este método sirve para buscar un objeto de tipo User con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista el usuario con ese identificador
+     * @return ResponseSuccess si encuentra un usuario con ese identificador
+     */
     suspend fun findUserById(id: Int) : String = withContext(Dispatchers.IO) {
         val user = uRepo.findById(id)
 
@@ -120,6 +138,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los usuarios que se encuentren registrados en la base de datos
+     * @return ResponseError en caso de que no existan usuarios
+     * @return ResponseSuccess con los datos de un UserDTOVisualizeList con la lista de usuarios
+     * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
+     */
     suspend fun findAllUsers() : String = withContext(Dispatchers.IO) {
         val users = uRepo.findAll().toList()
 
@@ -129,6 +153,13 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los usuarios que se encuentren activos o inactivos dependiendo del parámetro pasado
+     * @param active de tipo Boolean se usa para buscar a los usuarios que tengan el parametro "active" = true :? false
+     * @return ResponseError en caso de que no existan usuarios
+     * @return ResponseSuccess con los datos de un UserDTOVisualizeList con la lista de usuarios
+     * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
+     */
     suspend fun findAllUsersWithActivity(active: Boolean) : String = withContext(Dispatchers.IO) {
         val users = uRepo.findAll().toList().filter { it.activo == active }
 
@@ -138,6 +169,16 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método sirve para crear usuarios
+     * @param user de tipo UserDTOCreate
+     * @param token de tipo String
+     * Comprueba que el token es válido y si se trata de un usuario de tipo administrador en caso de que validated no sea null
+     * @return validated respuesta de error por acceso no autorizado
+     * Si validated es null se comprueba los campos del UserDTOCreate y devuelve
+     * @return ResponseError en formato json en caso de que el usuario se haya instalado de forma incorrecta
+     * @return ResponseSuccess si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     */
     suspend fun createUser(user: UserDTOcreate, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -151,6 +192,13 @@ class Controller(
         json.encodeToString(ResponseSuccess(201, res.toDTO()))
     }
 
+    /**
+     * Este método sirve para establecer un usuario como inactivo
+     * @param id de tipo UUID del usuario
+     * @param token el token es una cadena de texto que se pasa el método por parámetro
+     * @return ResponseError en caso de que no se encuentre el id o que no se pueda establecer como inactivo
+     * @return ResponseSuccess con un enconde a String con formato json
+     */
     suspend fun setInactiveUser(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -162,6 +210,15 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * Este método sirve para borrar un usuario
+     * @param id de tipo UUID del usuario que se quiera buscar
+     * @param token de tipo String para validar el acceso al método
+     * @return validated si no es null devolverá el ResponseError correspondiente
+     * @return ResponseError en json del mensaje de error en caso de que el usuario no sea encontrado por el repositorio
+     * @return ResponseError en json en caso de que no se pueda aplicar el borrado al usuario encontrado
+     * @return ResponseSuccess con formato json
+     */
     suspend fun deleteUser(id: UUID, token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
         if (validated != null) return@withContext validated
@@ -173,6 +230,12 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    /**
+     * @param id Identificador de tipo UUID del objeto Pedido
+     * Este método sirve para buscar un objeto de tipo Pedido con el id pasado por parámetro
+     * @return ResponseError en caso de que no exista el pedido con ese identificador
+     * @return ResponseSuccess si encuentra un pedido con ese identificador
+     */
     suspend fun findPedidoById(id: UUID) : String = withContext(Dispatchers.IO) {
         val entity = pedRepo.findByUUID(id)
 
@@ -182,6 +245,12 @@ class Controller(
         json.encodeToString(res)
     }
 
+    /**
+     * Este método devuelve todos los pedidos que se encuentren registrados en la base de datos
+     * @return ResponseError en caso de que no existan pedidos
+     * @return ResponseSuccess con los datos de un PedidoDTOVisualizeList con la lista de pedidos
+     * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
+     */
     suspend fun findAllPedidos() : String = withContext(Dispatchers.IO) {
         val entities = pedRepo.findAll().toList()
 

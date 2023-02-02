@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
 import org.litote.kmongo.newId
+import org.litote.kmongo.util.idValue
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
@@ -754,11 +755,11 @@ class ControllerTest {
     }
     //---------------------------------USER-------------------------------
     @Test
-    fun findUserById() = runTest {
+    fun findUserByUuid() = runTest {
         val res = """"""
         coEvery{ repoUser.findByUUID(client.uuid)}
 
-        val result = controller.findUserById(client.uuid)
+        val result = controller.findUserByUuid(client.uuid)
 
 
         assertAll(
@@ -767,15 +768,26 @@ class ControllerTest {
     }
 
     @Test
-    fun findUserNotExistsById() = runTest {
+    fun findUserNotExistsByUuid() = runTest {
         val uuid = UUID.randomUUID()
         val res = """"""
         coEvery { repoUser.findByUUID(uuid) }
 
-        val result = controller.findUserById(uuid)
+        val result = controller.findUserByUuid(uuid)
 
         assertAll(
             { assertEquals(res, result)}
+        )
+    }
+
+    @Test
+    fun findUserById() = runTest {
+        val res = """"""
+        coEvery { repoUser.findById(5) }
+        val result = controller.findUserById(5)
+
+        assertAll(
+            { assertEquals(res, result) }
         )
     }
 
