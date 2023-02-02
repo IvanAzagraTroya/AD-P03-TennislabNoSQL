@@ -37,12 +37,14 @@ import org.litote.kmongo.Id
 import koin.repositories.maquina.IMaquinaRepository
 import koin.repositories.pedido.IPedidoRepository
 import koin.repositories.producto.IProductoRepository
+import koin.repositories.producto.ProductoRepositoryCached
 import koin.repositories.tarea.ITareaRepository
 import koin.repositories.turno.ITurnoRepository
 import koin.repositories.user.UserRepositoryCached
 import koin.services.login.checkToken
 import koin.services.utils.checkUserEmailAndPhone
 import koin.services.utils.fieldsAreIncorrect
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.nullable
@@ -92,7 +94,6 @@ private val json = Json {
  * Clase que actúa como controlador de los distintos repositorios haciendo uso de los métodos requeridos y
  * devolviendo en cada caso dos tipos de respuesta: ResponseError y ResponseSuccess por cada caso de los métodos
  */
-
 @Single
 class Controller(
     @Named("UserRepositoryCached")
@@ -102,7 +103,7 @@ class Controller(
     @Named("TareaRepositoryCached")
     private val tarRepo: ITareaRepository<Id<Tarea>>,
     @Named("ProductoRepositoryCached")
-    private val proRepo: IProductoRepository<Id<Producto>>,
+    private val proRepo: ProductoRepositoryCached,
     @Named("PedidoRepositoryCached")
     private val pedRepo: IPedidoRepository<Id<Pedido>>,
     @Named("MaquinaRepositoryCached")
@@ -295,6 +296,10 @@ class Controller(
         json.encodeToString(ResponseSuccess(200, result.toDTO()))
     }
 
+    suspend fun findAllProductosAsFlow() : Flow<List<ProductoDTOvisualize>> {
+        return proRepo.findAllAsFlow()
+    }
+
     suspend fun findProductoById(id: UUID) : String = withContext(Dispatchers.IO) {
         val entity = proRepo.findByUUID(id)
 
@@ -476,7 +481,8 @@ class Controller(
     }
 
     suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
-        val entities = tarRepo.findAll().toList().subList(0, 25)
+        var entities = tarRepo.findAll().toList()
+        if (entities.size > 25) entities = entities.subList(0,24)
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No tareas found.")
         else ResponseSuccess(200, TareaDTOvisualizeList(toDTO(entities)))

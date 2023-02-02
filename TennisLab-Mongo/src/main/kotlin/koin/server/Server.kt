@@ -3,7 +3,10 @@ package koin.server
 import koin.common.Request
 import koin.controllers.Controller
 import koin.db.*
-import koin.dto.maquina.*
+import koin.dto.maquina.EncordadoraDTOvisualize
+import koin.dto.maquina.MaquinaDTOcreate
+import koin.dto.maquina.MaquinaDTOvisualizeList
+import koin.dto.maquina.PersonalizadoraDTOvisualize
 import koin.dto.pedido.PedidoDTOcreate
 import koin.dto.pedido.PedidoDTOvisualize
 import koin.dto.pedido.PedidoDTOvisualizeList
@@ -15,10 +18,6 @@ import koin.dto.turno.TurnoDTOcreate
 import koin.dto.turno.TurnoDTOvisualize
 import koin.dto.turno.TurnoDTOvisualizeList
 import koin.dto.user.*
-import kotlinx.coroutines.*
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import koin.mappers.fromDTO
 import koin.models.ResponseError
 import koin.models.maquina.Maquina
@@ -28,26 +27,32 @@ import koin.models.producto.Producto
 import koin.models.tarea.Tarea
 import koin.models.turno.Turno
 import koin.models.user.User
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import org.koin.core.context.startKoin
 import koin.services.koin.KoinModule
-import java.io.DataInputStream
-import java.io.DataOutputStream
-import java.net.ServerSocket
-import java.net.Socket
-import javax.net.ServerSocketFactory
-import org.koin.ksp.generated.*
 import koin.services.login.create
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onStart
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.context.startKoin
+import org.koin.ksp.generated.module
+import java.io.DataInputStream
+import java.io.DataOutputStream
+import java.net.ServerSocket
+import java.net.Socket
 import java.time.LocalDateTime
 import java.util.*
+import javax.net.ServerSocketFactory
 
 private const val PORT = 1708
 
@@ -92,6 +97,13 @@ fun main() = runBlocking {
     val serverFactory = ServerSocketFactory.getDefault() as ServerSocketFactory
     val serverSocket = serverFactory.createServerSocket(PORT) as ServerSocket
 
+    val x = launch {
+        app.controller.findAllProductosAsFlow()
+            .onStart { println("Listening for changes in products...") }
+            .distinctUntilChanged()
+            .collect { println("Productos: ${json.encodeToString(it)}") }
+    }
+
     while (true) {
         println("Awaiting clients...")
         val socket = serverSocket.accept()
@@ -116,7 +128,7 @@ suspend fun processClient(socket: Socket, app: Application) {
             Request.Type.REQUEST -> { processRequest(output, request, app) }
         }
     }
-    catch (e: Exception) { println(e) }
+    catch (e: Exception) { println("Client disconnected, closing connection.") }
     finally {
         output.close()
         input.close()

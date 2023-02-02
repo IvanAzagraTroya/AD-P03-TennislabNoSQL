@@ -1,5 +1,6 @@
 package koin.repositories.producto
 
+import koin.mappers.toDTO
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import koin.models.producto.Producto
@@ -7,6 +8,8 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import koin.services.cache.producto.IProductoCache
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
 import java.util.*
 
 @Single
@@ -35,6 +38,13 @@ class ProductoRepositoryCached(
                 delay(cache.refreshTime)
             }
         }
+    }
+
+    suspend fun findAllAsFlow() = flow {
+        do {
+            emit(toDTO(repo.findAll().toList()))
+            delay(1000)
+        } while (true)
     }
 
     override suspend fun findAll(): Flow<Producto> = withContext(Dispatchers.IO) {
