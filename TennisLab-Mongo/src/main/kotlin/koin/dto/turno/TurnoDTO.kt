@@ -13,6 +13,10 @@ import kotlinx.serialization.SerialName
 import java.time.LocalDateTime
 import java.util.*
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * DTOs de creación, visualización y lista de visualización
+ */
 @Serializable
 data class TurnoDTOcreate(
     @Serializable(with = UUIDSerializer::class)

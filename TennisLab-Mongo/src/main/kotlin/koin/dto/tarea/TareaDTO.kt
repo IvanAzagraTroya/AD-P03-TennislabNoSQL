@@ -9,6 +9,10 @@ import koin.models.tarea.TipoTarea
 import koin.serializers.UUIDSerializer
 import java.util.*
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * DTOs de creación, visualización y lista de visualización
+ */
 @Serializable sealed interface TareaDTO
 @Serializable sealed interface TareaDTOcreate : TareaDTO { fun fromDTO() : Tarea }
 @Serializable

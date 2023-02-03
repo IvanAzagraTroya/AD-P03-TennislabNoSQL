@@ -9,6 +9,10 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Clase para el uso de Ktorfit en la parte del cliente, recibe la URI a consultar
+ */
 object KtorFitClient {
     private const val URI = "https://jsonplaceholder.typicode.com/"
 

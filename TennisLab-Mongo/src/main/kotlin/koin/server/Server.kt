@@ -54,6 +54,9 @@ import java.time.LocalDateTime
 import java.util.*
 import javax.net.ServerSocketFactory
 
+/**
+ * Puerto de conexión al servidor
+ */
 private const val PORT = 1708
 
 private val json = Json {
@@ -70,12 +73,10 @@ private val json = Json {
             subclass(ProductoDTOvisualizeList::class)
             subclass(PedidoDTOvisualize::class)
             subclass(PedidoDTOvisualizeList::class)
-            //subclass(TareaDTOvisualize::class)
             subclass(AdquisicionDTOvisualize::class)
             subclass(EncordadoDTOvisualize::class)
             subclass(PersonalizacionDTOvisualize::class)
             subclass(TareaDTOvisualizeList::class)
-            //subclass(MaquinaDTOvisualize::class)
             subclass(EncordadoraDTOvisualize::class)
             subclass(PersonalizadoraDTOvisualize::class)
             subclass(MaquinaDTOvisualizeList::class)
@@ -89,6 +90,11 @@ private val json = Json {
 private lateinit var input: DataInputStream
 private lateinit var output: DataOutputStream
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Función para crear y definir el comportamiento del servidor con el que trabaja la
+ * aplicación
+ */
 fun main() = runBlocking {
     startKoin { modules(KoinModule().module) }
     val app = Application()
@@ -114,6 +120,11 @@ fun main() = runBlocking {
     }
 }
 
+/**
+ * Procesa la petición por parte de un usuario en la aplicación
+ * para diferenciar la acción a realizar entre darse de alta,
+ * iniciar sesión y procesar requerimiento
+ */
 suspend fun processClient(socket: Socket, app: Application) {
     input = DataInputStream(socket.inputStream)
     output = DataOutputStream(socket.outputStream)
@@ -136,12 +147,16 @@ suspend fun processClient(socket: Socket, app: Application) {
     }
 }
 
+/**
+ * Procesa el requerimiento usando para ello la petición, el controlador y la salida de datos
+ * @param output salida de datos de tipo DataOutputStream
+ * @param request petición que recibe el servidor
+ * @param app controlador de la aplicación
+ */
 fun processRequest(output: DataOutputStream, request: Request, app: Application) = runBlocking {
     var response = ""
     if (request.code == null) response = json.encodeToString(ResponseError(400, "BAD REQUEST: no request code attached."))
     else {
-        // primer numero: 1=user, 2=producto, 3=maquina, 4=tarea, 5=pedido, 6=turno
-        // segundo numero: 1=findAll, 2=findById, 3=save, 4=falsoDelete, 5=delete, 6+=otros
         when (request.code) {
             1_1 -> {
                 response = if (request.body.isNullOrBlank()) app.controller.findAllUsers()
@@ -426,6 +441,12 @@ fun processRequest(output: DataOutputStream, request: Request, app: Application)
     output.writeUTF(response)
 }
 
+/**
+ * Envía la petición de inicio de sesión
+ * @param output salida de datos de tipo DataOutputStream
+ * @param request petición recibida
+ * @param app controlador de la aplicación
+ */
 fun sendLogin(output: DataOutputStream, request: Request, app: Application) = runBlocking {
     val response = if (request.body == null) json.encodeToString(ResponseError(400, "BAD REQUEST: no body attached."))
     else {
@@ -439,6 +460,12 @@ fun sendLogin(output: DataOutputStream, request: Request, app: Application) = ru
     output.writeUTF(response)
 }
 
+/**
+ * Envía la petición de registro de usuario
+ * @param output salida de datos de tipo DataOutputStream
+ * @param request petición recibida
+ * @param app controlador de la aplicación
+ */
 suspend fun sendRegister(output: DataOutputStream, request: Request, app: Application) = runBlocking {
     val response = if (request.body == null) json.encodeToString(ResponseError(400, "BAD REQUEST: no body attached."))
     else {
@@ -452,10 +479,17 @@ suspend fun sendRegister(output: DataOutputStream, request: Request, app: Applic
     output.writeUTF(response)
 }
 
+/**
+ * Definición del controlador para la inyección por parte de Koin
+ */
 class Application : KoinComponent {
     val controller : Controller by inject()
 }
 
+/**
+ * Carga de datos desde la base de datos a través del uso del controlador
+ * @param app Controlador de la aplicación
+ */
 suspend fun loadData(app: Application) = runBlocking {
     DBManager.database.getCollection<User>().drop()
     DBManager.database.getCollection<Producto>().drop()

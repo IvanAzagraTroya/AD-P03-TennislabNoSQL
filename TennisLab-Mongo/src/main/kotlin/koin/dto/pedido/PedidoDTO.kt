@@ -12,6 +12,10 @@ import kotlinx.serialization.SerialName
 import java.time.LocalDate
 import java.util.*
 
+/**
+ * @author Iván Azagra Troya
+ * DTOs de creación, visualización y la lista para visualización
+ */
 @Serializable
 data class PedidoDTOcreate(
     @Serializable(with = UUIDSerializer::class)

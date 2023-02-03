@@ -4,6 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import koin.models.turno.Turno
 import java.util.*
 
+/**
+ * Interfaz del repositorio de turnos
+ */
 interface ITurnoRepository<ID> {
     suspend fun findAll(): Flow<Turno>
     suspend fun findById(id: ID): Turno?

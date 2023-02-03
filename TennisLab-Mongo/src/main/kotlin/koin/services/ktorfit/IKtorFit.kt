@@ -8,6 +8,10 @@ import koin.dto.tarea.TareaDTOFromApi
 import koin.dto.user.UserDTOfromAPI
 import koin.models.tarea.Tarea
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Interfaz con los métodos necesarios para la consulta de datos mapeados a su correspondiente dirección
+ */
 interface IKtorFit {
     @GET("users")
     suspend fun getAll(): List<UserDTOfromAPI>

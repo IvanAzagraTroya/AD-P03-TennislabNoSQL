@@ -17,21 +17,37 @@ import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
+/**
+ * @author Iván Azagra Troya
+ * Repositorio de tareas
+ */
 @Single
 @Named("TareaRepository")
 class TareaRepository: ITareaRepository<Id<Tarea>> {
+    /**
+     * Este método busca todos los tareas en la base de datos
+     */
     override suspend fun findAll(): Flow<Tarea> = withContext(Dispatchers.IO) {
         logger.debug { "findAll()" }
 
         DBManager.database.getCollection<Tarea>().find().publisher.asFlow()
     }
 
+    /**
+     * Este método guarda la entidad pasada en la base de datos
+     * @return la entidad pasada por parámetro
+     */
     override suspend fun save(entity: Tarea): Tarea = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
         
         DBManager.database.getCollection<Tarea>().save(entity).let { entity }
     }
 
+    /**
+     * Este método cambia el estado de la tarea con el identificador a finalizado
+     * @param id identificador de mongo
+     * @return el tarea que se haya puesto inactivo en caso de que exista
+     */
     override suspend fun setFinalizada(id: Id<Tarea>): Tarea? = withContext(Dispatchers.IO) {
         logger.debug { "setFinalizada($id)" }
 
@@ -58,6 +74,11 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
         DBManager.database.getCollection<Tarea>().save(updated).let { updated }
     }
 
+    /**
+     * Este método borra el tarea del repositorio
+     * @param id identificador de mongo
+     * @return el tarea borrado
+     */
     override suspend fun delete(id: Id<Tarea>): Tarea? = withContext(Dispatchers.IO){
         logger.debug { "delete($id)" }
 
@@ -65,12 +86,24 @@ class TareaRepository: ITareaRepository<Id<Tarea>> {
         DBManager.database.getCollection<Tarea>().deleteOneById(id).let { entity }
     }
 
+    /**
+     * Este método busca un tarea con el identificador pasado por parámetro
+     * @param id identificador de mongo
+     * @return el tarea que tenga el identificador pasado por parámetro
+     */
     override suspend fun findById(id: Id<Tarea>): Tarea? = withContext(Dispatchers.IO) {
         logger.debug { "findById($id)" }
 
         DBManager.database.getCollection<Tarea>().findOneById(id)
     }
 
+    /**
+     * Este método busca un tarea que tenga el id pasado por parámetro
+     * @param id identificador de tipo UUID
+     * Recoge todos los datos de la base de datos y busca dentro de ella devolviendola como flow
+     * y filtrando el tarea con el id.
+     * @return tarea con el uuid pasado por parámetro
+     */
     override suspend fun findByUUID(id: UUID): Tarea? = withContext(Dispatchers.IO) {
         logger.debug { "findByUUID($id)" }
 

@@ -13,6 +13,10 @@ import java.io.DataOutputStream
 import java.net.Socket
 import javax.net.SocketFactory
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Parte del cliente a ejecutar para conectarse con nuestra aplicación de lado servidor
+ */
 private const val PORT = 1708
 private const val SERVER = "localhost"
 private var token: String? = null

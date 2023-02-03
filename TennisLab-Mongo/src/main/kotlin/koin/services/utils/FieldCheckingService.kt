@@ -14,6 +14,10 @@ import koin.dto.user.UserDTOcreate
 import koin.repositories.user.UserRepositoryCached
 import java.time.LocalDate
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Archivo con métodos para comprobar los datos de los DTOs
+ */
 fun fieldsAreIncorrect(user: UserDTOcreate): Boolean {
     return user.nombre.isBlank() || !user.email.matches(Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")) ||
             user.apellido.isBlank() || user.telefono.isBlank() || user.password.isBlank()

@@ -4,6 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import koin.models.user.User
 import java.util.*
 
+/**
+ * Interfaz del repositorio de usuarios
+ */
 interface IUserRepository<ID> {
     suspend fun findAll(): Flow<User>
     suspend fun findById(id: ID): User?
