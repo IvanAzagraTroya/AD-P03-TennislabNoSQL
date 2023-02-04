@@ -1,4 +1,4 @@
-package koin.models.maquina
+package com.example.tennislabspringboot.models.maquina
 
 /**
  * Tipos de máquina

@@ -1,4 +1,4 @@
-package koin.models.tarea
+package com.example.tennislabspringboot.models.tarea
 
 /**
  * Enumerador con los tipos de tareas

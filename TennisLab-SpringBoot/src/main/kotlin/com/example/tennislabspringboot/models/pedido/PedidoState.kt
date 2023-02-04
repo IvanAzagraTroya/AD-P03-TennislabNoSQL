@@ -1,4 +1,4 @@
-package koin.models.pedido
+package com.example.tennislabspringboot.models.pedido
 
 /**
  * Tipos de estado de los pedidos

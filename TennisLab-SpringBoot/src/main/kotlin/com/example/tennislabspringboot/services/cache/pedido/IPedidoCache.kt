@@ -1,7 +1,7 @@
-package koin.services.cache.pedido
+package com.example.tennislabspringboot.services.cache.pedido
 
-import koin.services.cache.ICache
-import koin.models.pedido.Pedido
+import com.example.tennislabspringboot.models.pedido.Pedido
+import com.example.tennislabspringboot.services.cache.ICache
 import java.util.*
 
 interface IPedidoCache : ICache<UUID, Pedido>

@@ -1,15 +1,15 @@
-package koin.services.login
+package com.example.tennislabspringboot.services.login
 
-import koin.dto.user.UserDTOLogin
-import koin.dto.user.UserDTORegister
-import koin.dto.user.UserDTOcreate
-import koin.dto.user.UserDTOvisualize
-import koin.mappers.fromDTO
-import koin.mappers.toDTO
-import koin.repositories.user.UserRepositoryCached
-import koin.services.utils.checkUserEmailAndPhone
-import koin.services.utils.fieldsAreIncorrect
-import koin.services.utils.matches
+import com.example.tennislabspringboot.dto.user.UserDTOLogin
+import com.example.tennislabspringboot.dto.user.UserDTORegister
+import com.example.tennislabspringboot.dto.user.UserDTOcreate
+import com.example.tennislabspringboot.dto.user.UserDTOvisualize
+import com.example.tennislabspringboot.mappers.fromDTO
+import com.example.tennislabspringboot.mappers.toDTO
+import com.example.tennislabspringboot.repositories.user.UserRepositoryCached
+import com.example.tennislabspringboot.services.utils.checkUserEmailAndPhone
+import com.example.tennislabspringboot.services.utils.fieldsAreIncorrect
+import com.example.tennislabspringboot.services.utils.matches
 
 suspend fun login(user: UserDTOLogin, repo: UserRepositoryCached): String? {
     val u = repo.findByEmail(user.email) ?: return null

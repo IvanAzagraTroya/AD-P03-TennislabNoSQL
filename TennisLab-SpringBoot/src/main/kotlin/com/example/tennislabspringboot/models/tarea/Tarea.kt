@@ -1,12 +1,9 @@
-package koin.models.tarea
+package com.example.tennislabspringboot.models.tarea
 
-import kotlinx.serialization.Contextual
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import org.bson.codecs.pojo.annotations.BsonId
-import org.litote.kmongo.Id
-import org.litote.kmongo.newId
-import koin.serializers.UUIDSerializer
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.bson.types.ObjectId
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
 /**
@@ -15,23 +12,19 @@ import java.util.UUID
  * La primera parte de los parametros son obligatorios y son la base de las tareas,
  * los parametros opcionales son especificos para los distintos tipos de tarea.
  */
-@Serializable
+@Document
 data class Tarea(
-    @BsonId @Contextual @SerialName("mongo_id")
-    val id: Id<Tarea> = newId(),
-    @Serializable(with = UUIDSerializer::class)
+    @Id
+    val id: ObjectId = ObjectId.get(),
     val uuid: UUID = UUID.randomUUID(),
-    @Serializable(with = UUIDSerializer::class)
     val raquetaId: UUID,
     var precio: Double,
     val tipo: TipoTarea,
-    @SerialName("completed")
+    @JsonProperty("completed")
     val finalizada: Boolean,
-    @Serializable(with = UUIDSerializer::class)
     val pedidoId: UUID,
 
     // esto es para adquisiciones
-    @Serializable(with = UUIDSerializer::class)
     val productoAdquiridoId: UUID?,
 
     // esto es para personalizaciones
@@ -41,10 +34,8 @@ data class Tarea(
 
     // esto es para encordados
     val tensionHorizontal: Double?,
-    @Serializable(with = UUIDSerializer::class)
     val cordajeHorizontalId: UUID?,
     val tensionVertical: Double?,
-    @Serializable(with = UUIDSerializer::class)
     val cordajeVerticalId: UUID?,
     val dosNudos: Boolean?
 )

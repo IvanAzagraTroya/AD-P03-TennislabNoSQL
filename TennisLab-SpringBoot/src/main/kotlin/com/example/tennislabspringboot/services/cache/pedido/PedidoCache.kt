@@ -1,15 +1,12 @@
-package koin.services.cache.pedido
+package com.example.tennislabspringboot.services.cache.pedido
 
+import com.example.tennislabspringboot.models.pedido.Pedido
 import io.github.reactivecircus.cache4k.Cache
-import koin.models.pedido.Pedido
-import mu.KotlinLogging
-import org.koin.core.annotation.Single
+import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
-private val logger = KotlinLogging.logger {  }
-
-@Single
+@Service
 class PedidoCache : IPedidoCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
@@ -18,5 +15,5 @@ class PedidoCache : IPedidoCache {
         .expireAfterAccess(1.minutes)
         .build<UUID, Pedido>()
 
-    init { logger.debug { "Initializing PedidoCache..." } }
+    init { println("Initializing PedidoCache...") }
 }

@@ -12,12 +12,6 @@ import koin.dto.turno.TurnoDTOcreate
 import koin.dto.turno.TurnoDTOvisualize
 import koin.dto.turno.TurnoDTOvisualizeList
 import koin.dto.user.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import koin.mappers.fromDTO
 import koin.mappers.toDTO
 import koin.models.ResponseError
@@ -25,18 +19,12 @@ import koin.models.ResponseSuccess
 import koin.models.maquina.Maquina
 import koin.models.pedido.Pedido
 import koin.models.pedido.PedidoState
-import koin.models.producto.Producto
 import koin.models.producto.TipoProducto
 import koin.models.tarea.Tarea
 import koin.models.turno.Turno
-import koin.models.user.UserProfile
 import koin.models.user.*
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
-import org.litote.kmongo.Id
 import koin.repositories.maquina.IMaquinaRepository
 import koin.repositories.pedido.IPedidoRepository
-import koin.repositories.producto.IProductoRepository
 import koin.repositories.producto.ProductoRepositoryCached
 import koin.repositories.tarea.ITareaRepository
 import koin.repositories.turno.ITurnoRepository
@@ -44,14 +32,23 @@ import koin.repositories.user.UserRepositoryCached
 import koin.services.login.checkToken
 import koin.services.utils.checkUserEmailAndPhone
 import koin.services.utils.fieldsAreIncorrect
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
+import org.koin.core.annotation.Named
+import org.koin.core.annotation.Single
+import org.litote.kmongo.Id
 import java.time.LocalDateTime
 import java.util.*
 
@@ -677,7 +674,8 @@ class Controller(
      * devuelve la respuesta en formato json
      */
     suspend fun findAllTareasFinalizadas(finalizada: Boolean) : String = withContext(Dispatchers.IO) {
-        val entities = tarRepo.findAll().toList().filter { it.finalizada == finalizada }.subList(0, 25)
+        var entities = tarRepo.findAll().toList().filter { it.finalizada == finalizada }
+        if (entities.size > 25) entities = entities.subList(0,24)
 
         val res = if (entities.isEmpty()) ResponseError(404, "NOT FOUND: No tareas found.")
         else ResponseSuccess(200, TareaDTOvisualizeList(toDTO(entities)))

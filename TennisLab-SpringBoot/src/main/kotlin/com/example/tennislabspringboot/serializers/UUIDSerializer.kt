@@ -1,5 +1,6 @@
-package koin.serializers
+package com.example.tennislabspringboot.serializers
 
+/*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -31,3 +32,5 @@ object UUIDSerializer : KSerializer<UUID> {
         encoder.encodeString(value.toString())
     }
 }
+
+ */

@@ -1,15 +1,12 @@
-package koin.services.cache.tarea
+package com.example.tennislabspringboot.services.cache.tarea
 
+import com.example.tennislabspringboot.models.tarea.Tarea
 import io.github.reactivecircus.cache4k.Cache
-import koin.models.tarea.Tarea
-import mu.KotlinLogging
-import org.koin.core.annotation.Single
+import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
-private val logger = KotlinLogging.logger {  }
-
-@Single
+@Service
 class TareaCache : ITareaCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
@@ -18,5 +15,5 @@ class TareaCache : ITareaCache {
         .expireAfterAccess(1.minutes)
         .build<UUID, Tarea>()
 
-    init { logger.debug { "Initializing TareaCache..." } }
+    init { println("Initializing TareaCache...") }
 }
