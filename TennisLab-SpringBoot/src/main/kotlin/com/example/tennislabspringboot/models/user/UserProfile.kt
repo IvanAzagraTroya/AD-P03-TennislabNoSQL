@@ -1,4 +1,4 @@
-package koin.models.user
+package com.example.tennislabspringboot.models.user
 
 /**
  * Enumerador con los tipos de perfiles de usuario

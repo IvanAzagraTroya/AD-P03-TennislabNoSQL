@@ -1,7 +1,7 @@
-package koin.services.cache.producto
+package com.example.tennislabspringboot.services.cache.producto
 
-import koin.services.cache.ICache
-import koin.models.producto.Producto
+import com.example.tennislabspringboot.models.producto.Producto
+import com.example.tennislabspringboot.services.cache.ICache
 import java.util.*
 
 interface IProductoCache : ICache<UUID, Producto>

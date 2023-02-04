@@ -1,4 +1,4 @@
-package koin.models.producto
+package com.example.tennislabspringboot.models.producto
 
 /**
  * @author Iván Azagra Troya

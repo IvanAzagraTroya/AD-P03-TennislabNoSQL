@@ -1,22 +1,18 @@
-package koin.models.user
+package com.example.tennislabspringboot.models.user
 
-import kotlinx.serialization.Contextual
-import kotlinx.serialization.Serializable
-import org.bson.codecs.pojo.annotations.BsonId
-import org.litote.kmongo.Id
-import org.litote.kmongo.newId
-import koin.serializers.UUIDSerializer
+import org.bson.types.ObjectId
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
 /**
  * @Author Daniel Rodriguez Muñoz
  * Clase POKO de los usuarios.
  */
-@Serializable
+@Document
 data class User(
-    @BsonId @Contextual
-    val id: Id<User> = newId(),
-    @Serializable(with = UUIDSerializer::class)
+    @Id
+    val id: ObjectId = ObjectId.get(),
     val uuid: UUID = UUID.randomUUID(),
     val nombre: String,
     val apellido: String,

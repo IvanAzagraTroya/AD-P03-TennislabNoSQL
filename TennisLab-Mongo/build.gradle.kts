@@ -25,7 +25,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-    // Opcional, solo si vamos a usar asíncrono
+
     implementation("org.litote.kmongo:kmongo-async:4.7.2")
     // Usamos corrutinas para ello
     implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")

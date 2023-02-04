@@ -1,22 +1,18 @@
-package koin.models.producto
+package com.example.tennislabspringboot.models.producto
 
-import kotlinx.serialization.Contextual
-import kotlinx.serialization.Serializable
-import org.bson.codecs.pojo.annotations.BsonId
-import org.litote.kmongo.Id
-import org.litote.kmongo.newId
-import koin.serializers.UUIDSerializer
-import java.util.UUID
+import org.bson.types.ObjectId
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+import java.util.*
 
 /**
  * @author Iván Azagra Troya
  * Clase POKO de Producto
  */
-@Serializable
+@Document
 data class Producto(
-    @BsonId @Contextual
-    val id: Id<Producto> = newId(),
-    @Serializable(with = UUIDSerializer::class)
+    @Id
+    val id: ObjectId = ObjectId.get(),
     val uuid: UUID = UUID.randomUUID(),
     val tipo: TipoProducto,
     val marca: String,

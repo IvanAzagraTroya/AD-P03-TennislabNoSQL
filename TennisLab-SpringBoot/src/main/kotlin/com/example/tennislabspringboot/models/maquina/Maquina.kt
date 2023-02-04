@@ -1,12 +1,8 @@
-package koin.models.maquina
+package com.example.tennislabspringboot.models.maquina
 
-import kotlinx.serialization.Contextual
-import kotlinx.serialization.Serializable
-import org.bson.codecs.pojo.annotations.BsonId
-import org.litote.kmongo.Id
-import org.litote.kmongo.newId
-import koin.serializers.LocalDateSerializer
-import koin.serializers.UUIDSerializer
+import org.bson.types.ObjectId
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDate
 import java.util.*
 
@@ -16,15 +12,13 @@ import java.util.*
  * La primera parte de los parametros son obligatorios y son la base de las maquinas,
  * los parametros opcionales son especificos para los distintos tipos de maquina.
  */
-@Serializable
+@Document
 data class Maquina(
-    @BsonId @Contextual
-    val id: Id<Maquina> = newId(),
-    @Serializable(with = UUIDSerializer::class)
+    @Id
+    val id: ObjectId = ObjectId.get(),
     val uuid: UUID = UUID.randomUUID(),
     val modelo: String,
     val marca: String,
-    @Serializable(with = LocalDateSerializer::class)
     val fechaAdquisicion: LocalDate,
     val numeroSerie: String,
     val tipo: TipoMaquina,

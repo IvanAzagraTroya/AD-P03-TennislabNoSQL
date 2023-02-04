@@ -1,17 +1,17 @@
-package koin.services.utils
+package com.example.tennislabspringboot.services.utils
 
-import koin.dto.maquina.EncordadoraDTOcreate
-import koin.dto.maquina.MaquinaDTOcreate
-import koin.dto.maquina.PersonalizadoraDTOcreate
-import koin.dto.pedido.PedidoDTOcreate
-import koin.dto.producto.ProductoDTOcreate
-import koin.dto.tarea.AdquisicionDTOcreate
-import koin.dto.tarea.EncordadoDTOcreate
-import koin.dto.tarea.PersonalizacionDTOcreate
-import koin.dto.tarea.TareaDTOcreate
-import koin.dto.turno.TurnoDTOcreate
-import koin.dto.user.UserDTOcreate
-import koin.repositories.user.UserRepositoryCached
+import com.example.tennislabspringboot.dto.maquina.EncordadoraDTOcreate
+import com.example.tennislabspringboot.dto.maquina.MaquinaDTOcreate
+import com.example.tennislabspringboot.dto.maquina.PersonalizadoraDTOcreate
+import com.example.tennislabspringboot.dto.pedido.PedidoDTOcreate
+import com.example.tennislabspringboot.dto.producto.ProductoDTOcreate
+import com.example.tennislabspringboot.dto.tarea.AdquisicionDTOcreate
+import com.example.tennislabspringboot.dto.tarea.EncordadoDTOcreate
+import com.example.tennislabspringboot.dto.tarea.PersonalizacionDTOcreate
+import com.example.tennislabspringboot.dto.tarea.TareaDTOcreate
+import com.example.tennislabspringboot.dto.turno.TurnoDTOcreate
+import com.example.tennislabspringboot.dto.user.UserDTOcreate
+import com.example.tennislabspringboot.repositories.user.UserRepositoryCached
 import java.time.LocalDate
 
 fun fieldsAreIncorrect(user: UserDTOcreate): Boolean {

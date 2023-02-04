@@ -1,15 +1,12 @@
-package koin.services.cache.turno
+package com.example.tennislabspringboot.services.cache.turno
 
+import com.example.tennislabspringboot.models.turno.Turno
 import io.github.reactivecircus.cache4k.Cache
-import koin.models.turno.Turno
-import mu.KotlinLogging
-import org.koin.core.annotation.Single
+import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
-private val logger = KotlinLogging.logger {  }
-
-@Single
+@Service
 class TurnoCache : ITurnoCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
@@ -18,5 +15,5 @@ class TurnoCache : ITurnoCache {
         .expireAfterAccess(1.minutes)
         .build<UUID, Turno>()
 
-    init { logger.debug { "Initializing TurnoCache..." } }
+    init { println("Initializing TurnoCache...") }
 }

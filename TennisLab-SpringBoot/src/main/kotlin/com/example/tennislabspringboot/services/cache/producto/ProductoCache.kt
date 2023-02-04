@@ -1,15 +1,12 @@
-package koin.services.cache.producto
+package com.example.tennislabspringboot.services.cache.producto
 
+import com.example.tennislabspringboot.models.producto.Producto
 import io.github.reactivecircus.cache4k.Cache
-import koin.models.producto.Producto
-import mu.KotlinLogging
-import org.koin.core.annotation.Single
+import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
-private val logger = KotlinLogging.logger {  }
-
-@Single
+@Service
 class ProductoCache : IProductoCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
@@ -18,5 +15,5 @@ class ProductoCache : IProductoCache {
         .expireAfterAccess(1.minutes)
         .build<UUID, Producto>()
 
-    init { logger.debug { "Initializing ProductoCache..." } }
+    init { println("Initializing ProductoCache...") }
 }

@@ -1,15 +1,12 @@
-package koin.services.cache.user
+package com.example.tennislabspringboot.services.cache.user
 
+import com.example.tennislabspringboot.models.user.User
 import io.github.reactivecircus.cache4k.Cache
-import koin.models.user.User
-import mu.KotlinLogging
-import org.koin.core.annotation.Single
+import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
-private val logger = KotlinLogging.logger {  }
-
-@Single
+@Service
 class UserCache : IUserCache {
     override val hasRefreshAllCacheJob: Boolean = true
     override val refreshTime: Long = 60 * 1000L
@@ -18,5 +15,5 @@ class UserCache : IUserCache {
         .expireAfterAccess(1.minutes)
         .build<UUID, User>()
 
-    init { logger.debug { "Initializing UserCache..." } }
+    init { println("Initializing UserCache...") }
 }
