@@ -89,7 +89,7 @@ class Controller
      * @return ResponseEntity en caso de que no exista el usuario con ese identificador
      * @return ResponseEntity si encuentra un usuario con ese identificador
      */
-    private suspend fun findUserById(id: Int) : String = withContext(Dispatchers.IO) {
+    suspend fun findUserById(id: Int) : String = withContext(Dispatchers.IO) {
         val user = uRepo.findById(id)
 
         if (user == null) json.writeValueAsString(ResponseEntity("User with id $id not found.", HttpStatus.NOT_FOUND))
@@ -102,7 +102,7 @@ class Controller
      * @return ResponseEntity con los datos de un UserDTOVisualizeList con la lista de usuarios
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
-    private suspend fun findAllUsers() : String = withContext(Dispatchers.IO) {
+    suspend fun findAllUsers() : String = withContext(Dispatchers.IO) {
         val users = uRepo.findAll().toList()
 
         if (users.isEmpty()) json.writeValueAsString(ResponseEntity("No users found.", HttpStatus.NOT_FOUND))
@@ -229,7 +229,7 @@ class Controller
      * @return ResponseEntity con los datos de un PedidoDTOVisualizeList con la lista de pedidos
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
-    private suspend fun findAllPedidos() : String = withContext(Dispatchers.IO) {
+    suspend fun findAllPedidos() : String = withContext(Dispatchers.IO) {
         val entities = pedRepo.findAll().toList()
 
         if (entities.isEmpty()) json.writeValueAsString(ResponseEntity("No pedidos found.", HttpStatus.NOT_FOUND))
@@ -351,7 +351,7 @@ class Controller
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
     @GetMapping("/productos")
-    private suspend fun findAllProductos() : String = withContext(Dispatchers.IO) {
+    suspend fun findAllProductos() : String = withContext(Dispatchers.IO) {
         val entities = proRepo.findAll().toList()
 
         if (entities.isEmpty()) json.writeValueAsString(
@@ -594,7 +594,7 @@ class Controller
      * @return ResponseEntity con los datos de un TurnoDTOVisualizeList con la lista de turnos
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
-    private suspend fun findAllTurnos() : String = withContext(Dispatchers.IO) {
+    suspend fun findAllTurnos() : String = withContext(Dispatchers.IO) {
         val entities = turRepo.findAll().toList()
 
         if (entities.isEmpty()) json.writeValueAsString(
@@ -731,7 +731,7 @@ class Controller
      * @return ResponseEntity con los datos de un TareaDTOVisualizeList con la lista de tareas
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
-    private suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
+    suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
         var entities = tarRepo.findAll().toList()
         if (entities.size > 25) entities = entities.subList(0,24)
 
