@@ -5,10 +5,15 @@ import com.example.tennislabspringboot.mappers.PedidoMapper
 import com.example.tennislabspringboot.mappers.TareaMapper
 import com.example.tennislabspringboot.mappers.TurnoMapper
 import com.example.tennislabspringboot.mappers.fromDTO
+import com.example.tennislabspringboot.models.maquina.Maquina
+import com.example.tennislabspringboot.models.maquina.TipoMaquina
 import com.example.tennislabspringboot.models.pedido.Pedido
 import com.example.tennislabspringboot.models.pedido.PedidoState
 import com.example.tennislabspringboot.models.producto.Producto
 import com.example.tennislabspringboot.models.producto.TipoProducto
+import com.example.tennislabspringboot.models.tarea.Tarea
+import com.example.tennislabspringboot.models.tarea.TipoTarea
+import com.example.tennislabspringboot.models.turno.Turno
 import com.example.tennislabspringboot.models.user.User
 import com.example.tennislabspringboot.models.user.UserProfile
 import com.example.tennislabspringboot.repositories.maquina.MaquinaRepositoryCached
@@ -26,7 +31,9 @@ import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
 import org.bson.types.ObjectId
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
@@ -130,7 +137,7 @@ class ControllerTest {
         precio = 0.0
     )
     private val tarea = Tarea(
-        id = newId(),
+        id = ObjectId.get(),
         uuid = UUID.fromString("93a98d69-0013-48a7-b34f-05b596ea83cc"),
         raquetaId = raqueta.uuid,
         precio = producto.precio,
@@ -148,7 +155,7 @@ class ControllerTest {
         dosNudos = null
     )
     private val personalizadora1 = Maquina(
-        id = newId(),
+        id = ObjectId.get(),
         uuid = UUID.fromString("93a98d69-0008-48a7-b34f-05b596ea83bb"),
         modelo = "RTX-3080TI",
         marca = "Nvidia",
@@ -182,26 +189,26 @@ class ControllerTest {
     @Test
     fun findMaquinaById() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["PersonalizadoraDTOvisualize", {
-                            "modelo": "RTX-3080TI",
-                            "marca": "Nvidia",
-                            "fechaAdquisicion": "2022-11-10",
-                            "numeroSerie": "123456789X",
-                            "activa": true,
-                            "measuresManeuverability": true,
-                            "measuresRigidity": false,
-                            "measuresBalance": true
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "modelo" : "RTX-3080TI",
+                "marca" : "Nvidia",
+                "fechaAdquisicion" : [ 2022, 11, 10 ],
+                "numeroSerie" : "123456789X",
+                "activa" : true,
+                "measuresManeuverability" : true,
+                "measuresRigidity" : false,
+                "measuresBalance" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery{ repoM.findByUUID(personalizadora1.uuid)} returns personalizadora1
 
         var result = ""
-        launch { result = controller.findMaquinaById(personalizadora1.uuid) }.join()
+        launch { result = controller.findMaquinaById(personalizadora1.uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result) }
@@ -212,16 +219,17 @@ class ControllerTest {
     fun findMaquinaNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: Maquina with id $uuid not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Maquina with id da9c6403-d6dc-44cc-bb31-683a4858a7e9 not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoM.findByUUID(uuid) } returns null
 
         var result = ""
-        launch { result = controller.findMaquinaById(uuid) }.join()
+        launch { result = controller.findMaquinaById(uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result)}
@@ -232,26 +240,23 @@ class ControllerTest {
     @Test
     fun findAllMaquinasSuccess() = runTest {
         val response = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["MaquinaDTOvisualizeList", {
-                            "maquina": [
-                                ["PersonalizadoraDTOvisualize", {
-                                        "modelo": "RTX-3080TI",
-                                        "marca": "Nvidia",
-                                        "fechaAdquisicion": "2022-11-10",
-                                        "numeroSerie": "123456789X",
-                                        "activa": true,
-                                        "measuresManeuverability": true,
-                                        "measuresRigidity": false,
-                                        "measuresBalance": true
-                                    }
-                                ]
-                            ]
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "maquina" : [ {
+                  "modelo" : "RTX-3080TI",
+                  "marca" : "Nvidia",
+                  "fechaAdquisicion" : [ 2022, 11, 10 ],
+                  "numeroSerie" : "123456789X",
+                  "activa" : true,
+                  "measuresManeuverability" : true,
+                  "measuresRigidity" : false,
+                  "measuresBalance" : true
+                } ]
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery { repoM.findAll() } returns flowOf(personalizadora1)
 
@@ -266,11 +271,12 @@ class ControllerTest {
     @Test
     fun findAllMaquinasError() = runTest {
         val response = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: No maquinas found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "No maquinas found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoM.findAll() } returns flowOf()
 
@@ -286,18 +292,19 @@ class ControllerTest {
     fun createMaquinaCorrect() = runTest {
         val response = """
             {
-                "code": 201,
-                "data": ["PersonalizadoraDTOvisualize", {
-                        "modelo": "RTX-3080TI",
-                        "marca": "Nvidia",
-                        "fechaAdquisicion": "2022-11-10",
-                        "numeroSerie": "123456789X",
-                        "activa": true,
-                        "measuresManeuverability": true,
-                        "measuresRigidity": false,
-                        "measuresBalance": true
-                    }
-                ]
+              "headers" : { },
+              "body" : {
+                "modelo" : "RTX-3080TI",
+                "marca" : "Nvidia",
+                "fechaAdquisicion" : [ 2022, 11, 10 ],
+                "numeroSerie" : "123456789X",
+                "activa" : true,
+                "measuresManeuverability" : true,
+                "measuresRigidity" : false,
+                "measuresBalance" : true
+              },
+              "statusCode" : "CREATED",
+              "statusCodeValue" : 201
             }
         """.trimIndent()
         coEvery { repoM.save(any()) } returns personalizadora1
@@ -311,7 +318,12 @@ class ControllerTest {
     @Test
     fun createMaquinaIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoM.save(any())} returns personalizadora1
         val res = controller.createMaquina(maquinas[0], "")
@@ -324,7 +336,12 @@ class ControllerTest {
     @Test
     fun createMaquinaIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoM.save(any())} returns personalizadora1
         val res = controller.createMaquina(maquinas[0], userToken)
@@ -336,24 +353,25 @@ class ControllerTest {
     fun deleteMaquinaCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": ["PersonalizadoraDTOvisualize", {
-                        "modelo": "RTX-3080TI",
-                        "marca": "Nvidia",
-                        "fechaAdquisicion": "2022-11-10",
-                        "numeroSerie": "123456789X",
-                        "activa": true,
-                        "measuresManeuverability": true,
-                        "measuresRigidity": false,
-                        "measuresBalance": true
-                    }
-                ]
+              "headers" : { },
+              "body" : {
+                "modelo" : "RTX-3080TI",
+                "marca" : "Nvidia",
+                "fechaAdquisicion" : [ 2022, 11, 10 ],
+                "numeroSerie" : "123456789X",
+                "activa" : true,
+                "measuresManeuverability" : true,
+                "measuresRigidity" : false,
+                "measuresBalance" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.delete(personalizadora1.id) } returns personalizadora1
         var result = ""
-        launch { result = controller.deleteMaquina(personalizadora1.uuid, adminToken) }.join()
+        launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -364,14 +382,16 @@ class ControllerTest {
     fun deleteMaquinaIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot delete Maquina with id 93a98d69-0008-48a7-b34f-05b596ea83bb."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot delete Maquina with id 93a98d69-0008-48a7-b34f-05b596ea83bb.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.delete(personalizadora1.id) } returns null
         var result = ""
-        launch { result = controller.deleteMaquina(personalizadora1.uuid, adminToken) }.join()
+        launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -381,12 +401,17 @@ class ControllerTest {
     @Test
     fun deleteMaquinaIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.delete(personalizadora1.id) } returns personalizadora1
         var result = ""
-        launch { result = controller.deleteMaquina(personalizadora1.uuid, "") }.join()
+        launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -396,12 +421,17 @@ class ControllerTest {
     @Test
     fun deleteMaquinaIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.delete(personalizadora1.id) } returns personalizadora1
         var result = ""
-        launch { result = controller.deleteMaquina(personalizadora1.uuid, userToken) }.join()
+        launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -412,24 +442,25 @@ class ControllerTest {
     fun setInactiveMaquinaCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": ["PersonalizadoraDTOvisualize", {
-                        "modelo": "RTX-3080TI",
-                        "marca": "Nvidia",
-                        "fechaAdquisicion": "2022-11-10",
-                        "numeroSerie": "123456789X",
-                        "activa": true,
-                        "measuresManeuverability": true,
-                        "measuresRigidity": false,
-                        "measuresBalance": true
-                    }
-                ]
+              "headers" : { },
+              "body" : {
+                "modelo" : "RTX-3080TI",
+                "marca" : "Nvidia",
+                "fechaAdquisicion" : [ 2022, 11, 10 ],
+                "numeroSerie" : "123456789X",
+                "activa" : true,
+                "measuresManeuverability" : true,
+                "measuresRigidity" : false,
+                "measuresBalance" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.setInactive(personalizadora1.id)} returns personalizadora1
         var result = ""
-        launch { result = controller.setInactiveMaquina(personalizadora1.uuid, adminToken) }.join()
+        launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -439,12 +470,17 @@ class ControllerTest {
     @Test
     fun setInactiveMaquinaIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.setInactive(personalizadora1.id)} returns personalizadora1
         var result = ""
-        launch { result = controller.setInactiveMaquina(personalizadora1.uuid, "") }.join()
+        launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -454,12 +490,17 @@ class ControllerTest {
     @Test
     fun setInactiveMaquinaIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.setInactive(personalizadora1.id)} returns personalizadora1
         var result = ""
-        launch { result = controller.setInactiveMaquina(personalizadora1.uuid, userToken) }.join()
+        launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -470,14 +511,16 @@ class ControllerTest {
     fun setInactiveMaquinaIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot find and set inactive maquina with id 93a98d69-0008-48a7-b34f-05b596ea83bb."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot find and set inactive maquina with id 93a98d69-0008-48a7-b34f-05b596ea83bb.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoM.findByUUID(any()) } returns personalizadora1
         coEvery { repoM.setInactive(personalizadora1.id)} returns null
         var result = ""
-        launch { result = controller.setInactiveMaquina(personalizadora1.uuid, adminToken) }.join()
+        launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -487,26 +530,17 @@ class ControllerTest {
     @Test
     fun findPedidoById() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["PedidoDTOvisualize", {
-                            "user": null,
-                            "state": "PROCESO",
-                            "fechaEntrada": "2013-10-10",
-                            "fechaSalida": "2023-12-12",
-                            "topeEntrega": "2023-12-14",
-                            "tareas": [
-                            ],
-                            "precio": 0.0
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
+            }
         """.trimIndent()
         coEvery{ repoPedido.findByUUID(pedido.uuid)} returns pedido
 
         var result = ""
-        launch { result = controller.findPedidoById(pedido.uuid) }.join()
+        launch { result = controller.findPedidoById(pedido.uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result) }
@@ -517,16 +551,17 @@ class ControllerTest {
     fun findPedidoNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: Pedido with id $uuid not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Pedido with id $uuid not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoPedido.findByUUID(uuid) } returns null
 
         var result = ""
-        launch { result = controller.findPedidoById(uuid) }.join()
+        launch { result = controller.findPedidoById(uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result)}
@@ -537,25 +572,7 @@ class ControllerTest {
     @Test
     fun findAllPedidosSuccess() = runTest {
         val response = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["PedidoDTOvisualizeList", {
-                            "pedidos": [
-                                {
-                                    "user": null,
-                                    "state": "PROCESO",
-                                    "fechaEntrada": "2013-10-10",
-                                    "fechaSalida": "2023-12-12",
-                                    "topeEntrega": "2023-12-14",
-                                    "tareas": [
-                                    ],
-                                    "precio": 0.0
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            
         """.trimIndent()
         coEvery { repoPedido.findAll() } returns flowOf(pedido)
 
@@ -570,11 +587,12 @@ class ControllerTest {
     @Test
     fun findAllPedidosError() = runTest {
         val response = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: No pedidos found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "No pedidos found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoPedido.findAll() } returns flowOf()
 
@@ -589,19 +607,7 @@ class ControllerTest {
     @Test
     fun createPedidoCorrect() = runTest {
         val response = """
-            {
-                "code": 201,
-                "data": {
-                    "user": null,
-                    "state": "PROCESO",
-                    "fechaEntrada": "2013-10-10",
-                    "fechaSalida": "2023-12-12",
-                    "topeEntrega": "2023-12-14",
-                    "tareas": [
-                    ],
-                    "precio": 0.0
-                }
-            }
+            
         """.trimIndent()
         coEvery { repoUser.findByUUID(any())} returns client
         coEvery { repoTarea.save(any()) } returns tarea
@@ -616,7 +622,12 @@ class ControllerTest {
     @Test
     fun createPedidoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoPedido.save(any())} returns pedido
         val res = controller.createPedido(pedidos[0], "")
@@ -629,7 +640,12 @@ class ControllerTest {
     @Test
     fun createPedidoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoPedido.save(any())} returns pedido
         val res = controller.createPedido(pedidos[0], userToken)
@@ -641,17 +657,10 @@ class ControllerTest {
     fun deletePedidoCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "user": null,
-                    "state": "PROCESO",
-                    "fechaEntrada": "2013-10-10",
-                    "fechaSalida": "2023-12-12",
-                    "topeEntrega": "2023-12-14",
-                    "tareas": [
-                    ],
-                    "precio": 0.0
-                }
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
             }
         """.trimIndent()
         coEvery { repoPedido.findByUUID(any()) } returns pedido
@@ -659,7 +668,7 @@ class ControllerTest {
         coEvery { repoTarea.delete(any()) } returns tarea
         coEvery { repoPedido.delete(pedido.id) } returns pedido
         var result = ""
-        launch { result = controller.deletePedido(pedido.uuid, adminToken) }.join()
+        launch { result = controller.deletePedido(pedido.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -670,8 +679,10 @@ class ControllerTest {
     fun deletePedidoIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot delete pedido with id 93a98d69-0010-48a7-b34f-05b596ea8acc."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot delete pedido with id 93a98d69-0010-48a7-b34f-05b596ea8acc.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoPedido.findByUUID(any()) } returns pedido
@@ -679,7 +690,7 @@ class ControllerTest {
         coEvery { repoTarea.delete(any()) } returns tarea
         coEvery { repoPedido.delete(pedido.id) } returns null
         var result = ""
-        launch { result = controller.deletePedido(pedido.uuid, adminToken) }.join()
+        launch { result = controller.deletePedido(pedido.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -689,12 +700,17 @@ class ControllerTest {
     @Test
     fun deletePedidoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoPedido.findByUUID(any()) } returns pedido
         coEvery { repoPedido.delete(pedido.id) } returns pedido
         var result = ""
-        launch { result = controller.deletePedido(pedido.uuid, "") }.join()
+        launch { result = controller.deletePedido(pedido.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -704,12 +720,17 @@ class ControllerTest {
     @Test
     fun deletePedidoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoPedido.findByUUID(any()) } returns pedido
         coEvery { repoPedido.delete(pedido.id) } returns pedido
         var result = ""
-        launch { result = controller.deletePedido(pedido.uuid, userToken) }.join()
+        launch { result = controller.deletePedido(pedido.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -720,23 +741,23 @@ class ControllerTest {
     @Test
     fun findProductoById() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["ProductoDTOvisualize", {
-                            "tipo": "FUNDAS",
-                            "marca": "MarcaZ",
-                            "modelo": "ModeloZ",
-                            "precio": 36.4,
-                            "stock": 8
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "tipo" : "FUNDAS",
+                "marca" : "MarcaZ",
+                "modelo" : "ModeloZ",
+                "precio" : 36.4,
+                "stock" : 8
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery{ repoProd.findByUUID(producto.uuid)} returns producto
 
         var result = ""
-        launch { result = controller.findProductoById(producto.uuid) }.join()
+        launch { result = controller.findProductoById(producto.uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result) }
@@ -747,16 +768,17 @@ class ControllerTest {
     fun findProductoNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: Producto with id $uuid not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Producto with id a1d31f84-274a-450c-9b15-7bb7d61662f6 not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoProd.findByUUID(uuid) } returns null
 
         var result = ""
-        launch { result = controller.findProductoById(uuid) }.join()
+        launch { result = controller.findProductoById(uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result)}
@@ -767,22 +789,20 @@ class ControllerTest {
     @Test
     fun findAllProductosSuccess() = runTest {
         val response = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["ProductoDTOvisualizeList", {
-                            "productos": [
-                                {
-                                    "tipo": "FUNDAS",
-                                    "marca": "MarcaZ",
-                                    "modelo": "ModeloZ",
-                                    "precio": 36.4,
-                                    "stock": 8
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "productos" : [ {
+                  "tipo" : "FUNDAS",
+                  "marca" : "MarcaZ",
+                  "modelo" : "ModeloZ",
+                  "precio" : 36.4,
+                  "stock" : 8
+                } ]
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery { repoProd.findAll() } returns flowOf(producto)
 
@@ -797,11 +817,12 @@ class ControllerTest {
     @Test
     fun findAllProductosError() = runTest {
         val response = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: No productos found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "No productos found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoProd.findAll() } returns flowOf()
 
@@ -817,14 +838,16 @@ class ControllerTest {
     fun createProductoCorrect() = runTest {
         val response = """
             {
-                "code": 201,
-                "data": {
-                    "tipo": "FUNDAS",
-                    "marca": "MarcaZ",
-                    "modelo": "ModeloZ",
-                    "precio": 36.4,
-                    "stock": 8
-                }
+              "headers" : { },
+              "body" : {
+                "tipo" : "FUNDAS",
+                "marca" : "MarcaZ",
+                "modelo" : "ModeloZ",
+                "precio" : 36.4,
+                "stock" : 8
+              },
+              "statusCode" : "CREATED",
+              "statusCodeValue" : 201
             }
         """.trimIndent()
         coEvery { repoProd.save(any()) } returns producto
@@ -838,7 +861,12 @@ class ControllerTest {
     @Test
     fun createProductoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoProd.save(any())} returns producto
         val res = controller.createProducto(productos[0], "")
@@ -851,7 +879,12 @@ class ControllerTest {
     @Test
     fun createProductoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoProd.save(any())} returns producto
         val res = controller.createProducto(productos[0], userToken)
@@ -863,20 +896,22 @@ class ControllerTest {
     fun deleteProductoCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "tipo": "FUNDAS",
-                    "marca": "MarcaZ",
-                    "modelo": "ModeloZ",
-                    "precio": 36.4,
-                    "stock": 8
-                }
+              "headers" : { },
+              "body" : {
+                "tipo" : "FUNDAS",
+                "marca" : "MarcaZ",
+                "modelo" : "ModeloZ",
+                "precio" : 36.4,
+                "stock" : 8
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.delete(producto.id) } returns producto
         var result = ""
-        launch { result = controller.deleteProducto(producto.uuid, adminToken) }.join()
+        launch { result = controller.deleteProducto(producto.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -887,14 +922,16 @@ class ControllerTest {
     fun deleteProductoIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot delete producto with id 93a98d69-0004-48a7-b34f-05b596ea83aa."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot delete producto with id 93a98d69-0004-48a7-b34f-05b596ea83aa.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.delete(producto.id) } returns null
         var result = ""
-        launch { result = controller.deleteProducto(producto.uuid, adminToken) }.join()
+        launch { result = controller.deleteProducto(producto.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -904,12 +941,17 @@ class ControllerTest {
     @Test
     fun deleteProductoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.delete(producto.id) } returns producto
         var result = ""
-        launch { result = controller.deleteProducto(producto.uuid, "") }.join()
+        launch { result = controller.deleteProducto(producto.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -919,12 +961,17 @@ class ControllerTest {
     @Test
     fun deleteProductoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.delete(producto.id) } returns producto
         var result = ""
-        launch { result = controller.deleteProducto(producto.uuid, userToken) }.join()
+        launch { result = controller.deleteProducto(producto.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -935,20 +982,22 @@ class ControllerTest {
     fun decreaseStockProductoCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "tipo": "FUNDAS",
-                    "marca": "MarcaZ",
-                    "modelo": "ModeloZ",
-                    "precio": 36.4,
-                    "stock": 8
-                }
+              "headers" : { },
+              "body" : {
+                "tipo" : "FUNDAS",
+                "marca" : "MarcaZ",
+                "modelo" : "ModeloZ",
+                "precio" : 36.4,
+                "stock" : 8
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.decreaseStock(any())} returns producto
         var result = ""
-        launch { result = controller.decreaseStockFromProducto(producto.uuid, adminToken) }.join()
+        launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -958,12 +1007,17 @@ class ControllerTest {
     @Test
     fun decreaseStockProductoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.decreaseStock(any())} returns producto
         var result = ""
-        launch { result = controller.decreaseStockFromProducto(producto.uuid, "") }.join()
+        launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -973,12 +1027,17 @@ class ControllerTest {
     @Test
     fun decreaseStockProductoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.decreaseStock(any())} returns producto
         var result = ""
-        launch { result = controller.decreaseStockFromProducto(producto.uuid, userToken) }.join()
+        launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -989,14 +1048,16 @@ class ControllerTest {
     fun decreaseStockProductoIncorrectNull() = runTest {
         val response = """
             {
-                "code": 404,
-                "message": "NOT FOUND: Cannot decrease stock. Producto with id 93a98d69-0004-48a7-b34f-05b596ea83aa not found."
+              "headers" : { },
+              "body" : "Cannot decrease stock. Producto with id 93a98d69-0004-48a7-b34f-05b596ea83aa not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
             }
         """.trimIndent()
         coEvery { repoProd.findByUUID(any()) } returns producto
         coEvery { repoProd.decreaseStock(any())} returns null
         var result = ""
-        launch { result = controller.decreaseStockFromProducto(producto.uuid, adminToken) }.join()
+        launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1007,25 +1068,17 @@ class ControllerTest {
     @Test
     fun findTareaById() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["PersonalizacionDTOvisualize", {
-                            "raqueta": null,
-                            "precio": 36.4,
-                            "finalizada": true,
-                            "pedidoId": "93a98d69-0010-48a7-b34f-05b596ea8acc",
-                            "peso": 10,
-                            "balance": 2.0,
-                            "rigidez": 5
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
+            }
         """.trimIndent()
         coEvery{ repoTarea.findByUUID(tarea.uuid)} returns tarea
 
         var result = ""
-        launch { result = controller.findTareaById(tarea.uuid) }.join()
+        launch { result = controller.findTareaById(tarea.uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result) }
@@ -1036,16 +1089,17 @@ class ControllerTest {
     fun findTareaNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: Tarea with id $uuid not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Tarea with id 2583ab3f-b11d-44f8-a983-130bf1b6c79d not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(uuid) } returns null
 
         var result = ""
-        launch { result = controller.findTareaById(uuid) }.join()
+        launch { result = controller.findTareaById(uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result)}
@@ -1056,25 +1110,7 @@ class ControllerTest {
     @Test
     fun findAllTareasSuccess() = runTest {
         val response = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["TareaDTOvisualizeList", {
-                            "tareas": [
-                                ["PersonalizacionDTOvisualize", {
-                                        "raqueta": null,
-                                        "precio": 36.4,
-                                        "finalizada": true,
-                                        "pedidoId": "93a98d69-0010-48a7-b34f-05b596ea8acc",
-                                        "peso": 10,
-                                        "balance": 2.0,
-                                        "rigidez": 5
-                                    }
-                                ]
-                            ]
-                        }
-                    ]
-                }
-            ]
+            
         """.trimIndent()
         coEvery { repoTarea.findAll() } returns flowOf(tarea)
 
@@ -1089,11 +1125,12 @@ class ControllerTest {
     @Test
     fun findAllTareasError() = runTest {
         val response = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: No tareas found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "No tareas found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoTarea.findAll() } returns flowOf()
 
@@ -1108,19 +1145,7 @@ class ControllerTest {
     @Test
     fun createTareaCorrect() = runTest {
         val response = """
-            {
-                "code": 201,
-                "data": ["PersonalizacionDTOvisualize", {
-                        "raqueta": null,
-                        "precio": 36.4,
-                        "finalizada": true,
-                        "pedidoId": "93a98d69-0010-48a7-b34f-05b596ea8acc",
-                        "peso": 10,
-                        "balance": 2.0,
-                        "rigidez": 5
-                    }
-                ]
-            }
+            
         """.trimIndent()
         coEvery { repoTarea.save(any()) } returns tarea
         val res = controller.createTarea(personalizacion, adminToken)
@@ -1133,7 +1158,12 @@ class ControllerTest {
     @Test
     fun createTareaIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoTarea.save(any())} returns tarea
         val res = controller.createTarea(tareas[0], "")
@@ -1146,7 +1176,12 @@ class ControllerTest {
     @Test
     fun createTareaIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoTarea.save(any())} returns tarea
         val res = controller.createTarea(tareas[0], userToken)
@@ -1158,23 +1193,16 @@ class ControllerTest {
     fun deleteTareaCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": ["PersonalizacionDTOvisualize", {
-                        "raqueta": null,
-                        "precio": 36.4,
-                        "finalizada": true,
-                        "pedidoId": "93a98d69-0010-48a7-b34f-05b596ea8acc",
-                        "peso": 10,
-                        "balance": 2.0,
-                        "rigidez": 5
-                    }
-                ]
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
             }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.delete(tarea.id) } returns tarea
         var result = ""
-        launch { result = controller.deleteTarea(tarea.uuid, adminToken) }.join()
+        launch { result = controller.deleteTarea(tarea.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1185,14 +1213,16 @@ class ControllerTest {
     fun deleteTareaIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot delete tarea with id ${tarea.uuid}."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot delete tarea with id 93a98d69-0013-48a7-b34f-05b596ea83cc.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.delete(tarea.id) } returns null
         var result = ""
-        launch { result = controller.deleteTarea(tarea.uuid, adminToken) }.join()
+        launch { result = controller.deleteTarea(tarea.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1202,12 +1232,17 @@ class ControllerTest {
     @Test
     fun deleteTareaIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.delete(tarea.id) } returns tarea
         var result = ""
-        launch { result = controller.deleteTarea(tarea.uuid, "") }.join()
+        launch { result = controller.deleteTarea(tarea.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1217,12 +1252,17 @@ class ControllerTest {
     @Test
     fun deleteTareaIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.delete(tarea.id) } returns tarea
         var result = ""
-        launch { result = controller.deleteTarea(tarea.uuid, userToken) }.join()
+        launch { result = controller.deleteTarea(tarea.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1233,23 +1273,16 @@ class ControllerTest {
     fun setFinalizadaTareaCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": ["PersonalizacionDTOvisualize", {
-                        "raqueta": null,
-                        "precio": 36.4,
-                        "finalizada": true,
-                        "pedidoId": "93a98d69-0010-48a7-b34f-05b596ea8acc",
-                        "peso": 10,
-                        "balance": 2.0,
-                        "rigidez": 5
-                    }
-                ]
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.setFinalizada(tarea.id)} returns tarea
         var result = ""
-        launch { result = controller.setFinalizadaTarea(tarea.uuid, adminToken) }.join()
+        launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1259,12 +1292,17 @@ class ControllerTest {
     @Test
     fun setFinalizadaTareaIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.setFinalizada(tarea.id)} returns tarea
         var result = ""
-        launch { result = controller.setFinalizadaTarea(tarea.uuid, "") }.join()
+        launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1274,12 +1312,17 @@ class ControllerTest {
     @Test
     fun setFinalizadaTareaIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.setFinalizada(tarea.id)} returns tarea
         var result = ""
-        launch { result = controller.setFinalizadaTarea(tarea.uuid, userToken) }.join()
+        launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1290,14 +1333,16 @@ class ControllerTest {
     fun setFinalizadaTareaIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot find and set finalizada tarea with id 93a98d69-0013-48a7-b34f-05b596ea83cc."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot find and set finalizada tarea with id 93a98d69-0013-48a7-b34f-05b596ea83cc.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoTarea.findByUUID(any()) } returns tarea
         coEvery { repoTarea.setFinalizada(tarea.id)} returns null
         var result = ""
-        launch { result = controller.setFinalizadaTarea(tarea.uuid, adminToken) }.join()
+        launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1307,26 +1352,17 @@ class ControllerTest {
     @Test
     fun findTurnoById() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["TurnoDTOvisualize", {
-                            "worker": null,
-                            "maquina": null,
-                            "horaInicio": "2002-10-14T10:09",
-                            "horaFin": "2002-10-14T16:49",
-                            "numPedidosActivos": 2,
-                            "tarea1": null,
-                            "tarea2": null,
-                            "finalizado": false
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
+            }
         """.trimIndent()
         coEvery{ repoTurno.findByUUID(turno.uuid)} returns turno
 
         var result = ""
-        launch { result = controller.findTurnoById(turno.uuid) }.join()
+        launch { result = controller.findTurnoById(turno.uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result) }
@@ -1337,16 +1373,17 @@ class ControllerTest {
     fun findTurnoNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: Turno with id $uuid not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "Turno with id 66f073f4-1b44-42a5-ba8b-68fd6752377b not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(uuid) } returns null
 
         var result = ""
-        launch { result = controller.findTurnoById(uuid) }.join()
+        launch { result = controller.findTurnoById(uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result)}
@@ -1357,25 +1394,7 @@ class ControllerTest {
     @Test
     fun findAllTurnosSuccess() = runTest {
         val response = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["TurnoDTOvisualizeList", {
-                            "turnos": [
-                                {
-                                    "worker": null,
-                                    "maquina": null,
-                                    "horaInicio": "2002-10-14T10:09",
-                                    "horaFin": "2002-10-14T16:49",
-                                    "numPedidosActivos": 2,
-                                    "tarea1": null,
-                                    "tarea2": null,
-                                    "finalizado": false
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            
         """.trimIndent()
         coEvery { repoTurno.findAll() } returns flowOf(turno)
 
@@ -1390,11 +1409,12 @@ class ControllerTest {
     @Test
     fun findAllTurnosError() = runTest {
         val response = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: No turnos found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "No turnos found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoTurno.findAll() } returns flowOf()
 
@@ -1409,19 +1429,7 @@ class ControllerTest {
     @Test
     fun createTurnoCorrect() = runTest {
         val response = """
-            {
-                "code": 201,
-                "data": {
-                    "worker": null,
-                    "maquina": null,
-                    "horaInicio": "2002-10-14T10:09",
-                    "horaFin": "2002-10-14T16:49",
-                    "numPedidosActivos": 2,
-                    "tarea1": null,
-                    "tarea2": null,
-                    "finalizado": false
-                }
-            }
+            
         """.trimIndent()
         coEvery { repoTurno.save(any()) } returns turno
         val res = controller.createTurno(turnos[0], adminToken)
@@ -1434,7 +1442,12 @@ class ControllerTest {
     @Test
     fun createTurnoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoTurno.save(any())} returns turno
         val res = controller.createTurno(turnos[0], "")
@@ -1447,7 +1460,12 @@ class ControllerTest {
     @Test
     fun createTurnoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoTurno.save(any())} returns turno
         val res = controller.createTurno(turnos[0], userToken)
@@ -1459,23 +1477,16 @@ class ControllerTest {
     fun deleteTurnoCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "worker": null,
-                    "maquina": null,
-                    "horaInicio": "2002-10-14T10:09",
-                    "horaFin": "2002-10-14T16:49",
-                    "numPedidosActivos": 2,
-                    "tarea1": null,
-                    "tarea2": null,
-                    "finalizado": false
-                }
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
             }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.delete(turno.id) } returns turno
         var result = ""
-        launch { result = controller.deleteTurno(turno.uuid, adminToken) }.join()
+        launch { result = controller.deleteTurno(turno.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1486,14 +1497,16 @@ class ControllerTest {
     fun deleteTurnoIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot delete Turno with id ${turno.uuid}."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot delete Turno with id 93a98d69-0019-48a7-b34f-05b596ea8abc.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.delete(turno.id) } returns null
         var result = ""
-        launch { result = controller.deleteTurno(turno.uuid, adminToken) }.join()
+        launch { result = controller.deleteTurno(turno.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1503,12 +1516,17 @@ class ControllerTest {
     @Test
     fun deleteTurnoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.delete(turno.id) } returns turno
         var result = ""
-        launch { result = controller.deleteTurno(turno.uuid, "") }.join()
+        launch { result = controller.deleteTurno(turno.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1518,12 +1536,17 @@ class ControllerTest {
     @Test
     fun deleteTurnoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.delete(turno.id) } returns turno
         var result = ""
-        launch { result = controller.deleteTurno(turno.uuid, userToken) }.join()
+        launch { result = controller.deleteTurno(turno.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1534,23 +1557,16 @@ class ControllerTest {
     fun setFinalizadoTurnoCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "worker": null,
-                    "maquina": null,
-                    "horaInicio": "2002-10-14T10:09",
-                    "horaFin": "2002-10-14T16:49",
-                    "numPedidosActivos": 2,
-                    "tarea1": null,
-                    "tarea2": null,
-                    "finalizado": false
-                }
+              "headers" : { },
+              "body" : "Invalid id.",
+              "statusCode" : "BAD_REQUEST",
+              "statusCodeValue" : 400
             }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.setFinalizado(turno.id)} returns turno
         var result = ""
-        launch { result = controller.setFinalizadoTurno(turno.uuid, adminToken) }.join()
+        launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1560,12 +1576,17 @@ class ControllerTest {
     @Test
     fun setFinalizadoTurnoIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.setFinalizado(turno.id)} returns turno
         var result = ""
-        launch { result = controller.setFinalizadoTurno(turno.uuid, "") }.join()
+        launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1575,12 +1596,17 @@ class ControllerTest {
     @Test
     fun setFinalizadoTurnoIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.setFinalizado(turno.id)} returns turno
         var result = ""
-        launch { result = controller.setFinalizadoTurno(turno.uuid, userToken) }.join()
+        launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1591,14 +1617,16 @@ class ControllerTest {
     fun setFinalizadoTurnoIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot find and set finalizado turno with id 93a98d69-0019-48a7-b34f-05b596ea8abc."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot find and set finalizado turno with id 93a98d69-0019-48a7-b34f-05b596ea8abc.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoTurno.findByUUID(any()) } returns turno
         coEvery { repoTurno.setFinalizado(turno.id)} returns null
         var result = ""
-        launch { result = controller.setFinalizadoTurno(turno.uuid, adminToken) }.join()
+        launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1608,23 +1636,23 @@ class ControllerTest {
     @Test
     fun findUserByUUID() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["UserDTOvisualize", {
-                            "nombre": "Maria",
-                            "apellido": "Martinez",
-                            "email": "email2@email.com",
-                            "perfil": "CLIENT",
-                            "activo": true
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "nombre" : "Maria",
+                "apellido" : "Martinez",
+                "email" : "email2@email.com",
+                "perfil" : "CLIENT",
+                "activo" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery{ repoUser.findByUUID(client.uuid)} returns client
 
         var result = ""
-        launch { result = controller.findUserByUuid(client.uuid) }.join()
+        launch { result = controller.findUserByUuid(client.uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result) }
@@ -1635,16 +1663,17 @@ class ControllerTest {
     fun findUserNotExistsByUUID() = runTest {
         val uuid = UUID.randomUUID()
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: User with id $uuid not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "User with id d452a7a8-2c1e-4807-9731-c731da803588 not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(uuid) } returns null
 
         var result = ""
-        launch { result = controller.findUserByUuid(uuid) }.join()
+        launch { result = controller.findUserByUuid(uuid.toString()) }.join()
 
         assertAll(
             { assertEquals(res, result)}
@@ -1654,18 +1683,18 @@ class ControllerTest {
     @Test
     fun findUserById() = runTest {
         val res = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["UserDTOvisualize", {
-                            "nombre": "Maria",
-                            "apellido": "Martinez",
-                            "email": "email2@email.com",
-                            "perfil": "CLIENT",
-                            "activo": true
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "nombre" : "Maria",
+                "apellido" : "Martinez",
+                "email" : "email2@email.com",
+                "perfil" : "CLIENT",
+                "activo" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery{ repoUser.findById(1)} returns client
 
@@ -1680,11 +1709,12 @@ class ControllerTest {
     @Test
     fun findUserNotExistsById() = runTest {
         val res = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: User with id 1 not found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "User with id 1 not found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoUser.findById(1) } returns null
 
@@ -1699,22 +1729,20 @@ class ControllerTest {
     @Test
     fun findAllUsersSuccess() = runTest {
         val response = """
-            ["ResponseSuccess", {
-                    "code": 200,
-                    "data": ["UserDTOvisualizeList", {
-                            "users": [
-                                {
-                                    "nombre": "Maria",
-                                    "apellido": "Martinez",
-                                    "email": "email2@email.com",
-                                    "perfil": "CLIENT",
-                                    "activo": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : {
+                "users" : [ {
+                  "nombre" : "Maria",
+                  "apellido" : "Martinez",
+                  "email" : "email2@email.com",
+                  "perfil" : "CLIENT",
+                  "activo" : true
+                } ]
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
         coEvery { repoUser.findAll() } returns flowOf(client)
 
@@ -1729,11 +1757,12 @@ class ControllerTest {
     @Test
     fun findAllUsersError() = runTest {
         val response = """
-            ["ResponseError", {
-                    "code": 404,
-                    "message": "NOT FOUND: No users found."
-                }
-            ]
+            {
+              "headers" : { },
+              "body" : "No users found.",
+              "statusCode" : "NOT_FOUND",
+              "statusCodeValue" : 404
+            }
         """.trimIndent()
         coEvery { repoUser.findAll() } returns flowOf()
 
@@ -1749,14 +1778,16 @@ class ControllerTest {
     fun createUserCorrect() = runTest {
         val response = """
             {
-                "code": 201,
-                "data": {
-                    "nombre": "Maria",
-                    "apellido": "Martinez",
-                    "email": "email2@email.com",
-                    "perfil": "CLIENT",
-                    "activo": true
-                }
+              "headers" : { },
+              "body" : {
+                "nombre" : "Maria",
+                "apellido" : "Martinez",
+                "email" : "email2@email.com",
+                "perfil" : "CLIENT",
+                "activo" : true
+              },
+              "statusCode" : "CREATED",
+              "statusCodeValue" : 201
             }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns null
@@ -1773,7 +1804,12 @@ class ControllerTest {
     @Test
     fun createUserIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns null
         coEvery { repoUser.findByEmail(any()) } returns null
@@ -1789,7 +1825,12 @@ class ControllerTest {
     @Test
     fun createUserIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns null
         coEvery { repoUser.findByEmail(any()) } returns null
@@ -1804,20 +1845,22 @@ class ControllerTest {
     fun deleteUserCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "nombre": "Maria",
-                    "apellido": "Martinez",
-                    "email": "email2@email.com",
-                    "perfil": "CLIENT",
-                    "activo": true
-                }
+              "headers" : { },
+              "body" : {
+                "nombre" : "Maria",
+                "apellido" : "Martinez",
+                "email" : "email2@email.com",
+                "perfil" : "CLIENT",
+                "activo" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.delete(client.id) } returns client
         var result = ""
-        launch { result = controller.deleteUser(client.uuid, adminToken) }.join()
+        launch { result = controller.deleteUser(client.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1828,14 +1871,16 @@ class ControllerTest {
     fun deleteUserIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot delete user with id 93a98d69-0006-48a7-b34f-05b596ea839a."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot delete user with id 93a98d69-0006-48a7-b34f-05b596ea839a.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.delete(client.id) } returns null
         var result = ""
-        launch { result = controller.deleteUser(client.uuid, adminToken) }.join()
+        launch { result = controller.deleteUser(client.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1845,12 +1890,17 @@ class ControllerTest {
     @Test
     fun deleteUserIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.delete(client.id) } returns client
         var result = ""
-        launch { result = controller.deleteUser(client.uuid, "") }.join()
+        launch { result = controller.deleteUser(client.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1860,12 +1910,17 @@ class ControllerTest {
     @Test
     fun deleteUserIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.delete(client.id) } returns client
         var result = ""
-        launch { result = controller.deleteUser(client.uuid, userToken) }.join()
+        launch { result = controller.deleteUser(client.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1876,20 +1931,22 @@ class ControllerTest {
     fun setInactiveUserCorrect() = runTest {
         val response = """
             {
-                "code": 200,
-                "data": {
-                    "nombre": "Maria",
-                    "apellido": "Martinez",
-                    "email": "email2@email.com",
-                    "perfil": "CLIENT",
-                    "activo": true
-                }
+              "headers" : { },
+              "body" : {
+                "nombre" : "Maria",
+                "apellido" : "Martinez",
+                "email" : "email2@email.com",
+                "perfil" : "CLIENT",
+                "activo" : true
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
             }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.setInactive(client.id)} returns client
         var result = ""
-        launch { result = controller.setInactiveUser(client.uuid, adminToken) }.join()
+        launch { result = controller.setInactiveUser(client.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1899,12 +1956,17 @@ class ControllerTest {
     @Test
     fun setInactiveUserIncorrect() = runTest {
         val response = """
-            {"code":401,"message":"UNAUTHORIZED: No token detected"}
+            {
+              "headers" : { },
+              "body" : "No token detected.",
+              "statusCode" : "UNAUTHORIZED",
+              "statusCodeValue" : 401
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.setInactive(client.id)} returns client
         var result = ""
-        launch { result = controller.setInactiveUser(client.uuid, "") }.join()
+        launch { result = controller.setInactiveUser(client.uuid.toString(), "") }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1914,12 +1976,17 @@ class ControllerTest {
     @Test
     fun setInactiveUserIncorrectToken() = runTest {
         val response = """
-            {"code":403,"message":"FORBIDDEN: You are not allowed to to this."}
+            {
+              "headers" : { },
+              "body" : "You are not allowed to to this.",
+              "statusCode" : "FORBIDDEN",
+              "statusCodeValue" : 403
+            }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.setInactive(client.id)} returns client
         var result = ""
-        launch { result = controller.setInactiveUser(client.uuid, userToken) }.join()
+        launch { result = controller.setInactiveUser(client.uuid.toString(), userToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
@@ -1930,14 +1997,16 @@ class ControllerTest {
     fun setInactiveUserIncorrectNull() = runTest {
         val response = """
             {
-                "code": 500,
-                "message": "INTERNAL EXCEPTION: Unexpected error. Cannot find and set inactive user with id ${client.uuid}."
+              "headers" : { },
+              "body" : "Unexpected error. Cannot find and set inactive user with id 93a98d69-0006-48a7-b34f-05b596ea839a.",
+              "statusCode" : "INTERNAL_SERVER_ERROR",
+              "statusCodeValue" : 500
             }
         """.trimIndent()
         coEvery { repoUser.findByUUID(any()) } returns client
         coEvery { repoUser.setInactive(client.id)} returns null
         var result = ""
-        launch { result = controller.setInactiveUser(client.uuid, adminToken) }.join()
+        launch { result = controller.setInactiveUser(client.uuid.toString(), adminToken) }.join()
 
         assertAll(
             { assertEquals(response, result) }
