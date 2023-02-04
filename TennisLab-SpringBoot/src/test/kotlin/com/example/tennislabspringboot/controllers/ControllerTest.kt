@@ -188,7 +188,7 @@ class ControllerTest {
 
     @Test
     fun findMaquinaById() = runTest {
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : {
@@ -209,16 +209,17 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findMaquinaById(personalizadora1.uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(response, res) }
         )
     }
 
     @Test
     fun findMaquinaNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Maquina with id da9c6403-d6dc-44cc-bb31-683a4858a7e9 not found.",
@@ -230,9 +231,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findMaquinaById(uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -262,9 +264,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllMaquinas() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -282,9 +285,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllMaquinas() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -308,7 +312,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoM.save(any()) } returns personalizadora1
-        val res = controller.createMaquina(maquinas[0], adminToken)
+        val ress = controller.createMaquina(maquinas[0], adminToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res) }
@@ -326,7 +331,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoM.save(any())} returns personalizadora1
-        val res = controller.createMaquina(maquinas[0], "")
+        val ress = controller.createMaquina(maquinas[0], "")
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res)}
@@ -344,7 +350,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoM.save(any())} returns personalizadora1
-        val res = controller.createMaquina(maquinas[0], userToken)
+        val ress = controller.createMaquina(maquinas[0], userToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll( { assertEquals(response, res)} )
     }
@@ -372,9 +379,10 @@ class ControllerTest {
         coEvery { repoM.delete(personalizadora1.id) } returns personalizadora1
         var result = ""
         launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -392,9 +400,10 @@ class ControllerTest {
         coEvery { repoM.delete(personalizadora1.id) } returns null
         var result = ""
         launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -412,9 +421,10 @@ class ControllerTest {
         coEvery { repoM.delete(personalizadora1.id) } returns personalizadora1
         var result = ""
         launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -432,9 +442,10 @@ class ControllerTest {
         coEvery { repoM.delete(personalizadora1.id) } returns personalizadora1
         var result = ""
         launch { result = controller.deleteMaquina(personalizadora1.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -461,9 +472,10 @@ class ControllerTest {
         coEvery { repoM.setInactive(personalizadora1.id)} returns personalizadora1
         var result = ""
         launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -481,9 +493,10 @@ class ControllerTest {
         coEvery { repoM.setInactive(personalizadora1.id)} returns personalizadora1
         var result = ""
         launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -501,9 +514,10 @@ class ControllerTest {
         coEvery { repoM.setInactive(personalizadora1.id)} returns personalizadora1
         var result = ""
         launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -521,15 +535,16 @@ class ControllerTest {
         coEvery { repoM.setInactive(personalizadora1.id)} returns null
         var result = ""
         launch { result = controller.setInactiveMaquina(personalizadora1.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
     //-----------------------------PEDIDOS-----------------------------------
     @Test
     fun findPedidoById() = runTest {
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Invalid id.",
@@ -541,16 +556,17 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findPedidoById(pedido.uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(response, res) }
         )
     }
 
     @Test
     fun findPedidoNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Pedido with id $uuid not found.",
@@ -562,9 +578,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findPedidoById(uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -578,9 +595,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllPedidos() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -598,9 +616,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllPedidos() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -612,7 +631,8 @@ class ControllerTest {
         coEvery { repoUser.findByUUID(any())} returns client
         coEvery { repoTarea.save(any()) } returns tarea
         coEvery { repoPedido.save(any()) } returns pedido
-        val res = controller.createPedido(pedidos[0], adminToken)
+        val ress = controller.createPedido(pedidos[0], adminToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res) }
@@ -630,7 +650,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoPedido.save(any())} returns pedido
-        val res = controller.createPedido(pedidos[0], "")
+        val ress = controller.createPedido(pedidos[0], "")
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res)}
@@ -648,7 +669,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoPedido.save(any())} returns pedido
-        val res = controller.createPedido(pedidos[0], userToken)
+        val ress = controller.createPedido(pedidos[0], userToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll( { assertEquals(response, res)} )
     }
@@ -669,9 +691,10 @@ class ControllerTest {
         coEvery { repoPedido.delete(pedido.id) } returns pedido
         var result = ""
         launch { result = controller.deletePedido(pedido.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -691,9 +714,10 @@ class ControllerTest {
         coEvery { repoPedido.delete(pedido.id) } returns null
         var result = ""
         launch { result = controller.deletePedido(pedido.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -711,9 +735,10 @@ class ControllerTest {
         coEvery { repoPedido.delete(pedido.id) } returns pedido
         var result = ""
         launch { result = controller.deletePedido(pedido.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -731,16 +756,17 @@ class ControllerTest {
         coEvery { repoPedido.delete(pedido.id) } returns pedido
         var result = ""
         launch { result = controller.deletePedido(pedido.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
     //-----------------------------PRODUCTO-----------------------------------
     @Test
     fun findProductoById() = runTest {
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : {
@@ -758,16 +784,17 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findProductoById(producto.uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(response, result) }
         )
     }
 
     @Test
     fun findProductoNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Producto with id a1d31f84-274a-450c-9b15-7bb7d61662f6 not found.",
@@ -779,9 +806,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findProductoById(uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -808,9 +836,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllProductos() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -828,9 +857,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllProductos() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -851,7 +881,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoProd.save(any()) } returns producto
-        val res = controller.createProducto(productos[0], adminToken)
+        val ress = controller.createProducto(productos[0], adminToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res) }
@@ -869,7 +900,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoProd.save(any())} returns producto
-        val res = controller.createProducto(productos[0], "")
+        val ress = controller.createProducto(productos[0], "")
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res)}
@@ -887,7 +919,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoProd.save(any())} returns producto
-        val res = controller.createProducto(productos[0], userToken)
+        val ress = controller.createProducto(productos[0], userToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll( { assertEquals(response, res)} )
     }
@@ -912,9 +945,10 @@ class ControllerTest {
         coEvery { repoProd.delete(producto.id) } returns producto
         var result = ""
         launch { result = controller.deleteProducto(producto.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -932,9 +966,10 @@ class ControllerTest {
         coEvery { repoProd.delete(producto.id) } returns null
         var result = ""
         launch { result = controller.deleteProducto(producto.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -952,9 +987,10 @@ class ControllerTest {
         coEvery { repoProd.delete(producto.id) } returns producto
         var result = ""
         launch { result = controller.deleteProducto(producto.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -972,9 +1008,10 @@ class ControllerTest {
         coEvery { repoProd.delete(producto.id) } returns producto
         var result = ""
         launch { result = controller.deleteProducto(producto.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -998,9 +1035,10 @@ class ControllerTest {
         coEvery { repoProd.decreaseStock(any())} returns producto
         var result = ""
         launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1018,9 +1056,10 @@ class ControllerTest {
         coEvery { repoProd.decreaseStock(any())} returns producto
         var result = ""
         launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1038,9 +1077,10 @@ class ControllerTest {
         coEvery { repoProd.decreaseStock(any())} returns producto
         var result = ""
         launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1058,16 +1098,17 @@ class ControllerTest {
         coEvery { repoProd.decreaseStock(any())} returns null
         var result = ""
         launch { result = controller.decreaseStockFromProducto(producto.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
     //-------------------------TAREA----------------------------
     @Test
     fun findTareaById() = runTest {
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Invalid id.",
@@ -1079,16 +1120,17 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findTareaById(tarea.uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(response, res) }
         )
     }
 
     @Test
     fun findTareaNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Tarea with id 2583ab3f-b11d-44f8-a983-130bf1b6c79d not found.",
@@ -1100,9 +1142,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findTareaById(uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1116,9 +1159,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllTareas() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1136,9 +1180,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllTareas() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1148,7 +1193,8 @@ class ControllerTest {
             
         """.trimIndent()
         coEvery { repoTarea.save(any()) } returns tarea
-        val res = controller.createTarea(personalizacion, adminToken)
+        val ress = controller.createTarea(personalizacion, adminToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res) }
@@ -1166,7 +1212,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoTarea.save(any())} returns tarea
-        val res = controller.createTarea(tareas[0], "")
+        val ress = controller.createTarea(tareas[0], "")
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res)}
@@ -1184,7 +1231,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoTarea.save(any())} returns tarea
-        val res = controller.createTarea(tareas[0], userToken)
+        val ress = controller.createTarea(tareas[0], userToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll( { assertEquals(response, res)} )
     }
@@ -1203,9 +1251,10 @@ class ControllerTest {
         coEvery { repoTarea.delete(tarea.id) } returns tarea
         var result = ""
         launch { result = controller.deleteTarea(tarea.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1223,9 +1272,10 @@ class ControllerTest {
         coEvery { repoTarea.delete(tarea.id) } returns null
         var result = ""
         launch { result = controller.deleteTarea(tarea.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1243,9 +1293,10 @@ class ControllerTest {
         coEvery { repoTarea.delete(tarea.id) } returns tarea
         var result = ""
         launch { result = controller.deleteTarea(tarea.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1263,9 +1314,10 @@ class ControllerTest {
         coEvery { repoTarea.delete(tarea.id) } returns tarea
         var result = ""
         launch { result = controller.deleteTarea(tarea.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1283,9 +1335,10 @@ class ControllerTest {
         coEvery { repoTarea.setFinalizada(tarea.id)} returns tarea
         var result = ""
         launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1303,9 +1356,10 @@ class ControllerTest {
         coEvery { repoTarea.setFinalizada(tarea.id)} returns tarea
         var result = ""
         launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1323,9 +1377,10 @@ class ControllerTest {
         coEvery { repoTarea.setFinalizada(tarea.id)} returns tarea
         var result = ""
         launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1343,15 +1398,16 @@ class ControllerTest {
         coEvery { repoTarea.setFinalizada(tarea.id)} returns null
         var result = ""
         launch { result = controller.setFinalizadaTarea(tarea.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
     //------------------------------TURNO----------------------------------
     @Test
     fun findTurnoById() = runTest {
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Invalid id.",
@@ -1363,16 +1419,17 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findTurnoById(turno.uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(response, res) }
         )
     }
 
     @Test
     fun findTurnoNotExistsById() = runTest {
         val uuid = UUID.randomUUID()
-        val res = """
+        val response = """
             {
               "headers" : { },
               "body" : "Turno with id 66f073f4-1b44-42a5-ba8b-68fd6752377b not found.",
@@ -1384,9 +1441,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findTurnoById(uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1400,9 +1458,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllTurnos() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1420,9 +1479,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllTurnos() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1432,7 +1492,8 @@ class ControllerTest {
             
         """.trimIndent()
         coEvery { repoTurno.save(any()) } returns turno
-        val res = controller.createTurno(turnos[0], adminToken)
+        val ress = controller.createTurno(turnos[0], adminToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res) }
@@ -1450,7 +1511,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoTurno.save(any())} returns turno
-        val res = controller.createTurno(turnos[0], "")
+        val ress = controller.createTurno(turnos[0], "")
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res)}
@@ -1468,7 +1530,8 @@ class ControllerTest {
             }
         """.trimIndent()
         coEvery { repoTurno.save(any())} returns turno
-        val res = controller.createTurno(turnos[0], userToken)
+        val ress = controller.createTurno(turnos[0], userToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll( { assertEquals(response, res)} )
     }
@@ -1487,9 +1550,10 @@ class ControllerTest {
         coEvery { repoTurno.delete(turno.id) } returns turno
         var result = ""
         launch { result = controller.deleteTurno(turno.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1507,9 +1571,10 @@ class ControllerTest {
         coEvery { repoTurno.delete(turno.id) } returns null
         var result = ""
         launch { result = controller.deleteTurno(turno.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1527,9 +1592,10 @@ class ControllerTest {
         coEvery { repoTurno.delete(turno.id) } returns turno
         var result = ""
         launch { result = controller.deleteTurno(turno.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1547,9 +1613,10 @@ class ControllerTest {
         coEvery { repoTurno.delete(turno.id) } returns turno
         var result = ""
         launch { result = controller.deleteTurno(turno.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1567,9 +1634,10 @@ class ControllerTest {
         coEvery { repoTurno.setFinalizado(turno.id)} returns turno
         var result = ""
         launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1587,9 +1655,10 @@ class ControllerTest {
         coEvery { repoTurno.setFinalizado(turno.id)} returns turno
         var result = ""
         launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1607,9 +1676,10 @@ class ControllerTest {
         coEvery { repoTurno.setFinalizado(turno.id)} returns turno
         var result = ""
         launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1627,15 +1697,16 @@ class ControllerTest {
         coEvery { repoTurno.setFinalizado(turno.id)} returns null
         var result = ""
         launch { result = controller.setFinalizadoTurno(turno.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
     //---------------------------------USER-------------------------------
     @Test
     fun findUserByUUID() = runTest {
-        val res = """
+        val ress = """
             {
               "headers" : { },
               "body" : {
@@ -1653,16 +1724,17 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findUserByUuid(client.uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(ress, res) }
         )
     }
 
     @Test
     fun findUserNotExistsByUUID() = runTest {
         val uuid = UUID.randomUUID()
-        val res = """
+        val ress = """
             {
               "headers" : { },
               "body" : "User with id d452a7a8-2c1e-4807-9731-c731da803588 not found.",
@@ -1674,15 +1746,16 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findUserByUuid(uuid.toString()) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(ress, res)}
         )
     }
 
     @Test
     fun findUserById() = runTest {
-        val res = """
+        val ress = """
             {
               "headers" : { },
               "body" : {
@@ -1700,15 +1773,16 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findUserById(1) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result) }
+            { assertEquals(ress, res) }
         )
     }
 
     @Test
     fun findUserNotExistsById() = runTest {
-        val res = """
+        val ress = """
             {
               "headers" : { },
               "body" : "User with id 1 not found.",
@@ -1720,9 +1794,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findUserById(1) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(res, result)}
+            { assertEquals(ress, res)}
         )
     }
 
@@ -1748,9 +1823,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllUsers() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1768,9 +1844,10 @@ class ControllerTest {
 
         var result = ""
         launch { result = controller.findAllUsers() }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result)}
+            { assertEquals(response, res)}
         )
     }
 
@@ -1794,8 +1871,8 @@ class ControllerTest {
         coEvery { repoUser.findByEmail(any()) } returns null
         coEvery { repoUser.findByPhone(any()) } returns null
         coEvery { repoUser.save(any()) } returns client
-        val res = controller.createUser(users[0], adminToken)
-
+        val ress = controller.createUser(users[0], adminToken)
+        val res = ress.replace("\r\n", "\n")
         assertAll(
             { assertEquals(response, res) }
         )
@@ -1815,7 +1892,8 @@ class ControllerTest {
         coEvery { repoUser.findByEmail(any()) } returns null
         coEvery { repoUser.findByPhone(any()) } returns null
         coEvery { repoUser.save(any())} returns client
-        val res = controller.createUser(users[0], "")
+        val ress = controller.createUser(users[0], "")
+        val res = ress.replace("\r\n", "\n")
 
         assertAll(
             { assertEquals(response, res)}
@@ -1836,7 +1914,8 @@ class ControllerTest {
         coEvery { repoUser.findByEmail(any()) } returns null
         coEvery { repoUser.findByPhone(any()) } returns null
         coEvery { repoUser.save(any())} returns client
-        val res = controller.createUser(users[0], userToken)
+        val ress = controller.createUser(users[0], userToken)
+        val res = ress.replace("\r\n", "\n")
 
         assertAll( { assertEquals(response, res)} )
     }
@@ -1861,9 +1940,10 @@ class ControllerTest {
         coEvery { repoUser.delete(client.id) } returns client
         var result = ""
         launch { result = controller.deleteUser(client.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1881,9 +1961,10 @@ class ControllerTest {
         coEvery { repoUser.delete(client.id) } returns null
         var result = ""
         launch { result = controller.deleteUser(client.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1901,9 +1982,10 @@ class ControllerTest {
         coEvery { repoUser.delete(client.id) } returns client
         var result = ""
         launch { result = controller.deleteUser(client.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1921,9 +2003,10 @@ class ControllerTest {
         coEvery { repoUser.delete(client.id) } returns client
         var result = ""
         launch { result = controller.deleteUser(client.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1947,9 +2030,10 @@ class ControllerTest {
         coEvery { repoUser.setInactive(client.id)} returns client
         var result = ""
         launch { result = controller.setInactiveUser(client.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1967,9 +2051,10 @@ class ControllerTest {
         coEvery { repoUser.setInactive(client.id)} returns client
         var result = ""
         launch { result = controller.setInactiveUser(client.uuid.toString(), "") }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -1987,9 +2072,10 @@ class ControllerTest {
         coEvery { repoUser.setInactive(client.id)} returns client
         var result = ""
         launch { result = controller.setInactiveUser(client.uuid.toString(), userToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -2007,9 +2093,11 @@ class ControllerTest {
         coEvery { repoUser.setInactive(client.id)} returns null
         var result = ""
         launch { result = controller.setInactiveUser(client.uuid.toString(), adminToken) }.join()
+        val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
+
     }
 }
