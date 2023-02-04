@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="koin.repositories.maquina.MaquinaRepositoryCachedTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-02-02T22:41:49" hostname="LOLI-LAPTOP" time="0.121">
+  <properties/>
+  <testcase name="delete()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.034"/>
+  <testcase name="findAll()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.014"/>
+  <testcase name="findById()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.012"/>
+  <testcase name="findByUUID()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.013"/>
+  <testcase name="save()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.014"/>
+  <testcase name="findByUUIDNotExists()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.01"/>
+  <testcase name="findByIdNotExists()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.01"/>
+  <testcase name="setInactive()" classname="koin.repositories.maquina.MaquinaRepositoryCachedTest" time="0.011"/>
+  <system-out><![CDATA[23:41:49.830 [Test worker] DEBUG koin.services.cache.maquina.MaquinaCache - Initializing MaquinaCache...
+23:41:49.835 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for MaquinaCache name=cache#676
+23:41:49.880 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for MaquinaRepository name=repo#677
+23:41:49.918 [DefaultDispatcher-worker-1 @coroutine#612] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on MaquinaCache(cache#676).getRefreshTime()
+23:41:49.926 [Test worker @coroutine#613] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#678
+23:41:49.930 [Test worker @coroutine#613] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#679
+23:41:49.935 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Maquina(id=63dc3c2d1b23f96d9c839862, uuid=93a98d69-6da6-48a7-b34f-05b596ea83bc, modelo=RTX-3080TI, marca=Nvidia, fechaAdquisicion=2022-11-10, numeroSerie=123456789X, tipo=PERSONALIZADORA, activa=true, isManual=null, maxTension=null, minTension=null, measuresManeuverability=true, measuresRigidity=false, measuresBalance=true) on MaquinaRepository(repo#677).delete(63dc3c2d1b23f96d9c839862, continuation {})
+23:41:49.936 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@65c9d607 on MaquinaCache(cache#676).getCache()
+23:41:49.957 [Test worker @coroutine#621] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#677#680
+23:41:49.959 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@31cce1d5 on MaquinaRepository(repo#677).findAll(continuation {})
+23:41:49.972 [Test worker @coroutine#627] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#681
+23:41:49.975 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Maquina(id=63dc3c2d1b23f96d9c839862, uuid=93a98d69-6da6-48a7-b34f-05b596ea83bc, modelo=RTX-3080TI, marca=Nvidia, fechaAdquisicion=2022-11-10, numeroSerie=123456789X, tipo=PERSONALIZADORA, activa=true, isManual=null, maxTension=null, minTension=null, measuresManeuverability=true, measuresRigidity=false, measuresBalance=true) on MaquinaRepository(repo#677).findById(63dc3c2d1b23f96d9c839862, continuation {})
+23:41:49.984 [Test worker @coroutine#633] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#682
+23:41:49.986 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@65c9d607 on MaquinaCache(cache#676).getCache()
+23:41:49.988 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Maquina(id=63dc3c2d1b23f96d9c839862, uuid=93a98d69-6da6-48a7-b34f-05b596ea83bc, modelo=RTX-3080TI, marca=Nvidia, fechaAdquisicion=2022-11-10, numeroSerie=123456789X, tipo=PERSONALIZADORA, activa=true, isManual=null, maxTension=null, minTension=null, measuresManeuverability=true, measuresRigidity=false, measuresBalance=true) on MaquinaRepository(repo#677).findByUUID(93a98d69-6da6-48a7-b34f-05b596ea83bc, continuation {})
+23:41:49.993 [Test worker @background work runner#636] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#683
+23:41:49.998 [Test worker @coroutine#639] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#684
+23:41:50.002 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Maquina(id=63dc3c2d1b23f96d9c839862, uuid=93a98d69-6da6-48a7-b34f-05b596ea83bc, modelo=RTX-3080TI, marca=Nvidia, fechaAdquisicion=2022-11-10, numeroSerie=123456789X, tipo=PERSONALIZADORA, activa=true, isManual=null, maxTension=null, minTension=null, measuresManeuverability=true, measuresRigidity=false, measuresBalance=true) on MaquinaRepository(repo#677).save(Maquina(id=63dc3c2d1b23f96d9c839862, uuid=93a98d69-6da6-48a7-b34f-05b596ea83bc, modelo=RTX-3080TI, marca=Nvidia, fechaAdquisicion=2022-11-10, numeroSerie=123456789X, tipo=PERSONALIZADORA, activa=true, isManual=null, maxTension=null, minTension=null, measuresManeuverability=true, measuresRigidity=false, measuresBalance=true), continuation {})
+23:41:50.012 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@65c9d607 on MaquinaCache(cache#676).getCache()
+23:41:50.012 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on MaquinaRepository(repo#677).findByUUID(3f6ee0e9-ba3f-4be7-81ca-d50f484f3e2a, continuation {})
+23:41:50.024 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on MaquinaRepository(repo#677).findById(63dc3c2e1b23f96d9c839863, continuation {})
+23:41:50.033 [Test worker @coroutine#657] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Maquina name=child of repo#677#685
+23:41:50.035 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Maquina(id=63dc3c2d1b23f96d9c839862, uuid=93a98d69-6da6-48a7-b34f-05b596ea83bc, modelo=RTX-3080TI, marca=Nvidia, fechaAdquisicion=2022-11-10, numeroSerie=123456789X, tipo=PERSONALIZADORA, activa=true, isManual=null, maxTension=null, minTension=null, measuresManeuverability=true, measuresRigidity=false, measuresBalance=true) on MaquinaRepository(repo#677).setInactive(63dc3c2d1b23f96d9c839862, continuation {})
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

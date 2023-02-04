@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/koin.repositories.user.html">koin.repositories.user</a> &gt; UserRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">8</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.941s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">delete()</td>
+<td class="success">0.186s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteNotExists()</td>
+<td class="success">0.132s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll()</td>
+<td class="success">0.104s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findById()</td>
+<td class="success">0.093s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByIdNotExists()</td>
+<td class="success">0.090s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByUuid()</td>
+<td class="success">0.096s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">save()</td>
+<td class="success">0.098s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">setInactive()</td>
+<td class="success">0.142s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>23:42:09.217 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;drop&quot;: &quot;user&quot;, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377723, &quot;i&quot;: 2}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;aAdXlP7OchmNqowMzaPY4ScRZ3E=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 181 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.294 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 181 completed successfully in 76.42 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.300 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 61, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 3}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 182 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.382 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 182 completed successfully in 81.54 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.388 [DefaultDispatcher-worker-1 @coroutine#1226] DEBUG koin.repositories.user.UserRepository - delete(63dc3c411b23f96d9c839964)
+23:42:09.389 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;limit&quot;: 1, &quot;singleBatch&quot;: true, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 5}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 183 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.430 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 183 completed successfully in 41.66 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.431 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 1 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.432 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;delete&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 62, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 5}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;deletes&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;limit&quot;: 1}]}' with request id 184 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.477 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 184 completed successfully in 44.98 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.483 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 63, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 6}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 185 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.531 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 185 completed successfully in 48.07 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.537 [DefaultDispatcher-worker-1 @coroutine#1231] DEBUG koin.repositories.user.UserRepository - findAll()
+23:42:09.538 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {}, &quot;batchSize&quot;: 64, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 7}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 186 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.580 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 186 completed successfully in 42.32 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.580 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 1 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.588 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 64, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 7}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 187 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.630 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 187 completed successfully in 42.77 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.637 [DefaultDispatcher-worker-1 @coroutine#1237] DEBUG koin.repositories.user.UserRepository - findById(63dc3c411b23f96d9c839964)
+23:42:09.638 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;limit&quot;: 1, &quot;singleBatch&quot;: true, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 188 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.679 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 188 completed successfully in 40.90 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.679 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 1 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.682 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 65, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 189 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.728 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 189 completed successfully in 46.33 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.732 [DefaultDispatcher-worker-1 @coroutine#1242] DEBUG koin.repositories.user.UserRepository - findByUUID(93a98d69-0000-1111-0000-05b596ea83ba)
+23:42:09.733 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {}, &quot;batchSize&quot;: 64, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 190 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.772 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 190 completed successfully in 39.85 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.772 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 1 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.779 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 66, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 191 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.821 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 191 completed successfully in 42.27 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.828 [DefaultDispatcher-worker-1 @coroutine#1247] DEBUG koin.repositories.user.UserRepository - save(User(id=63dc3c411b23f96d9c839964, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true))
+23:42:09.829 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 67, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 192 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.871 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 192 completed successfully in 41.67 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.877 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 68, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 193 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.919 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 193 completed successfully in 42.86 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.923 [DefaultDispatcher-worker-1 @coroutine#1252] DEBUG koin.repositories.user.UserRepository - findById(63dc3c411b23f96d9c839965)
+23:42:09.924 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839965&quot;}}, &quot;limit&quot;: 1, &quot;singleBatch&quot;: true, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 194 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.964 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 194 completed successfully in 40.36 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.964 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 0 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:09.967 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 69, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 8}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 195 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.009 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 195 completed successfully in 41.68 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.012 [DefaultDispatcher-worker-1 @coroutine#1257] DEBUG koin.repositories.user.UserRepository - delete(63dc3c421b23f96d9c839966)
+23:42:10.013 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c421b23f96d9c839966&quot;}}, &quot;limit&quot;: 1, &quot;singleBatch&quot;: true, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 9}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 196 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.054 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 196 completed successfully in 41.14 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.055 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 0 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.056 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;delete&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 70, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 10}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;deletes&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c421b23f96d9c839966&quot;}}, &quot;limit&quot;: 1}]}' with request id 197 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.096 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 197 completed successfully in 40.35 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.099 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 71, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 10}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: true}, &quot;upsert&quot;: true}]}' with request id 198 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.141 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 198 completed successfully in 41.66 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.146 [DefaultDispatcher-worker-1 @coroutine#1262] DEBUG koin.repositories.user.UserRepository - setInactive(63dc3c411b23f96d9c839964)
+23:42:10.147 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;find&quot;: &quot;user&quot;, &quot;filter&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;limit&quot;: 1, &quot;singleBatch&quot;: true, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 10}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 199 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.188 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 199 completed successfully in 41.20 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.189 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.operation - Received batch of 1 documents with cursorId 0 from server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.190 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;update&quot;: &quot;user&quot;, &quot;ordered&quot;: true, &quot;txnNumber&quot;: 72, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377729, &quot;i&quot;: 10}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;T6LV8bS2L/l6XyDzGNMLDwflBvY=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}, &quot;updates&quot;: [{&quot;q&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}}, &quot;u&quot;: {&quot;_id&quot;: {&quot;$oid&quot;: &quot;63dc3c411b23f96d9c839964&quot;}, &quot;uuid&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;EREAAGmNqZO6g+qWtQUAAA==&quot;, &quot;subType&quot;: &quot;03&quot;}}, &quot;nombre&quot;: &quot;loli&quot;, &quot;apellido&quot;: &quot;test&quot;, &quot;telefono&quot;: &quot;123456789&quot;, &quot;email&quot;: &quot;loli@test.com&quot;, &quot;password&quot;: &quot;lolitest&quot;, &quot;perfil&quot;: &quot;ADMIN&quot;, &quot;activo&quot;: false}, &quot;upsert&quot;: true}]}' with request id 200 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.236 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 200 completed successfully in 45.83 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.242 [AsyncGetter-5-thread-1] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;drop&quot;: &quot;user&quot;, &quot;$db&quot;: &quot;practica03mongoIvanLoli&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675377730, &quot;i&quot;: 1}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;dKTJX3Dr3r0tbK9q+/07GMdIUHU=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}, &quot;lsid&quot;: {&quot;id&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;nuXtmKpPQPG6K0CQKaFtYQ==&quot;, &quot;subType&quot;: &quot;04&quot;}}}}' with request id 201 to database practica03mongoIvanLoli on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+23:42:10.293 [async-channel-group-0-handler-executor] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 201 completed successfully in 51.25 ms on connection [connectionId{localValue:34, serverValue:127384}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 2, 2023, 11:42:11 PM</p>
+</div>
+</div>
+</body>
+</html>
