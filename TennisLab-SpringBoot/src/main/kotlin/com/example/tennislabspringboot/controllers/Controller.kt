@@ -1,5 +1,6 @@
 package com.example.tennislabspringboot.controllers
 
+import com.example.tennislabspringboot.config.APIConfig
 import com.example.tennislabspringboot.dto.maquina.MaquinaDTOcreate
 import com.example.tennislabspringboot.dto.maquina.MaquinaDTOvisualizeList
 import com.example.tennislabspringboot.dto.pedido.PedidoDTOcreate
@@ -46,7 +47,7 @@ import java.util.*
  * devolviendo en cada caso dos tipos de respuesta: ResponseEntity y ResponseEntity por cada caso de los métodos
  */
 @RestController
-@RequestMapping("/rest")
+@RequestMapping(APIConfig.API_PATH)
 class Controller
     @Autowired constructor(
         private val uRepo: UserRepositoryCached,
