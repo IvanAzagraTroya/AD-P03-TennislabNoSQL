@@ -17,6 +17,11 @@ import java.io.DataOutputStream
 import java.time.LocalDateTime
 import java.util.*
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Menús que se visualizan durante la ejecución de la app
+ * para acceder a las distintas funcionalidades
+ */
 private val json = Json {
     ignoreUnknownKeys = true
     prettyPrint = true

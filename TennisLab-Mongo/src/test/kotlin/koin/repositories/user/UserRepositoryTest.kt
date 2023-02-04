@@ -3,7 +3,7 @@ package koin.repositories.user
 import koin.db.DBManager
 import koin.models.user.User
 import koin.models.user.UserProfile
-import koin.utils.toUUID
+import koin.services.utils.toUUID
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.toList

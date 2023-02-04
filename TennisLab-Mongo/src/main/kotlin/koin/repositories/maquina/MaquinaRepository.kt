@@ -17,14 +17,28 @@ import java.util.*
 
 private val logger = KotlinLogging.logger{}
 
+/**
+ * @author Iván Azagra Troya
+ * Repositorio de maquinas
+ */
 @Single
 @Named("MaquinaRepository")
 class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
+    /**
+     * Este método busca todos los maquinas en la base de datos
+     */
     override suspend fun findAll(): Flow<Maquina> = withContext(Dispatchers.IO) {
         logger.debug { "findAll()" }
         DBManager.database.getCollection<Maquina>().find().publisher.asFlow()
     }
 
+    /**
+     * Este método busca un maquina que tenga el id pasado por parámetro
+     * @param id identificador de tipo UUID
+     * Recoge todos los datos de la base de datos y busca dentro de ella devolviendola como flow
+     * y filtrando el maquina con el id.
+     * @return maquina con el uuid pasado por parámetro
+     */
     override suspend fun findByUUID(id: UUID): Maquina? = withContext(Dispatchers.IO) {
         logger.debug { "findByUUID($id)" }
 
@@ -32,12 +46,21 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
             .find().publisher.asFlow().filter { it.uuid == id }.firstOrNull()
     }
 
+    /**
+     * Este método guarda la entidad pasada en la base de datos
+     * @return la entidad pasada por parámetro
+     */
     override suspend fun save(entity: Maquina): Maquina = withContext(Dispatchers.IO) {
         logger.debug { "save($entity)" }
 
         DBManager.database.getCollection<Maquina>().save(entity).let { entity }
     }
 
+    /**
+     * Este método cambia el estado del maquina con el identificador a finalizado
+     * @param id identificador de mongo
+     * @return el maquina que se haya puesto inactivo en caso de que exista
+     */
     override suspend fun setInactive(id: Id<Maquina>): Maquina? = withContext(Dispatchers.IO) {
         logger.debug { "setInactive($id)" }
 
@@ -62,6 +85,11 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
         DBManager.database.getCollection<Maquina>().save(updated).let { updated }
     }
 
+    /**
+     * Este método borra el maquina del repositorio
+     * @param id identificador de mongo
+     * @return el maquina borrado
+     */
     override suspend fun delete(id: Id<Maquina>): Maquina? = withContext(Dispatchers.IO) {
         logger.debug { "delete($id)" }
 
@@ -69,6 +97,11 @@ class MaquinaRepository: IMaquinaRepository<Id<Maquina>> {
         DBManager.database.getCollection<Maquina>().deleteOneById(id).let { entity }
     }
 
+    /**
+     * Este método busca un maquina con el identificador pasado por parámetro
+     * @param id identificador de mongo
+     * @return el maquina que tenga el identificador pasado por parámetro
+     */
     override suspend fun findById(id: Id<Maquina>): Maquina? = withContext(Dispatchers.IO) {
         logger.debug { "findById($id)" }
 

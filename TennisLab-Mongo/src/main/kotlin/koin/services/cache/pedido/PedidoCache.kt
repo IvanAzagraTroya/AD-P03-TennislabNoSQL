@@ -9,6 +9,12 @@ import kotlin.time.Duration.Companion.minutes
 
 private val logger = KotlinLogging.logger {  }
 
+/**
+ * @author Iván Azagra Troya
+ * @property hasRefreshAllCacheJob boolean para saber si tiene refresco o no
+ * @property refreshTime tiempo que tarda en refrescar
+ * @property cache interfaz de la librería Cache4k con los atributos de nuestra caché
+ */
 @Single
 class PedidoCache : IPedidoCache {
     override val hasRefreshAllCacheJob: Boolean = true

@@ -13,6 +13,10 @@ import java.util.*
 
 private val algorithm: Algorithm = Algorithm.HMAC256("Elden Ring game of the year lets goooo")
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Contiene los métodos necesarios para la creación de tokens, comprobación y decodificación para verificarlos
+ */
 fun create(user: User): String {
     return JWT.create()
         .withClaim("id", user.uuid.toString())

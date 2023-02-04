@@ -6,6 +6,10 @@ import koin.serializers.UUIDSerializer
 import kotlinx.serialization.SerialName
 import java.util.*
 
+/**
+ * @author Iván Azagra Troya
+ * DTOs de creación, visualización y lista de visualización
+ */
 @Serializable
 data class ProductoDTOcreate(
     @Serializable(with = UUIDSerializer::class)

@@ -4,6 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import koin.models.maquina.Maquina
 import java.util.*
 
+/**
+ * Interfaz del repositorio de máquinas
+ */
 interface IMaquinaRepository<ID> {
     suspend fun findAll(): Flow<Maquina>
     suspend fun findById(id: ID): Maquina?
