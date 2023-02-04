@@ -8,6 +8,10 @@ import com.example.tennislabspringboot.models.pedido.PedidoState
 import java.time.LocalDate
 import java.util.*
 
+/**
+ * @author Iván Azagra Troya
+ * DTOs de creación, visualización y la lista para visualización
+ */
 data class PedidoDTOcreate(
     val uuid: UUID = UUID.randomUUID(),
     val user: UserDTOcreate,

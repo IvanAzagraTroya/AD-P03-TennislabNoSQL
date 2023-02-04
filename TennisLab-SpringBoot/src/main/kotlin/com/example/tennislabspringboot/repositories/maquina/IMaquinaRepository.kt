@@ -4,6 +4,9 @@ import com.example.tennislabspringboot.models.maquina.Maquina
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
+/**
+ * Interfaz del repositorio de maquinas cacheadas
+ */
 interface IMaquinaRepository<ID> {
     suspend fun findAll(): Flow<Maquina>
     suspend fun findById(id: ID): Maquina?

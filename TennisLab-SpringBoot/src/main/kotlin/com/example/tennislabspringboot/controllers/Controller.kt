@@ -42,7 +42,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 /**
- * @author Loli
+ * @author Daniel Rodriguez Muñoz
  * Clase que actúa como controlador de los distintos repositorios haciendo uso de los métodos requeridos y
  * devolviendo en cada caso dos tipos de respuesta: ResponseEntity y ResponseEntity por cada caso de los métodos
  */
@@ -64,10 +64,10 @@ class Controller
         .registerModule(JavaTimeModule())
         .writerWithDefaultPrettyPrinter()
     /**
-     * @param id Identificador de tipo UUID del objeto User
+     * @param id Identificador de tipo String
      * Este método sirve para buscar un objeto de tipo User con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista el usuario con ese identificador
-     * @return ResponseEntity si encuentra un usuario con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no exista el usuario con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity si encuentra un usuario con ese identificador
      */
     @GetMapping("/users/{id}")
     suspend fun findUserByUuid(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
@@ -86,8 +86,8 @@ class Controller
     /**
      * @param id Identificador de tipo int del objeto User
      * Este método sirve para buscar un objeto de tipo User con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista el usuario con ese identificador
-     * @return ResponseEntity si encuentra un usuario con ese identificador
+     * @return cadena de texto con los datos de cadena de texto con el error en caso de que no exista el usuario con ese identificador
+     * @return cadena de texto con los datos de cadena de texto en formato JSON con el usuario y es estatus
      */
     private suspend fun findUserById(id: Int) : String = withContext(Dispatchers.IO) {
         val user = uRepo.findById(id)
@@ -98,8 +98,8 @@ class Controller
 
     /**
      * Este método devuelve todos los usuarios que se encuentren registrados en la base de datos
-     * @return ResponseEntity en caso de que no existan usuarios
-     * @return ResponseEntity con los datos de un UserDTOVisualizeList con la lista de usuarios
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan usuarios
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un UserDTOVisualizeList con la lista de usuarios
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
     private suspend fun findAllUsers() : String = withContext(Dispatchers.IO) {
@@ -112,9 +112,9 @@ class Controller
     /**
      * Este método devuelve todos los usuarios que se encuentren activos o inactivos dependiendo del parámetro pasado
      * @param active de tipo Boolean se usa para buscar a los usuarios que tengan el parametro "active" = true :? false
-     * @return ResponseEntity en caso de que no existan usuarios
-     * @return ResponseEntity con los datos de un UserDTOVisualizeList con la lista de usuarios
-     * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan usuarios
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un UserDTOVisualizeList con la lista de usuarios
+     *
      */
     @GetMapping("/users")
     suspend fun findAllUsersWithActivity(@RequestParam(required = false, name = "activo") active: String?) : String = withContext(Dispatchers.IO) {
@@ -133,10 +133,10 @@ class Controller
      * @param user de tipo UserDTOCreate
      * @param token de tipo String
      * Comprueba que el token es válido y si se trata de un usuario de tipo administrador en caso de que validated no sea null
-     * @return validated respuesta de error por acceso no autorizado
+     * @return cadena de texto con los datos de validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del UserDTOCreate y devuelve
-     * @return ResponseEntity en formato json en caso de que el usuario se haya introducido de forma incorrecta
-     * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     * @return cadena de texto con los datos de ResponseEntity en formato json en caso de que el usuario se haya introducido de forma incorrecta
+     * @return cadena de texto con los datos de ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/users")
     suspend fun createUser(@RequestBody user: UserDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -156,8 +156,8 @@ class Controller
      * Este método sirve para establecer un usuario como inactivo
      * @param id de tipo UUID del usuario
      * @param token el token es una cadena de texto que se pasa el método por parámetro
-     * @return ResponseEntity en caso de que no se encuentre el id o que no se pueda establecer como inactivo
-     * @return ResponseEntity con un enconde a String con formato json
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no se encuentre el id o que no se pueda establecer como inactivo
+     * @return cadena de texto con los datos de ResponseEntity con un enconde a String con formato json
      */
     @PutMapping("/users/{id}")
     suspend fun setInactiveUser(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -182,10 +182,10 @@ class Controller
      * Este método sirve para borrar un usuario
      * @param id de tipo UUID del usuario que se quiera buscar
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que el usuario no sea encontrado por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado al usuario encontrado
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que el usuario no sea encontrado por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado al usuario encontrado
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @DeleteMapping("/users/{id}")
     suspend fun deleteUser(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -208,8 +208,8 @@ class Controller
     /**
      * @param id Identificador de tipo UUID del objeto Pedido
      * Este método sirve para buscar un objeto de tipo Pedido con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista el pedido con ese identificador
-     * @return ResponseEntity si encuentra un pedido con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no exista el pedido con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity si encuentra un pedido con ese identificador
      */
     @GetMapping("/pedidos/{id}")
     suspend fun findPedidoById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
@@ -225,8 +225,8 @@ class Controller
 
     /**
      * Este método devuelve todos los pedidos que se encuentren registrados en la base de datos
-     * @return ResponseEntity en caso de que no existan pedidos
-     * @return ResponseEntity con los datos de un PedidoDTOVisualizeList con la lista de pedidos
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan pedidos
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un PedidoDTOVisualizeList con la lista de pedidos
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
     private suspend fun findAllPedidos() : String = withContext(Dispatchers.IO) {
@@ -239,8 +239,8 @@ class Controller
     /**
      * Este método devuelve todos los pedidos que con el estado requerido dependiendo del parámetro pasado
      * @param state el estado en el que se encuentra la lista de pedidos que devuelve el método
-     * @return ResponseEntity en caso de que no existan pedidos con ese estado
-     * @return ResponseEntity con los datos de un PedidoDTOVisualizeList con la lista de pedidos con el estado
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan pedidos con ese estado
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un PedidoDTOVisualizeList con la lista de pedidos con el estado
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     @GetMapping("/pedidos")
@@ -265,11 +265,11 @@ class Controller
      * @param entity de tipo PedidoDTOCreate
      * @param token de tipo String
      * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
-     * @return validated respuesta de error por acceso no autorizado
+     * @return cadena de texto con los datos de validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del PedidoDTOCreate y devuelve
-     * @return ResponseEntity en formato json en caso de que el pedido se haya introducido de forma incorrecta o no haya sido encontrado el usuario
+     * @return cadena de texto con los datos de ResponseEntity en formato json en caso de que el pedido se haya introducido de forma incorrecta o no haya sido encontrado el usuario
      * en caso de no dar error recoge las tareas del pedido  las guarda usando el repositorio de tareas y después guarda el pedido
-     * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     * @return cadena de texto con los datos de ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/pedidos")
     suspend fun createPedido(@RequestBody entity: PedidoDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -292,10 +292,10 @@ class Controller
      * Este método sirve para borrar un pedido
      * @param id de tipo UUID del pedido que se quiera buscar
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que el pedido no sea encontrado por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado al pedido encontrado
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que el pedido no sea encontrado por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado al pedido encontrado
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @DeleteMapping("/pedidos/{id}")
     suspend fun deletePedido(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -327,8 +327,8 @@ class Controller
     /**
      * @param id Identificador de tipo UUID del objeto Producto
      * Este método sirve para buscar un objeto de tipo Producto con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista el producto con ese identificador
-     * @return ResponseEntity si encuentra un producto con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no exista el producto con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity si encuentra un producto con ese identificador
      */
     @GetMapping("/productos/{id}")
     suspend fun findProductoById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
@@ -346,8 +346,8 @@ class Controller
 
     /**
      * Este método devuelve todos los productos que se encuentren registrados en la base de datos
-     * @return ResponseEntity en caso de que no existan productos
-     * @return ResponseEntity con los datos de un ProductosDTOVisualizeList con la lista de productos
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan productos
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un ProductosDTOVisualizeList con la lista de productos
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
     @GetMapping("/productos")
@@ -362,8 +362,8 @@ class Controller
 
     /**
      * Este método devuelve todos los productos que se encuentren disponibles
-     * @return ResponseEntity en caso de que no existan productos con ese estado
-     * @return ResponseEntity con los datos de un ProductosDTOVisualizeList con la lista de productos con el estado
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan productos con ese estado
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un ProductosDTOVisualizeList con la lista de productos con el estado
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     @GetMapping("/productos/disponibles")
@@ -381,10 +381,10 @@ class Controller
      * @param entity de tipo ProductosDTOCreate
      * @param token de tipo String
      * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
-     * @return validated respuesta de error por acceso no autorizado
+     * @return cadena de texto con los datos de validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del ProductosDTOCreate y devuelve
-     * @return ResponseEntity en formato json en caso de que el producto se haya introducido de forma incorrecta
-     * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     * @return cadena de texto con los datos de ResponseEntity en formato json en caso de que el producto se haya introducido de forma incorrecta
+     * @return cadena de texto con los datos de ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/productos")
     suspend fun createProducto(@RequestBody entity: ProductoDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -403,10 +403,10 @@ class Controller
      * Este método sirve para borrar un producto
      * @param id de tipo UUID del pedido que se quiera buscar
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que el producto no sea encontrado por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado al producto encontrado
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que el producto no sea encontrado por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado al producto encontrado
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @DeleteMapping("/productos/{id}")
     suspend fun deleteProducto(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -430,10 +430,10 @@ class Controller
      * Este método sirve para bajar el stock del producto con el id pasado por parámetro
      * @param id de tipo UUID del producto
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que el producto no sea encontrado por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado al producto encontrado
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que el producto no sea encontrado por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado al producto encontrado
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @PutMapping("/productos/decrease/{id}")
     suspend fun decreaseStockFromProducto(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -456,8 +456,8 @@ class Controller
     /**
      * @param id identificador de tipo UUID del objeto Máquina
      * Este método sirve para buscar un objeto de tipo Máquina con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista la máquina con ese identificador
-     * @return ResponseEntity si encuentra una máquina con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no exista la máquina con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity si encuentra una máquina con ese identificador
      * devuelve la respuesta en formato json
      */
     @GetMapping("/maquinas/{id}")
@@ -476,8 +476,8 @@ class Controller
 
     /**
      * Este método devuelve todos las máquinas que se encuentren registradas en la base de datos
-     * @return ResponseEntity en caso de que no existan máquinas
-     * @return ResponseEntity con los datos de un MaquinaDTOVisualizeList con la lista de máquinas
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan máquinas
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un MaquinaDTOVisualizeList con la lista de máquinas
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     @GetMapping("/maquinas")
@@ -495,10 +495,10 @@ class Controller
      * @param entity de tipo MaquinaDTOCreate
      * @param token de tipo String
      * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
-     * @return validated respuesta de error por acceso no autorizado
+     * @return cadena de texto con los datos de validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del TurnoDTOCreate y devuelve
-     * @return ResponseEntity en formato json en caso de que la maquina se haya introducido de forma incorrecta
-     * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     * @return cadena de texto con los datos de ResponseEntity en formato json en caso de que la maquina se haya introducido de forma incorrecta
+     * @return cadena de texto con los datos de ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/maquinas")
     suspend fun createMaquina(@RequestBody entity: MaquinaDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -517,10 +517,10 @@ class Controller
      * Este método sirve para borrar un máquina
      * @param id de tipo UUID de la máquina que se quiera buscar
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que la máquina no sea encontrada por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado a la máquina encontrada
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que la máquina no sea encontrada por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado a la máquina encontrada
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @DeleteMapping("/maquinas/{id}")
     suspend fun deleteMaquina(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -545,10 +545,10 @@ class Controller
      * Este método sirve para poner en estado inactivo la máquina con el identificador pasado por parámetro
      * @param id de tipo UUID de la máquina
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que la máquina no sea encontrada por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el cambio a inactivo de la máquina encontrada
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que la máquina no sea encontrada por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el cambio a inactivo de la máquina encontrada
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @PutMapping("/maquinas/{id}")
     suspend fun setInactiveMaquina(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -571,8 +571,8 @@ class Controller
     /**
      * @param id identificador de tipo UUID del objeto Turno
      * Este método sirve para buscar un objeto de tipo Turno con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista el turno con ese identificador
-     * @return ResponseEntity si encuentra un turno con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no exista el turno con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity si encuentra un turno con ese identificador
      * devuelve la respuesta en formato json
      */
     @GetMapping("/turnos/{id}")
@@ -590,8 +590,8 @@ class Controller
 
     /**
      * Este método devuelve todos los turnos que se encuentren registrados en la base de datos
-     * @return ResponseEntity en caso de que no existan turnos
-     * @return ResponseEntity con los datos de un TurnoDTOVisualizeList con la lista de turnos
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan turnos
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un TurnoDTOVisualizeList con la lista de turnos
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     private suspend fun findAllTurnos() : String = withContext(Dispatchers.IO) {
@@ -607,8 +607,8 @@ class Controller
      * Este método sirve para buscar turnos por fecha y hora de inicio
      * @param horaInicio la fecha y hora del turno o turnos que se quieran buscar
      * Este método sirve para buscar un objeto de tipo Turno con la fecha pasada por parámetro
-     * @return ResponseEntity en caso de que no existan turnos con esa fecha
-     * @return ResponseEntity si encuentra un turno con esa fecha
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan turnos con esa fecha
+     * @return cadena de texto con los datos de ResponseEntity si encuentra un turno con esa fecha
      * devuelve la respuesta en formato json
      */
     @GetMapping("/turnos")
@@ -632,10 +632,10 @@ class Controller
      * @param entity de tipo TurnoDTOCreate
      * @param token de tipo String
      * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
-     * @return validated respuesta de error por acceso no autorizado
+     * @return cadena de texto con los datos de validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del TurnoDTOCreate y devuelve
-     * @return ResponseEntity en formato json en caso de que el turno se haya introducido de forma incorrecta
-     * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     * @return cadena de texto con los datos de ResponseEntity en formato json en caso de que el turno se haya introducido de forma incorrecta
+     * @return cadena de texto con los datos de ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/turnos")
     suspend fun createTurno(@RequestBody entity: TurnoDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -654,10 +654,10 @@ class Controller
      * Este método sirve para borrar un turno
      * @param id de tipo UUID del turno que se quiera buscar
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que el turno no sea encontrada por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado al turno encontrado
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que el turno no sea encontrada por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado al turno encontrado
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @DeleteMapping("/turnos/{id}")
     suspend fun deleteTurno(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -681,10 +681,10 @@ class Controller
      * Este método sirve para poner en estado finalizado el turno con el identificador pasado por parámetro
      * @param id de tipo UUID del turno
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que el turno no sea encontrada por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el cambio a inactivo del turno encontrado
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que el turno no sea encontrada por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el cambio a inactivo del turno encontrado
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @PutMapping("/turnos/{id}")
     suspend fun setFinalizadoTurno(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -707,8 +707,8 @@ class Controller
     /**
      * @param id identificador de tipo UUID del objeto Tarea
      * Este método sirve para buscar un objeto de tipo Tarea con el id pasado por parámetro
-     * @return ResponseEntity en caso de que no exista la tarea con ese identificador
-     * @return ResponseEntity si encuentra una tarea con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no exista la tarea con ese identificador
+     * @return cadena de texto con los datos de ResponseEntity si encuentra una tarea con ese identificador
      * devuelve la respuesta en formato json
      */
     @GetMapping("/tareas/{id}")
@@ -727,8 +727,8 @@ class Controller
 
     /**
      * Este método devuelve todos las tareas que se encuentren registrados en la base de datos
-     * @return ResponseEntity en caso de que no existan tareas
-     * @return ResponseEntity con los datos de un TareaDTOVisualizeList con la lista de tareas
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan tareas
+     * @return cadena de texto con los datos de ResponseEntity con los datos de un TareaDTOVisualizeList con la lista de tareas
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     private suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
@@ -744,8 +744,8 @@ class Controller
     /**
      * Este método sirve para buscar tareas finalizadas
      * @param finalizada de tipo Boolean para definir el estado de las tareas a buscar
-     * @return ResponseEntity en caso de que no existan tareas con ese estado
-     * @return ResponseEntity si encuentra una tarea con ese estado true/false
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no existan tareas con ese estado
+     * @return cadena de texto con los datos de ResponseEntity si encuentra una tarea con ese estado true/false
      * devuelve la respuesta en formato json
      */
     @GetMapping("/tareas")
@@ -769,14 +769,14 @@ class Controller
      * @param entity de tipo TareaDTOCreate
      * @param token para validar el método
      * Comprueba que el token es válido y si se trata de un token de tipo administrador en caso de que validated no sea null
-     * @return validated respuesta de error por acceso no autorizado
+     * @return cadena de texto con los datos de validated respuesta de error por acceso no autorizado
      * Si validated es null se comprueba los campos del TareaDTOCreate y devuelve
-     * @return ResponseEntity en formato json en caso de que la tarea se haya introducido de forma incorrecta
-     * @return ResponseEntity en caso de que no se hayan pasado datos suficientes para el cordaje
-     * @return ResponseEntity en caso de que haya una incoherencia de tipos en el EncordadoDTOCreate
-     * @return ResponseEntity en caso de que el parámetro no sea del tipo requerido en AdquisicionDTOCreate
-     * @return ResponseEntity en caso de que el parámetro no sea del tipo requerido en PersonalizacionDTOCreate
-     * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
+     * @return cadena de texto con los datos de ResponseEntity en formato json en caso de que la tarea se haya introducido de forma incorrecta
+     * @return cadena de texto con los datos de ResponseEntity en caso de que no se hayan pasado datos suficientes para el cordaje
+     * @return cadena de texto con los datos de ResponseEntity en caso de que haya una incoherencia de tipos en el EncordadoDTOCreate
+     * @return cadena de texto con los datos de ResponseEntity en caso de que el parámetro no sea del tipo requerido en AdquisicionDTOCreate
+     * @return cadena de texto con los datos de ResponseEntity en caso de que el parámetro no sea del tipo requerido en PersonalizacionDTOCreate
+     * @return cadena de texto con los datos de ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/tareas")
     suspend fun createTarea(@RequestBody entity: TareaDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -826,10 +826,10 @@ class Controller
      * Este método sirve para borrar una tarea
      * @param id de tipo UUID del turno que se quiera buscar
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que la tarea no sea encontrada por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el borrado a la tarea encontrada
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que la tarea no sea encontrada por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el borrado a la tarea encontrada
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @DeleteMapping("/tareas/{id}")
     suspend fun deleteTarea(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
@@ -853,10 +853,10 @@ class Controller
      * Este método sirve para poner en estado finalizado la tarea con el identificador pasado por parámetro
      * @param id de tipo UUID del turno
      * @param token de tipo String para validar el acceso al método
-     * @return validated si no es null devolverá el ResponseEntity correspondiente
-     * @return ResponseEntity en json del mensaje de error en caso de que la tarea no sea encontrada por el repositorio
-     * @return ResponseEntity en json en caso de que no se pueda aplicar el cambio a finalizada de la tarea encontrada
-     * @return ResponseEntity con formato json
+     * @return cadena de texto con los datos de validated si no es null devolverá el ResponseEntity correspondiente
+     * @return cadena de texto con los datos de ResponseEntity en json del mensaje de error en caso de que la tarea no sea encontrada por el repositorio
+     * @return cadena de texto con los datos de ResponseEntity en json en caso de que no se pueda aplicar el cambio a finalizada de la tarea encontrada
+     * @return cadena de texto con los datos de ResponseEntity con formato json
      */
     @PutMapping("/tareas/{id}")
     suspend fun setFinalizadaTarea(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {

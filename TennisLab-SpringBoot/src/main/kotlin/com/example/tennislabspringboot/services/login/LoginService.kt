@@ -11,6 +11,10 @@ import com.example.tennislabspringboot.services.utils.checkUserEmailAndPhone
 import com.example.tennislabspringboot.services.utils.fieldsAreIncorrect
 import com.example.tennislabspringboot.services.utils.matches
 
+/**
+ * @author Iván Azagra Troya
+ * Archivo con las clases para el registro e inicio de sesión de usuarios
+ */
 suspend fun login(user: UserDTOLogin, repo: UserRepositoryCached): String? {
     val u = repo.findByEmail(user.email) ?: return null
     return if (!matches(user.password, u.password.encodeToByteArray())) null

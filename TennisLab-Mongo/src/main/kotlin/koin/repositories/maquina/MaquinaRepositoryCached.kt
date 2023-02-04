@@ -14,7 +14,6 @@ import java.util.*
  * Repositorio de máquinas cacheados
  * @constructor Hace uso de la interfaz del repositorio de maquinas
  * no cacheados y de la interfaz de caché
- * @property client instancia del cliente de Ktorfit
  * @property refreshJob encargado de realizar la tarea de refresco a través de una corrutina
  * @property listSearches lista mutable de maquinas cacheados
  */

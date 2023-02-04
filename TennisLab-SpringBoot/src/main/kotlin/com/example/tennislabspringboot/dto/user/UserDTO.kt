@@ -4,6 +4,10 @@ import com.example.tennislabspringboot.models.user.UserProfile
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.*
 
+/**
+ * @author Iván Azagra Troya
+ * DTOs de creación, visualización y lista de visualización
+ */
 data class UserDTOcreate(
     val uuid: UUID = UUID.randomUUID(),
     val nombre: String,

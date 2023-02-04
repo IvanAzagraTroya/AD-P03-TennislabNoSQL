@@ -9,6 +9,10 @@ import com.example.tennislabspringboot.dto.tarea.TareaDTOvisualize
 import java.time.LocalDateTime
 import java.util.*
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * DTOs de creación, visualización y lista de visualización
+ */
 data class TurnoDTOcreate(
     val uuid: UUID = UUID.randomUUID(),
     val worker: UserDTOcreate,

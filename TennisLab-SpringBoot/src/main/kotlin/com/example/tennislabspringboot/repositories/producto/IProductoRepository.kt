@@ -5,6 +5,9 @@ import com.example.tennislabspringboot.models.producto.Producto
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
+/**
+ * Interfaz del repositorio de productos cacheados
+ */
 interface IProductoRepository<ID> {
     suspend fun findAll(): Flow<Producto>
     suspend fun findById(id: ID): Producto?

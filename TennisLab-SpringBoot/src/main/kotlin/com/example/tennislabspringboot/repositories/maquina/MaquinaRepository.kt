@@ -7,6 +7,9 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 
+/**
+ * Interfaz del repositorio de máquinas
+ */
 @Repository
 interface MaquinaRepository: CoroutineCrudRepository<Maquina, ObjectId> {
     fun findFirstByUuid(uuid: UUID) : Flow<Maquina>

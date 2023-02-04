@@ -4,6 +4,9 @@ import com.example.tennislabspringboot.models.user.User
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
+/**
+ * Interfaz del repositorio de usuarios cacheados
+ */
 interface IUserRepository<ID> {
     suspend fun findAll(): Flow<User>
     suspend fun findById(id: ID): User?

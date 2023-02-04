@@ -17,6 +17,16 @@ import org.springframework.web.client.getForObject
 import org.springframework.web.client.postForEntity
 import java.util.*
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * Repositorio de tareas cacheados
+ * @constructor Hace uso de la interfaz del repositorio de tareas
+ * no cacheados y de la interfaz de caché
+ * @property client instancia del cliente
+ * @property refreshJob encargado de realizar la tarea de refresco a través de una corrutina
+ * @property listSearches lista mutable de tareas cacheados
+ * @property apiUri cadena de texto del endpoint
+ */
 @Repository
 class TareaRepositoryCached
     @Autowired constructor(
@@ -30,6 +40,9 @@ class TareaRepositoryCached
 
     init { refreshCache() }
 
+    /**
+     * Método para refrescar la caché, en caso de que refreshJob sea nulo se cancela el Job
+     */
     private fun refreshCache() {
         if (refreshJob != null) refreshJob?.cancel()
 
@@ -46,6 +59,10 @@ class TareaRepositoryCached
         }
     }
 
+    /**
+     * Este método busca todos los tareas y los guarda dentro del
+     * set mutable en memoria que después se convierte en un flow
+     */
     override suspend fun findAll(): Flow<Tarea> = withContext(Dispatchers.IO) {
         val findAllDB = repo.findAll().toList()
         val findAllApi = fromAPItoTarea(client.getForObject("${apiUri}todos", TareaDTOFromApi::class))
@@ -55,6 +72,10 @@ class TareaRepositoryCached
         set.asFlow()
     }
 
+    /**
+     * Este método guarda la entidad pasada a listSearches y también en el repositorio
+     * @return la entidad pasada por parámetro
+     */
     override suspend fun save(entity: Tarea): Tarea = withContext(Dispatchers.IO) {
         listSearches.add(entity)
         repo.save(entity)
@@ -62,6 +83,14 @@ class TareaRepositoryCached
         entity
     }
 
+    /**
+     * Este método busca un tarea que tenga el id pasado por parámetro que se encuentre en la caché
+     * @param id identificador de tipo UUID
+     * Convierte la caché en un mapa donde el identificador es la clave a buscar y si encuentra
+     * un resultado lo añade a listSearches
+     * @return tarea con el uuid pasado por parámetro, si no lo encuentra en el caché lo busca
+     * en el repositorio de tareas y lo añade a listSearches
+     */
     override suspend fun findByUUID(id: UUID): Tarea? = withContext(Dispatchers.IO) {
         var result: Tarea? = null
 
@@ -77,6 +106,12 @@ class TareaRepositoryCached
         result
     }
 
+    /**
+     * Este método cambia el estado del tarea con el identificador pasado a finalizada
+     * y lo guarda en listSearches
+     * @param id identificador de tipo ObjectId
+     * @return el tarea que se haya puesto inactivo en caso de que exista
+     */
     override suspend fun setFinalizada(id: ObjectId): Tarea? = withContext(Dispatchers.IO) {
         val entity = repo.findById(id) ?: return@withContext null
 
@@ -103,6 +138,12 @@ class TareaRepositoryCached
         result
     }
 
+    /**
+     * Este método borra el tarea del repositorio y de la caché en caso de que se encuentre
+     * almacenado en ella
+     * @param id identificador de tipo ObjectId
+     * @return el tarea borrado
+     */
     override suspend fun delete(id: ObjectId): Tarea? = withContext(Dispatchers.IO) {
         val entity = repo.findById(id) ?: return@withContext null
         repo.delete(entity)
@@ -112,12 +153,21 @@ class TareaRepositoryCached
         entity
     }
 
+    /**
+     * Este método busca un tarea con el identificador pasado por parámetro y lo guarda
+     * en listSearches en la caché
+     * @param id identificador de tipo ObjectId
+     * @return el tarea que tenga el identificador pasado por parámetro
+     */
     override suspend fun findById(id: ObjectId): Tarea? = withContext(Dispatchers.IO) {
         val result = repo.findById(id)
         if (result != null) listSearches.add(result)
         result
     }
 
+    /**
+     * Borra todas las tareas
+     */
     suspend fun deleteAll() {
         repo.deleteAll()
     }

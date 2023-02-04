@@ -7,6 +7,9 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 
+/**
+ * Interfaz del repositorio de pedidos
+ */
 @Repository
 interface PedidoRepository: CoroutineCrudRepository<Pedido, ObjectId> {
     fun findFirstByUuid(uuid: UUID): Flow<Pedido>

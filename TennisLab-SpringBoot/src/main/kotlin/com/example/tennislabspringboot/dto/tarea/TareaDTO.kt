@@ -7,6 +7,10 @@ import com.example.tennislabspringboot.models.tarea.TipoTarea
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.*
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ * DTOs de creación, visualización y lista de visualización
+ */
 sealed interface TareaDTO
 sealed interface TareaDTOcreate : TareaDTO { fun fromDTO() : Tarea }
 sealed interface TareaDTOvisualize : TareaDTO

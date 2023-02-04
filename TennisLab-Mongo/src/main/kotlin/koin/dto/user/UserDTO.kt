@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 import java.util.*
 
 /**
- * @author Daniel Rodriguez Muñoz
+ * @author Iván Azagra Troya
  * DTOs de creación, visualización y lista de visualización
  */
 @Serializable

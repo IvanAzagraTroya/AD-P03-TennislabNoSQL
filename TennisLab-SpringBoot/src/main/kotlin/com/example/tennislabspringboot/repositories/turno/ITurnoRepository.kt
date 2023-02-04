@@ -4,6 +4,9 @@ import com.example.tennislabspringboot.models.turno.Turno
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
+/**
+ * Interfaz del repositorio de turnos cacheados
+ */
 interface ITurnoRepository<ID> {
     suspend fun findAll(): Flow<Turno>
     suspend fun findById(id: ID): Turno?

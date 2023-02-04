@@ -3,6 +3,10 @@ package com.example.tennislabspringboot.dto.producto
 import com.example.tennislabspringboot.models.producto.TipoProducto
 import java.util.*
 
+/**
+ * @author Iván Azagra Troya
+ * DTOs de creación, visualización y lista de visualización
+ */
 data class ProductoDTOcreate(
     val uuid: UUID = UUID.randomUUID(),
     val tipo: TipoProducto,

@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
+/**
+ * @author Iván Azagra Troya
+ * @property hasRefreshAllCacheJob boolean para saber si tiene refresco o no
+ * @property refreshTime tiempo que tarda en refrescar
+ * @property cache interfaz de la librería Cache4k con los atributos de nuestra caché
+ */
 @Service
 class MaquinaCache : IMaquinaCache {
     override val hasRefreshAllCacheJob: Boolean = true
