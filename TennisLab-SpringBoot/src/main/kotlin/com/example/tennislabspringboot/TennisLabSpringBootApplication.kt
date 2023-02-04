@@ -4,7 +4,11 @@ import com.example.tennislabspringboot.controllers.Controller
 import com.example.tennislabspringboot.db.*
 import com.example.tennislabspringboot.mappers.fromDTO
 import com.example.tennislabspringboot.services.login.create
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onStart
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -14,12 +18,20 @@ import org.springframework.boot.runApplication
 class TennisLabSpringBootApplication : CommandLineRunner {
     @Autowired
     lateinit var controller: Controller
+    private val json = ObjectMapper()
+        .registerModule(JavaTimeModule())
+        .writerWithDefaultPrettyPrinter()
 
     override fun run(vararg args: String?) = runBlocking {
-        val job = launch { loadData(controller) }
+        val job = launch(coroutineContext) { loadData(controller) }
         job.join()
 
-
+        val job2 = launch(coroutineContext) {
+            controller.findAllProductosAsFlow()
+                .onStart { println("Listening for changes in products...") }
+                .distinctUntilChanged()
+                .collect { println("Productos: ${json.writeValueAsString(it)}") }
+        }
     }
 
 }

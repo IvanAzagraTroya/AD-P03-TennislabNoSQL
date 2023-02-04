@@ -24,6 +24,8 @@ import com.example.tennislabspringboot.repositories.user.UserRepositoryCached
 import com.example.tennislabspringboot.services.login.checkToken
 import com.example.tennislabspringboot.services.utils.checkUserEmailAndPhone
 import com.example.tennislabspringboot.services.utils.fieldsAreIncorrect
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -57,6 +59,9 @@ class Controller
         private val tarMapper: TareaMapper,
         private val pedMapper: PedidoMapper,
 ) {
+    private val json = ObjectMapper()
+        .registerModule(JavaTimeModule())
+        .writerWithDefaultPrettyPrinter()
     /**
      * @param id Identificador de tipo UUID del objeto User
      * Este método sirve para buscar un objeto de tipo User con el id pasado por parámetro
@@ -64,16 +69,16 @@ class Controller
      * @return ResponseEntity si encuentra un usuario con ese identificador
      */
     @GetMapping("/users/{id}")
-    suspend fun findUserByUuid(@PathVariable id: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findUserByUuid(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
         if (id.toIntOrNull() != null) return@withContext findUserById(id.toInt())
         try {
             val user = uRepo.findByUUID(UUID.fromString(id))
 
-            if (user == null) ResponseEntity("User with id $id not found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(user.toDTO(), HttpStatus.OK)
+            if (user == null) json.writeValueAsString(ResponseEntity("User with id $id not found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(ResponseEntity(user.toDTO(), HttpStatus.OK))
         }
         catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -83,11 +88,11 @@ class Controller
      * @return ResponseEntity en caso de que no exista el usuario con ese identificador
      * @return ResponseEntity si encuentra un usuario con ese identificador
      */
-    private suspend fun findUserById(id: Int) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    private suspend fun findUserById(id: Int) : String = withContext(Dispatchers.IO) {
         val user = uRepo.findById(id)
 
-        if (user == null) ResponseEntity("User with id $id not found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(user.toDTO(), HttpStatus.OK)
+        if (user == null) json.writeValueAsString(ResponseEntity("User with id $id not found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(ResponseEntity(user.toDTO(), HttpStatus.OK))
     }
 
     /**
@@ -96,11 +101,11 @@ class Controller
      * @return ResponseEntity con los datos de un UserDTOVisualizeList con la lista de usuarios
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
-    private suspend fun findAllUsers() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    private suspend fun findAllUsers() : String = withContext(Dispatchers.IO) {
         val users = uRepo.findAll().toList()
 
-        if (users.isEmpty()) ResponseEntity("No users found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(UserDTOvisualizeList(toDTO(users)), HttpStatus.OK)
+        if (users.isEmpty()) json.writeValueAsString(ResponseEntity("No users found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(ResponseEntity(UserDTOvisualizeList(toDTO(users)), HttpStatus.OK))
     }
 
     /**
@@ -111,14 +116,15 @@ class Controller
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
     @GetMapping("/users")
-    suspend fun findAllUsersWithActivity(@RequestParam(required = false, name = "activo") active: String?) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findAllUsersWithActivity(@RequestParam(required = false, name = "activo") active: String?) : String = withContext(Dispatchers.IO) {
         if (active == null) return@withContext findAllUsers()
-        if (active.toBooleanStrictOrNull() == null) return@withContext ResponseEntity("Invalid request parameters.", HttpStatus.BAD_REQUEST)
+        if (active.toBooleanStrictOrNull() == null)
+            return@withContext json.writeValueAsString(ResponseEntity("Invalid request parameters.", HttpStatus.BAD_REQUEST))
         val activo = active.toBooleanStrictOrNull() ?: true
         val users = uRepo.findAll().toList().filter { it.activo == activo }
 
-        if (users.isEmpty()) ResponseEntity("No users found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(UserDTOvisualizeList(toDTO(users)), HttpStatus.OK)
+        if (users.isEmpty()) json.writeValueAsString(ResponseEntity("No users found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(ResponseEntity(UserDTOvisualizeList(toDTO(users)), HttpStatus.OK))
     }
 
     /**
@@ -132,17 +138,17 @@ class Controller
      * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/users")
-    suspend fun createUser(@RequestBody user: UserDTOcreate, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun createUser(@RequestBody user: UserDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         if (fieldsAreIncorrect(user))
-            return@withContext ResponseEntity("Cannot insert user. Incorrect fields.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(ResponseEntity("Cannot insert user. Incorrect fields.", HttpStatus.BAD_REQUEST))
         if (checkUserEmailAndPhone(user, uRepo))
-            return@withContext ResponseEntity("Cannot insert user.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(ResponseEntity("Cannot insert user.", HttpStatus.BAD_REQUEST))
 
         val res = uRepo.save(user.fromDTO())
-        ResponseEntity(res.toDTO(), HttpStatus.CREATED)
+        json.writeValueAsString(ResponseEntity(res.toDTO(), HttpStatus.CREATED))
     }
 
     /**
@@ -153,19 +159,21 @@ class Controller
      * @return ResponseEntity con un enconde a String con formato json
      */
     @PutMapping("/users/{id}")
-    suspend fun setInactiveUser(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun setInactiveUser(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val user = uRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot set inactive. User with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot set inactive. User with id $id not found.", HttpStatus.NOT_FOUND))
             val result = uRepo.setInactive(user.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot find and set inactive user with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(result.toDTO(), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot find and set inactive user with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(result.toDTO(), HttpStatus.OK))
         }
         catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -179,18 +187,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @DeleteMapping("/users/{id}")
-    suspend fun deleteUser(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun deleteUser(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val user = uRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("NOT FOUND: Cannot delete. User with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("NOT FOUND: Cannot delete. User with id $id not found.", HttpStatus.NOT_FOUND))
             val result = uRepo.delete(user.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot delete user with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(result.toDTO(), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot delete user with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(result.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -201,14 +211,14 @@ class Controller
      * @return ResponseEntity si encuentra un pedido con ese identificador
      */
     @GetMapping("/pedidos/{id}")
-    suspend fun findPedidoById(@PathVariable id: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findPedidoById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
         try {
             val entity = pedRepo.findByUUID(UUID.fromString(id))
 
-            if (entity == null) ResponseEntity("Pedido with id $id not found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(pedMapper.toDTO(entity), HttpStatus.OK)
+            if (entity == null) json.writeValueAsString(ResponseEntity("Pedido with id $id not found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(ResponseEntity(pedMapper.toDTO(entity), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -218,11 +228,11 @@ class Controller
      * @return ResponseEntity con los datos de un PedidoDTOVisualizeList con la lista de pedidos
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
-    private suspend fun findAllPedidos() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    private suspend fun findAllPedidos() : String = withContext(Dispatchers.IO) {
         val entities = pedRepo.findAll().toList()
 
-        if (entities.isEmpty()) ResponseEntity("No pedidos found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(PedidoDTOvisualizeList(pedMapper.toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(ResponseEntity("No pedidos found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(ResponseEntity(PedidoDTOvisualizeList(pedMapper.toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -233,16 +243,19 @@ class Controller
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     @GetMapping("/pedidos")
-    suspend fun findAllPedidosWithState(@RequestParam(required = false) state: String?) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findAllPedidosWithState(@RequestParam(required = false) state: String?) : String = withContext(Dispatchers.IO) {
         if (state == null) return@withContext findAllPedidos()
         try {
             val estado = PedidoState.valueOf(state)
             val entities = pedRepo.findAll().toList().filter { it.state == estado }
 
-            if (entities.isEmpty()) ResponseEntity("No pedidos found with state = $state.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(PedidoDTOvisualizeList(pedMapper.toDTO(entities)), HttpStatus.OK)
+            if (entities.isEmpty()) json.writeValueAsString(
+                ResponseEntity("No pedidos found with state = $state.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(
+                ResponseEntity(PedidoDTOvisualizeList(pedMapper.toDTO(entities)), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid parameters.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(
+                ResponseEntity("Invalid parameters.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -258,18 +271,20 @@ class Controller
      * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/pedidos")
-    suspend fun createPedido(@RequestBody entity: PedidoDTOcreate, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun createPedido(@RequestBody entity: PedidoDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         if (fieldsAreIncorrect(entity))
-            return@withContext ResponseEntity("Cannot insert pedido. Incorrect fields.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert pedido. Incorrect fields.", HttpStatus.BAD_REQUEST))
         if (uRepo.findByUUID(entity.user.fromDTO().uuid) == null)
-            return@withContext ResponseEntity("Cannot insert pedido. User not found.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert pedido. User not found.", HttpStatus.BAD_REQUEST))
 
         entity.tareas.forEach { tarRepo.save(it.fromDTO()) }
         val res = pedRepo.save(entity.fromDTO())
-        ResponseEntity(pedMapper.toDTO(res), HttpStatus.CREATED)
+        json.writeValueAsString(ResponseEntity(pedMapper.toDTO(res), HttpStatus.CREATED))
     }
 
     /**
@@ -282,20 +297,22 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @DeleteMapping("/pedidos/{id}")
-    suspend fun deletePedido(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun deletePedido(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val uuid = UUID.fromString(id)
             val entity = pedRepo.findByUUID(uuid)
-                ?: return@withContext ResponseEntity("Cannot delete. Pedido with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot delete. Pedido with id $id not found.", HttpStatus.NOT_FOUND))
             tarRepo.findAll().filter { it.pedidoId == uuid }.toList().forEach { tarRepo.delete(it.id) }
             val result = pedRepo.delete(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot delete pedido with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(pedMapper.toDTO(result), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot delete pedido with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(pedMapper.toDTO(result), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -313,14 +330,16 @@ class Controller
      * @return ResponseEntity si encuentra un producto con ese identificador
      */
     @GetMapping("/productos/{id}")
-    suspend fun findProductoById(@PathVariable id: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findProductoById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
         try {
             val entity = proRepo.findByUUID(UUID.fromString(id))
 
-            if (entity == null) ResponseEntity("Producto with id $id not found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(entity.toDTO(), HttpStatus.OK)
+            if (entity == null) json.writeValueAsString(
+                ResponseEntity("Producto with id $id not found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(
+                ResponseEntity(entity.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -331,11 +350,13 @@ class Controller
      * Por último coge el valor devuelto y le aplica un encode para tenerlo en formato json
      */
     @GetMapping("/productos")
-    private suspend fun findAllProductos() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    private suspend fun findAllProductos() : String = withContext(Dispatchers.IO) {
         val entities = proRepo.findAll().toList()
 
-        if (entities.isEmpty()) ResponseEntity("No productos found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(ProductoDTOvisualizeList(toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(
+            ResponseEntity("No productos found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(
+            ResponseEntity(ProductoDTOvisualizeList(toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -345,11 +366,13 @@ class Controller
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     @GetMapping("/productos/disponibles")
-    suspend fun findAllProductosDisponibles() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findAllProductosDisponibles() : String = withContext(Dispatchers.IO) {
         val entities = proRepo.findAll().toList().filter { it.stock > 0 }
 
-        if (entities.isEmpty()) ResponseEntity("There are no products available.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(ProductoDTOvisualizeList(toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(
+            ResponseEntity("There are no products available.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(
+            ResponseEntity(ProductoDTOvisualizeList(toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -363,15 +386,16 @@ class Controller
      * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/productos")
-    suspend fun createProducto(@RequestBody entity: ProductoDTOcreate, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun createProducto(@RequestBody entity: ProductoDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         if (fieldsAreIncorrect(entity))
-            return@withContext ResponseEntity("Cannot insert producto. Incorrect fields.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert producto. Incorrect fields.", HttpStatus.BAD_REQUEST))
 
         val res = proRepo.save(entity.fromDTO())
-        ResponseEntity(res.toDTO(), HttpStatus.CREATED)
+        json.writeValueAsString(ResponseEntity(res.toDTO(), HttpStatus.CREATED))
     }
 
     /**
@@ -384,18 +408,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @DeleteMapping("/productos/{id}")
-    suspend fun deleteProducto(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun deleteProducto(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = proRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot delete. Producto with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot delete. Producto with id $id not found.", HttpStatus.NOT_FOUND))
             val result = proRepo.delete(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot delete producto with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(result.toDTO(), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot delete producto with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(result.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -409,18 +435,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @PutMapping("/productos/decrease/{id}")
-    suspend fun decreaseStockFromProducto(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun decreaseStockFromProducto(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = proRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot decrease stock. Producto with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot decrease stock. Producto with id $id not found.", HttpStatus.NOT_FOUND))
             val result = proRepo.decreaseStock(entity.id)
-                ?: return@withContext ResponseEntity("Cannot decrease stock. Producto with id $id not found.", HttpStatus.NOT_FOUND)
-            ResponseEntity(result.toDTO(), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot decrease stock. Producto with id $id not found.", HttpStatus.NOT_FOUND))
+            json.writeValueAsString(ResponseEntity(result.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -432,14 +460,16 @@ class Controller
      * devuelve la respuesta en formato json
      */
     @GetMapping("/maquinas/{id}")
-    suspend fun findMaquinaById(@PathVariable id: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findMaquinaById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
         try {
             val entity = maRepo.findByUUID(UUID.fromString(id))
 
-            if (entity == null) ResponseEntity("Maquina with id $id not found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(entity.toDTO(), HttpStatus.OK)
+            if (entity == null) json.writeValueAsString(
+                ResponseEntity("Maquina with id $id not found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(
+                ResponseEntity(entity.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.OK)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.OK))
         }
     }
 
@@ -450,11 +480,13 @@ class Controller
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
     @GetMapping("/maquinas")
-    suspend fun findAllMaquinas() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findAllMaquinas() : String = withContext(Dispatchers.IO) {
         val entities = maRepo.findAll().toList()
 
-        if (entities.isEmpty()) ResponseEntity("No maquinas found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(MaquinaDTOvisualizeList(toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(
+            ResponseEntity("No maquinas found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(
+            ResponseEntity(MaquinaDTOvisualizeList(toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -468,15 +500,16 @@ class Controller
      * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/maquinas")
-    suspend fun createMaquina(@RequestBody entity: MaquinaDTOcreate, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun createMaquina(@RequestBody entity: MaquinaDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         if (fieldsAreIncorrect(entity))
-            return@withContext ResponseEntity("Cannot insert maquina. Incorrect fields.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert maquina. Incorrect fields.", HttpStatus.BAD_REQUEST))
 
         val res = maRepo.save(entity.fromDTO())
-        ResponseEntity(res.toDTO(), HttpStatus.CREATED)
+        json.writeValueAsString(ResponseEntity(res.toDTO(), HttpStatus.CREATED))
     }
 
     /**
@@ -489,18 +522,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @DeleteMapping("/maquinas/{id}")
-    suspend fun deleteMaquina(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun deleteMaquina(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = maRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot delete. Maquina with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot delete. Maquina with id $id not found.", HttpStatus.NOT_FOUND))
             val result = maRepo.delete(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot delete Maquina with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(result.toDTO(), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot delete Maquina with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(result.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
 
     }
@@ -515,18 +550,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @PutMapping("/maquinas/{id}")
-    suspend fun setInactiveMaquina(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun setInactiveMaquina(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = maRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot set inactive. Maquina with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot set inactive. Maquina with id $id not found.", HttpStatus.NOT_FOUND))
             val result = maRepo.setInactive(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot find and set inactive maquina with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(result.toDTO(), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot find and set inactive maquina with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(result.toDTO(), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -538,14 +575,15 @@ class Controller
      * devuelve la respuesta en formato json
      */
     @GetMapping("/turnos/{id}")
-    suspend fun findTurnoById(@PathVariable id: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findTurnoById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
         try {
             val entity = turRepo.findByUUID(UUID.fromString(id))
 
-            if (entity == null) ResponseEntity("Turno with id $id not found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(turMapper.toDTO(entity), HttpStatus.OK)
+            if (entity == null) json.writeValueAsString(
+                ResponseEntity("Turno with id $id not found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(ResponseEntity(turMapper.toDTO(entity), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -555,11 +593,13 @@ class Controller
      * @return ResponseEntity con los datos de un TurnoDTOVisualizeList con la lista de turnos
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
-    private suspend fun findAllTurnos() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    private suspend fun findAllTurnos() : String = withContext(Dispatchers.IO) {
         val entities = turRepo.findAll().toList()
 
-        if (entities.isEmpty()) ResponseEntity("No turnos found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(TurnoDTOvisualizeList(turMapper.toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(
+            ResponseEntity("No turnos found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(
+            ResponseEntity(TurnoDTOvisualizeList(turMapper.toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -571,16 +611,18 @@ class Controller
      * devuelve la respuesta en formato json
      */
     @GetMapping("/turnos")
-    suspend fun findAllTurnosByFecha(@RequestParam(required = false) horaInicio: String?) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findAllTurnosByFecha(@RequestParam(required = false) horaInicio: String?) : String = withContext(Dispatchers.IO) {
         if (horaInicio.isNullOrBlank()) return@withContext findAllTurnos()
         try {
             val hora = LocalDateTime.parse(horaInicio)
             val entities = turRepo.findAll().toList().filter { it.horaInicio == hora }
 
-            if (entities.isEmpty()) ResponseEntity("No turnos found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(TurnoDTOvisualizeList(turMapper.toDTO(entities)), HttpStatus.OK)
+            if (entities.isEmpty()) json.writeValueAsString(
+                ResponseEntity("No turnos found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(
+                    ResponseEntity(TurnoDTOvisualizeList(turMapper.toDTO(entities)), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid parameters.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid parameters.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -595,15 +637,16 @@ class Controller
      * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/turnos")
-    suspend fun createTurno(@RequestBody entity: TurnoDTOcreate, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun createTurno(@RequestBody entity: TurnoDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.WORKER)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         if (fieldsAreIncorrect(entity))
-            return@withContext ResponseEntity("Cannot insert turno. Incorrect fields.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert turno. Incorrect fields.", HttpStatus.BAD_REQUEST))
 
         val res = turRepo.save(turMapper.fromDTO(entity))
-        ResponseEntity(turMapper.toDTO(res), HttpStatus.CREATED)
+        json.writeValueAsString(ResponseEntity(turMapper.toDTO(res), HttpStatus.CREATED))
     }
 
     /**
@@ -616,18 +659,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @DeleteMapping("/turnos/{id}")
-    suspend fun deleteTurno(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun deleteTurno(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = turRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot delete. Turno with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot delete. Turno with id $id not found.", HttpStatus.NOT_FOUND))
             val result = turRepo.delete(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot delete Turno with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(turMapper.toDTO(result), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot delete Turno with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(turMapper.toDTO(result), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -641,18 +686,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @PutMapping("/turnos/{id}")
-    suspend fun setFinalizadoTurno(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun setFinalizadoTurno(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = turRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot set finalizado. Turno with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot set finalizado. Turno with id $id not found.", HttpStatus.NOT_FOUND))
             val result = turRepo.setFinalizado(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot find and set finalizado turno with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(turMapper.toDTO(result), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot find and set finalizado turno with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(turMapper.toDTO(result), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -664,14 +711,16 @@ class Controller
      * devuelve la respuesta en formato json
      */
     @GetMapping("/tareas/{id}")
-    suspend fun findTareaById(@PathVariable id: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findTareaById(@PathVariable id: String) : String = withContext(Dispatchers.IO) {
         try {
             val entity = tarRepo.findByUUID(UUID.fromString(id))
 
-            if (entity == null) ResponseEntity("Tarea with id $id not found.", HttpStatus.NOT_FOUND)
-            else ResponseEntity(tarMapper.toDTO(entity), HttpStatus.OK)
+            if (entity == null) json.writeValueAsString(
+                ResponseEntity("Tarea with id $id not found.", HttpStatus.NOT_FOUND))
+            else json.writeValueAsString(
+                ResponseEntity(tarMapper.toDTO(entity), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -681,12 +730,14 @@ class Controller
      * @return ResponseEntity con los datos de un TareaDTOVisualizeList con la lista de tareas
      * Por último coge el valor devuelto y le aplica un encode para devolverlo en formato json
      */
-    private suspend fun findAllTareas() : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    private suspend fun findAllTareas() : String = withContext(Dispatchers.IO) {
         var entities = tarRepo.findAll().toList()
         if (entities.size > 25) entities = entities.subList(0,24)
 
-        if (entities.isEmpty()) ResponseEntity("No tareas found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(TareaDTOvisualizeList(tarMapper.toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(
+            ResponseEntity("No tareas found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(
+            ResponseEntity(TareaDTOvisualizeList(tarMapper.toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -697,16 +748,19 @@ class Controller
      * devuelve la respuesta en formato json
      */
     @GetMapping("/tareas")
-    suspend fun findAllTareasFinalizadas(@RequestParam(required = false) finalizada: String?) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun findAllTareasFinalizadas(@RequestParam(required = false) finalizada: String?) : String = withContext(Dispatchers.IO) {
         if (finalizada.isNullOrBlank()) return@withContext findAllTareas()
         if (finalizada.toBooleanStrictOrNull() == null)
-            return@withContext ResponseEntity("Invalid parameters.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Invalid parameters.", HttpStatus.BAD_REQUEST))
         val fin = finalizada.toBooleanStrictOrNull() ?: false
         var entities = tarRepo.findAll().toList().filter { it.finalizada == fin }
         if (entities.size > 25) entities = entities.subList(0,24)
 
-        if (entities.isEmpty()) ResponseEntity("No tareas found.", HttpStatus.NOT_FOUND)
-        else ResponseEntity(TareaDTOvisualizeList(tarMapper.toDTO(entities)), HttpStatus.OK)
+        if (entities.isEmpty()) json.writeValueAsString(
+            ResponseEntity("No tareas found.", HttpStatus.NOT_FOUND))
+        else json.writeValueAsString(
+            ResponseEntity(TareaDTOvisualizeList(tarMapper.toDTO(entities)), HttpStatus.OK))
     }
 
     /**
@@ -724,12 +778,13 @@ class Controller
      * @return ResponseEntity si todos los campos son correctos y se aplica el guardado de forma correcta, devuelve un json
      */
     @PostMapping("/tareas")
-    suspend fun createTarea(@RequestBody entity: TareaDTOcreate, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun createTarea(@RequestBody entity: TareaDTOcreate, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         if (fieldsAreIncorrect(entity))
-            return@withContext ResponseEntity("Cannot insert tarea. Incorrect fields.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert tarea. Incorrect fields.", HttpStatus.BAD_REQUEST))
         if (entity is EncordadoDTOcreate
             && (
             (entity.cordajeHorizontal.uuid == entity.cordajeVertical.uuid
@@ -739,27 +794,31 @@ class Controller
             (entity.cordajeHorizontal.uuid != entity.cordajeVertical.uuid
             && entity.cordajeVertical.stock < 1)
             ))
-            return@withContext ResponseEntity("Cannot insert tarea. Not enough material for cordaje.", HttpStatus.BAD_REQUEST)
+            return@withContext json.writeValueAsString(
+                ResponseEntity("Cannot insert tarea. Not enough material for cordaje.", HttpStatus.BAD_REQUEST))
 
         when (entity) {
             is EncordadoDTOcreate -> {
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS ||
                     entity.cordajeHorizontal.tipo != TipoProducto.CORDAJES ||
                     entity.cordajeVertical.tipo != TipoProducto.CORDAJES)
-                    return@withContext ResponseEntity("Cannot insert tarea. Type mismatch in product types.", HttpStatus.BAD_REQUEST)
+                    return@withContext json.writeValueAsString(
+                        ResponseEntity("Cannot insert tarea. Type mismatch in product types.", HttpStatus.BAD_REQUEST))
             }
             is AdquisicionDTOcreate -> {
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS)
-                    return@withContext ResponseEntity("Cannot insert tarea. Parameter is not of type Raqueta.", HttpStatus.BAD_REQUEST)
+                    return@withContext json.writeValueAsString(
+                        ResponseEntity("Cannot insert tarea. Parameter is not of type Raqueta.", HttpStatus.BAD_REQUEST))
             }
             is PersonalizacionDTOcreate -> {
                 if (entity.raqueta.tipo != TipoProducto.RAQUETAS)
-                    return@withContext ResponseEntity("Cannot insert tarea. Parameter is not of type Raqueta.", HttpStatus.BAD_REQUEST)
+                    return@withContext json.writeValueAsString(
+                        ResponseEntity("Cannot insert tarea. Parameter is not of type Raqueta.", HttpStatus.BAD_REQUEST))
             }
         }
 
         val res = tarRepo.save(entity.fromDTO())
-        ResponseEntity(tarMapper.toDTO(res), HttpStatus.CREATED)
+        json.writeValueAsString(ResponseEntity(tarMapper.toDTO(res), HttpStatus.CREATED))
     }
 
     /**
@@ -772,18 +831,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @DeleteMapping("/tareas/{id}")
-    suspend fun deleteTarea(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun deleteTarea(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = tarRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot delete. Tarea with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot delete. Tarea with id $id not found.", HttpStatus.NOT_FOUND))
             val result = tarRepo.delete(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot delete tarea with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(tarMapper.toDTO(result), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot delete tarea with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(tarMapper.toDTO(result), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.BAD_REQUEST))
         }
     }
 
@@ -797,18 +858,20 @@ class Controller
      * @return ResponseEntity con formato json
      */
     @PutMapping("/tareas/{id}")
-    suspend fun setFinalizadaTarea(@PathVariable id: String, @RequestHeader token: String) : ResponseEntity<out Any> = withContext(Dispatchers.IO) {
+    suspend fun setFinalizadaTarea(@PathVariable id: String, @RequestHeader token: String) : String = withContext(Dispatchers.IO) {
         val validated = checkToken(token, UserProfile.ADMIN)
-        if (validated != null) return@withContext validated
+        if (validated != null) return@withContext json.writeValueAsString(validated)
 
         try {
             val entity = tarRepo.findByUUID(UUID.fromString(id))
-                ?: return@withContext ResponseEntity("Cannot set finalizado. Tarea with id $id not found.", HttpStatus.NOT_FOUND)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Cannot set finalizado. Tarea with id $id not found.", HttpStatus.NOT_FOUND))
             val result = tarRepo.setFinalizada(entity.id)
-                ?: return@withContext ResponseEntity("Unexpected error. Cannot find and set finalizada tarea with id $id.", HttpStatus.INTERNAL_SERVER_ERROR)
-            ResponseEntity(tarMapper.toDTO(result), HttpStatus.OK)
+                ?: return@withContext json.writeValueAsString(
+                    ResponseEntity("Unexpected error. Cannot find and set finalizada tarea with id $id.", HttpStatus.INTERNAL_SERVER_ERROR))
+            json.writeValueAsString(ResponseEntity(tarMapper.toDTO(result), HttpStatus.OK))
         } catch (e: Exception) {
-            ResponseEntity("Invalid id.", HttpStatus.OK)
+            json.writeValueAsString(ResponseEntity("Invalid id.", HttpStatus.OK))
         }
     }
 
