@@ -21,7 +21,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("ResponseSuccess")
-class ResponseSuccess<T: Any>(val code: Int, val data: T) : Response</*@Contextual*/ T>()
+class ResponseSuccess<T: Any>(val code: Int, val data: T) : Response<T>()
 
 /**
  * @author Daniel Rodriguez Muñoz

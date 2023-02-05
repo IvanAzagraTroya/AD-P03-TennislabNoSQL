@@ -5,6 +5,7 @@ import com.example.tennislabspringboot.dto.producto.ProductoDTOvisualize
 import com.example.tennislabspringboot.models.tarea.Tarea
 import com.example.tennislabspringboot.models.tarea.TipoTarea
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -158,4 +159,4 @@ data class TareaDTOFromApi (
     val tensionVertical: Double? = null,
     val cordajeVerticalId: String? = null,
     val dosNudos: Boolean? = null
-)
+) : Serializable

@@ -65,7 +65,7 @@ class UserRepositoryCached
     override suspend fun findAll(): Flow<User> = withContext(Dispatchers.IO) {
         val res = mutableSetOf<User>()
         res.addAll(uRepo.findAll().toList())
-        res.addAll(fromAPItoUser(client.getForObject("${apiUri}users", UserDTOfromAPI::class)))
+        res.addAll(fromAPItoUser(client.getForObject("${apiUri}users", Array<UserDTOfromAPI>::class.java)?.toList() ?: listOf()))
         res.asFlow()
     }
 

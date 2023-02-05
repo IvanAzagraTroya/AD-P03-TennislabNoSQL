@@ -1,6 +1,12 @@
 package com.example.tennislabspringboot.controllers
 
 import com.example.tennislabspringboot.db.*
+import com.example.tennislabspringboot.dto.maquina.PersonalizadoraDTOvisualize
+import com.example.tennislabspringboot.dto.pedido.PedidoDTOvisualize
+import com.example.tennislabspringboot.dto.producto.ProductoDTOvisualize
+import com.example.tennislabspringboot.dto.tarea.PersonalizacionDTOvisualize
+import com.example.tennislabspringboot.dto.turno.TurnoDTOvisualize
+import com.example.tennislabspringboot.dto.user.UserDTOvisualize
 import com.example.tennislabspringboot.mappers.PedidoMapper
 import com.example.tennislabspringboot.mappers.TareaMapper
 import com.example.tennislabspringboot.mappers.TurnoMapper
@@ -64,10 +70,10 @@ class ControllerTest {
     lateinit var repoUser: UserRepositoryCached
 
     @MockK
-    lateinit var turMapper: TurnoMapper
+    lateinit var tarMapper: TareaMapper
 
     @MockK
-    lateinit var tarMapper: TareaMapper
+    lateinit var turMapper: TurnoMapper
 
     @MockK
     lateinit var pedMapper: PedidoMapper
@@ -95,6 +101,13 @@ class ControllerTest {
         precio = 150.5,
         stock = 3
     )
+    private val raquetaDTO = ProductoDTOvisualize(
+        tipo = TipoProducto.RAQUETAS,
+        marca = "MarcaRaqueta",
+        modelo = "ModeloRaqueta",
+        precio = 150.5,
+        stock = 3
+    )
     private val client = User(
         id = ObjectId.get(),
         uuid = UUID.fromString("93a98d69-0006-48a7-b34f-05b596ea839a"),
@@ -106,6 +119,13 @@ class ControllerTest {
         perfil = UserProfile.CLIENT,
         activo = true
     )
+    private val clientDTO = UserDTOvisualize(
+        nombre = "Maria",
+        apellido = "Martinez",
+        email = "email2@email.com",
+        perfil = UserProfile.CLIENT,
+        activo = true
+    )
     private val worker = User(
         id= ObjectId.get(),
         uuid = UUID.fromString("93a98d69-0007-48a7-b34f-05b596ea839c"),
@@ -114,6 +134,13 @@ class ControllerTest {
         telefono = "632950281",
         email = "email@email.com",
         password = "estacontraseñanoestaensha512",
+        perfil = UserProfile.WORKER,
+        activo = true
+    )
+    private val workerDTO = UserDTOvisualize(
+        nombre = "Luis",
+        apellido = "Martinez",
+        email = "email@email.com",
         perfil = UserProfile.WORKER,
         activo = true
     )
@@ -154,6 +181,24 @@ class ControllerTest {
         cordajeVerticalId = null,
         dosNudos = null
     )
+    private val tareaDTO = PersonalizacionDTOvisualize(
+        raqueta = raquetaDTO,
+        precio = producto.precio,
+        finalizada = true,
+        pedidoId = pedido.uuid,
+        peso = 10,
+        balance = 2.0,
+        rigidez = 5
+    )
+    private val pedidoDTO = PedidoDTOvisualize(
+        user = clientDTO,
+        state = PedidoState.PROCESO,
+        fechaEntrada = LocalDate.parse("2013-10-10"),
+        fechaSalida = LocalDate.parse("2023-12-12"),
+        topeEntrega = LocalDate.parse("2023-12-14"),
+        tareas = listOf(tareaDTO),
+        precio = 0.0
+    )
     private val personalizadora1 = Maquina(
         id = ObjectId.get(),
         uuid = UUID.fromString("93a98d69-0008-48a7-b34f-05b596ea83bb"),
@@ -170,6 +215,16 @@ class ControllerTest {
         measuresBalance = true,
         measuresManeuverability = true
     )
+    private val personalizadora1DTO = PersonalizadoraDTOvisualize(
+        modelo = "RTX-3080TI",
+        marca = "Nvidia",
+        fechaAdquisicion = LocalDate.parse("2022-11-10"),
+        numeroSerie = "123456789X",
+        activa = true,
+        measuresRigidity = false,
+        measuresBalance = true,
+        measuresManeuverability = true
+    )
     private val turno = Turno(
         uuid = UUID.fromString("93a98d69-0019-48a7-b34f-05b596ea8abc"),
         workerId = worker.uuid,
@@ -179,6 +234,16 @@ class ControllerTest {
         numPedidosActivos = 2,
         tarea1Id = tarea.uuid,
         tarea2Id = null,
+        finalizado = false
+    )
+    private val turnoDTO = TurnoDTOvisualize(
+        worker = workerDTO,
+        maquina = personalizadora1DTO,
+        horaInicio = LocalDateTime.of(2002, 10, 14, 10, 9),
+        horaFin = LocalDateTime.of(2002, 10, 14, 16, 49),
+        numPedidosActivos = 2,
+        tarea1 = tareaDTO,
+        tarea2 = null,
         finalizado = false
     )
 
@@ -222,7 +287,7 @@ class ControllerTest {
         val response = """
             {
               "headers" : { },
-              "body" : "Maquina with id da9c6403-d6dc-44cc-bb31-683a4858a7e9 not found.",
+              "body" : "Maquina with id $uuid not found.",
               "statusCode" : "NOT_FOUND",
               "statusCodeValue" : 404
             }
@@ -589,8 +654,44 @@ class ControllerTest {
     @Test
     fun findAllPedidosSuccess() = runTest {
         val response = """
-            
+            {
+              "headers" : { },
+              "body" : {
+                "pedidos" : [ {
+                  "user" : {
+                    "nombre" : "Maria",
+                    "apellido" : "Martinez",
+                    "email" : "email2@email.com",
+                    "perfil" : "CLIENT",
+                    "activo" : true
+                  },
+                  "state" : "PROCESO",
+                  "fechaEntrada" : [ 2013, 10, 10 ],
+                  "fechaSalida" : [ 2023, 12, 12 ],
+                  "topeEntrega" : [ 2023, 12, 14 ],
+                  "tareas" : [ {
+                    "raqueta" : {
+                      "tipo" : "RAQUETAS",
+                      "marca" : "MarcaRaqueta",
+                      "modelo" : "ModeloRaqueta",
+                      "precio" : 150.5,
+                      "stock" : 3
+                    },
+                    "precio" : 36.4,
+                    "finalizada" : true,
+                    "pedidoId" : "93a98d69-0010-48a7-b34f-05b596ea8acc",
+                    "peso" : 10,
+                    "balance" : 2.0,
+                    "rigidez" : 5
+                  } ],
+                  "precio" : 0.0
+                } ]
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
+        coEvery { pedMapper.toDTO(listOf(pedido)) } returns listOf(pedidoDTO)
         coEvery { repoPedido.findAll() } returns flowOf(pedido)
 
         var result = ""
@@ -626,8 +727,42 @@ class ControllerTest {
     @Test
     fun createPedidoCorrect() = runTest {
         val response = """
-            
+            {
+              "headers" : { },
+              "body" : {
+                "user" : {
+                  "nombre" : "Maria",
+                  "apellido" : "Martinez",
+                  "email" : "email2@email.com",
+                  "perfil" : "CLIENT",
+                  "activo" : true
+                },
+                "state" : "PROCESO",
+                "fechaEntrada" : [ 2013, 10, 10 ],
+                "fechaSalida" : [ 2023, 12, 12 ],
+                "topeEntrega" : [ 2023, 12, 14 ],
+                "tareas" : [ {
+                  "raqueta" : {
+                    "tipo" : "RAQUETAS",
+                    "marca" : "MarcaRaqueta",
+                    "modelo" : "ModeloRaqueta",
+                    "precio" : 150.5,
+                    "stock" : 3
+                  },
+                  "precio" : 36.4,
+                  "finalizada" : true,
+                  "pedidoId" : "93a98d69-0010-48a7-b34f-05b596ea8acc",
+                  "peso" : 10,
+                  "balance" : 2.0,
+                  "rigidez" : 5
+                } ],
+                "precio" : 0.0
+              },
+              "statusCode" : "CREATED",
+              "statusCodeValue" : 201
+            }
         """.trimIndent()
+        coEvery { pedMapper.toDTO(pedido)} returns pedidoDTO
         coEvery { repoUser.findByUUID(any())} returns client
         coEvery { repoTarea.save(any()) } returns tarea
         coEvery { repoPedido.save(any()) } returns pedido
@@ -787,7 +922,7 @@ class ControllerTest {
         val res = result.replace("\r\n", "\n")
 
         assertAll(
-            { assertEquals(response, result) }
+            { assertEquals(response, res) }
         )
     }
 
@@ -797,7 +932,7 @@ class ControllerTest {
         val response = """
             {
               "headers" : { },
-              "body" : "Producto with id a1d31f84-274a-450c-9b15-7bb7d61662f6 not found.",
+              "body" : "Producto with id $uuid not found.",
               "statusCode" : "NOT_FOUND",
               "statusCodeValue" : 404
             }
@@ -1133,7 +1268,7 @@ class ControllerTest {
         val response = """
             {
               "headers" : { },
-              "body" : "Tarea with id 2583ab3f-b11d-44f8-a983-130bf1b6c79d not found.",
+              "body" : "Tarea with id $uuid not found.",
               "statusCode" : "NOT_FOUND",
               "statusCodeValue" : 404
             }
@@ -1153,8 +1288,30 @@ class ControllerTest {
     @Test
     fun findAllTareasSuccess() = runTest {
         val response = """
-            
+            {
+              "headers" : { },
+              "body" : {
+                "tareas" : [ {
+                  "raqueta" : {
+                    "tipo" : "RAQUETAS",
+                    "marca" : "MarcaRaqueta",
+                    "modelo" : "ModeloRaqueta",
+                    "precio" : 150.5,
+                    "stock" : 3
+                  },
+                  "precio" : 36.4,
+                  "finalizada" : true,
+                  "pedidoId" : "93a98d69-0010-48a7-b34f-05b596ea8acc",
+                  "peso" : 10,
+                  "balance" : 2.0,
+                  "rigidez" : 5
+                } ]
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
+        coEvery { tarMapper.toDTO(listOf(tarea)) } returns listOf(tareaDTO)
         coEvery { repoTarea.findAll() } returns flowOf(tarea)
 
         var result = ""
@@ -1190,8 +1347,28 @@ class ControllerTest {
     @Test
     fun createTareaCorrect() = runTest {
         val response = """
-            
+            {
+              "headers" : { },
+              "body" : {
+                "raqueta" : {
+                  "tipo" : "RAQUETAS",
+                  "marca" : "MarcaRaqueta",
+                  "modelo" : "ModeloRaqueta",
+                  "precio" : 150.5,
+                  "stock" : 3
+                },
+                "precio" : 36.4,
+                "finalizada" : true,
+                "pedidoId" : "93a98d69-0010-48a7-b34f-05b596ea8acc",
+                "peso" : 10,
+                "balance" : 2.0,
+                "rigidez" : 5
+              },
+              "statusCode" : "CREATED",
+              "statusCodeValue" : 201
+            }
         """.trimIndent()
+        coEvery { tarMapper.toDTO(tarea) } returns tareaDTO
         coEvery { repoTarea.save(any()) } returns tarea
         val ress = controller.createTarea(personalizacion, adminToken)
         val res = ress.replace("\r\n", "\n")
@@ -1432,7 +1609,7 @@ class ControllerTest {
         val response = """
             {
               "headers" : { },
-              "body" : "Turno with id 66f073f4-1b44-42a5-ba8b-68fd6752377b not found.",
+              "body" : "Turno with id $uuid not found.",
               "statusCode" : "NOT_FOUND",
               "statusCodeValue" : 404
             }
@@ -1452,8 +1629,54 @@ class ControllerTest {
     @Test
     fun findAllTurnosSuccess() = runTest {
         val response = """
-            
+            {
+              "headers" : { },
+              "body" : {
+                "turnos" : [ {
+                  "worker" : {
+                    "nombre" : "Luis",
+                    "apellido" : "Martinez",
+                    "email" : "email@email.com",
+                    "perfil" : "WORKER",
+                    "activo" : true
+                  },
+                  "maquina" : {
+                    "modelo" : "RTX-3080TI",
+                    "marca" : "Nvidia",
+                    "fechaAdquisicion" : [ 2022, 11, 10 ],
+                    "numeroSerie" : "123456789X",
+                    "activa" : true,
+                    "measuresManeuverability" : true,
+                    "measuresRigidity" : false,
+                    "measuresBalance" : true
+                  },
+                  "horaInicio" : [ 2002, 10, 14, 10, 9 ],
+                  "horaFin" : [ 2002, 10, 14, 16, 49 ],
+                  "numPedidosActivos" : 2,
+                  "tarea1" : {
+                    "raqueta" : {
+                      "tipo" : "RAQUETAS",
+                      "marca" : "MarcaRaqueta",
+                      "modelo" : "ModeloRaqueta",
+                      "precio" : 150.5,
+                      "stock" : 3
+                    },
+                    "precio" : 36.4,
+                    "finalizada" : true,
+                    "pedidoId" : "93a98d69-0010-48a7-b34f-05b596ea8acc",
+                    "peso" : 10,
+                    "balance" : 2.0,
+                    "rigidez" : 5
+                  },
+                  "tarea2" : null,
+                  "finalizado" : false
+                } ]
+              },
+              "statusCode" : "OK",
+              "statusCodeValue" : 200
+            }
         """.trimIndent()
+        coEvery { turMapper.toDTO(listOf(turno)) } returns listOf(turnoDTO)
         coEvery { repoTurno.findAll() } returns flowOf(turno)
 
         var result = ""
@@ -1489,8 +1712,53 @@ class ControllerTest {
     @Test
     fun createTurnoCorrect() = runTest {
         val response = """
-            
+            {
+              "headers" : { },
+              "body" : {
+                "worker" : {
+                  "nombre" : "Luis",
+                  "apellido" : "Martinez",
+                  "email" : "email@email.com",
+                  "perfil" : "WORKER",
+                  "activo" : true
+                },
+                "maquina" : {
+                  "modelo" : "RTX-3080TI",
+                  "marca" : "Nvidia",
+                  "fechaAdquisicion" : [ 2022, 11, 10 ],
+                  "numeroSerie" : "123456789X",
+                  "activa" : true,
+                  "measuresManeuverability" : true,
+                  "measuresRigidity" : false,
+                  "measuresBalance" : true
+                },
+                "horaInicio" : [ 2002, 10, 14, 10, 9 ],
+                "horaFin" : [ 2002, 10, 14, 16, 49 ],
+                "numPedidosActivos" : 2,
+                "tarea1" : {
+                  "raqueta" : {
+                    "tipo" : "RAQUETAS",
+                    "marca" : "MarcaRaqueta",
+                    "modelo" : "ModeloRaqueta",
+                    "precio" : 150.5,
+                    "stock" : 3
+                  },
+                  "precio" : 36.4,
+                  "finalizada" : true,
+                  "pedidoId" : "93a98d69-0010-48a7-b34f-05b596ea8acc",
+                  "peso" : 10,
+                  "balance" : 2.0,
+                  "rigidez" : 5
+                },
+                "tarea2" : null,
+                "finalizado" : false
+              },
+              "statusCode" : "CREATED",
+              "statusCodeValue" : 201
+            }
         """.trimIndent()
+        coEvery { turMapper.fromDTO(turnos[0]) } returns turno
+        coEvery { turMapper.toDTO(turno) } returns turnoDTO
         coEvery { repoTurno.save(any()) } returns turno
         val ress = controller.createTurno(turnos[0], adminToken)
         val res = ress.replace("\r\n", "\n")
@@ -1737,7 +2005,7 @@ class ControllerTest {
         val ress = """
             {
               "headers" : { },
-              "body" : "User with id d452a7a8-2c1e-4807-9731-c731da803588 not found.",
+              "body" : "User with id $uuid not found.",
               "statusCode" : "NOT_FOUND",
               "statusCodeValue" : 404
             }

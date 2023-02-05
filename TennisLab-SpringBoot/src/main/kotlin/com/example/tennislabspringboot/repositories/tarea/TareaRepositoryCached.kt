@@ -5,6 +5,7 @@ import com.example.tennislabspringboot.mappers.fromAPItoTarea
 import com.example.tennislabspringboot.mappers.toDTOapi
 import com.example.tennislabspringboot.models.tarea.Tarea
 import com.example.tennislabspringboot.services.cache.tarea.ITareaCache
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -13,8 +14,7 @@ import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import org.springframework.web.client.RestTemplate
-import org.springframework.web.client.getForObject
-import org.springframework.web.client.postForEntity
+import org.springframework.web.client.postForObject
 import java.util.*
 
 /**
@@ -37,6 +37,7 @@ class TareaRepositoryCached
     private val client = RestTemplate()
     private var refreshJob: Job? = null
     private var listSearches = mutableListOf<Tarea>()
+    private val json = ObjectMapper()
 
     init { refreshCache() }
 
@@ -65,7 +66,7 @@ class TareaRepositoryCached
      */
     override suspend fun findAll(): Flow<Tarea> = withContext(Dispatchers.IO) {
         val findAllDB = repo.findAll().toList()
-        val findAllApi = fromAPItoTarea(client.getForObject("${apiUri}todos", TareaDTOFromApi::class))
+        val findAllApi = fromAPItoTarea(client.getForObject("${apiUri}todos", Array<TareaDTOFromApi>::class.java)?.toList() ?: listOf())
         val set = mutableSetOf<Tarea>()
         set.addAll(findAllDB)
         set.addAll(findAllApi)
@@ -79,7 +80,7 @@ class TareaRepositoryCached
     override suspend fun save(entity: Tarea): Tarea = withContext(Dispatchers.IO) {
         listSearches.add(entity)
         repo.save(entity)
-        client.postForEntity<TareaDTOFromApi>("${apiUri}todos", entity.toDTOapi(), TareaDTOFromApi::class)
+        client.postForObject<TareaDTOFromApi>("${apiUri}todos", entity.toDTOapi(), TareaDTOFromApi::class)
         entity
     }
 
