@@ -38,14 +38,6 @@ fun UserDTORegister.fromDTO() = UserDTOcreate (
     activo = true
 )
 
-fun UserDTOfromAPI.toVisualizeDTO() = UserDTOvisualize(
-    nombre = name.substringBeforeLast(" "),
-    apellido = name.substringAfterLast(" "),
-    email = email,
-    perfil = UserProfile.CLIENT,
-    activo = true
-)
-
 fun UserDTOfromAPI.fromDTO() = User(
     nombre = name.substringBeforeLast(" "),
     apellido = name.substringAfterLast(" "),
@@ -59,12 +51,6 @@ fun UserDTOfromAPI.fromDTO() = User(
 fun toDTO(list: List<User>) : List<UserDTOvisualize> {
     val res = mutableListOf<UserDTOvisualize>()
     list.forEach { res.add(it.toDTO()) }
-    return res
-}
-
-fun toDTOfromAPI(list: List<UserDTOfromAPI>) : List<UserDTOvisualize> {
-    val res = mutableListOf<UserDTOvisualize>()
-    list.forEach { res.add(it.toVisualizeDTO()) }
     return res
 }
 

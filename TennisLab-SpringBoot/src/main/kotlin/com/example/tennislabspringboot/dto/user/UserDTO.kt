@@ -2,6 +2,7 @@ package com.example.tennislabspringboot.dto.user
 
 import com.example.tennislabspringboot.models.user.UserProfile
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -33,8 +34,8 @@ data class UserDTOvisualizeList(val users: List<UserDTOvisualize>)
 data class UserDTOfromAPI(
     val name: String,
     val email: String,
-    val phone: String
-)
+    val phone: String,
+) : Serializable
 
 data class UserDTOLogin(
     val email: String,

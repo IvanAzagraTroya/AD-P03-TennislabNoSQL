@@ -6,7 +6,6 @@ import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.Path
 import koin.dto.tarea.TareaDTOFromApi
 import koin.dto.user.UserDTOfromAPI
-import koin.models.tarea.Tarea
 
 /**
  * @author Daniel Rodriguez Muñoz
