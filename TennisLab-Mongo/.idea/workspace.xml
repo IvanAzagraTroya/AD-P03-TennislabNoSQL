@@ -4,88 +4,54 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d3d35c68-ee1b-4393-b0a0-19a5a5227e35" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_classic_1_4_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_core_1_4_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_13_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_13_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_13_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_module_jackson_module_kotlin_2_13_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_undercouch_bson4jackson_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_microutils_kotlin_logging_jvm_3_0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_insert_koin_koin_core_jvm_3_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_insert_koin_koin_test_junit5_3_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_insert_koin_koin_test_jvm_3_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_projectreactor_reactor_core_3_2_22_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_13_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_reflect_1_7_20.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_reflect_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_annotations_common_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_common_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_junit5_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_junit_1_7_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm_1_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_reactive_1_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_serialization_core_jvm_1_4_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_serialization_json_jvm_1_4_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_jackson_jackson_module_loader_0_4_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_async_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_async_core_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_async_shared_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_coroutine_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_coroutine_core_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_data_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_id_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_id_jackson_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_jackson_mapping_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_property_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kmongo_kmongo_shared_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_litote_kreflect_1_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mongodb_bson_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mongodb_bson_record_codec_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mongodb_mongodb_driver_core_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mongodb_mongodb_driver_reactivestreams_4_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_2_0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/TennisLab-Mongo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/TennisLab-Mongo.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/TennisLab-Mongo.test.iml" beforeDir="false" />
+    <list default="true" id="9d305494-9832-440d-94d2-67b0567994a0" name="Changes" comment="Kdoc terminado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/dto/user/UserDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/dto/user/UserDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/maquina/MaquinaRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/maquina/MaquinaRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/pedido/PedidoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/pedido/PedidoRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/turno/TurnoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/turno/TurnoRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/controllers/Controller.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/controllers/Controller.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/pedido/PedidoDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/pedido/PedidoDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/producto/ProductoDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/producto/ProductoDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/tarea/TareaDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/tarea/TareaDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/turno/TurnoDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/turno/TurnoDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/user/UserDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/user/UserDTO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/IMaquinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/IMaquinaRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/IPedidoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/IPedidoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/IProductoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/IProductoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/ITareaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/ITareaRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/ITurnoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/ITurnoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/IUserRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/IUserRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepositoryCached.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/ICache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/ICache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/maquina/MaquinaCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/maquina/MaquinaCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/pedido/PedidoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/pedido/PedidoCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/IProductoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/IProductoCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/ProductoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/ProductoCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/ITareaCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/ITareaCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/TareaCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/TareaCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/ITurnoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/ITurnoCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/TurnoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/TurnoCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/IUserCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/IUserCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/UserCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/UserCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/LoginService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/LoginService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/TokenService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/TokenService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/CipherService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/CipherService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/FieldCheckingService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/FieldCheckingService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/utils/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/Utils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,30 +66,406 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="ProjectId" id="2KGTedKWfqTJER24ENAwP6JlWNK" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2KGfZgrAJvdcoNjauiMqZNsVA2D" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "project.propCompiler"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;liberica-17&quot;,
+    &quot;ktor.last.update.timestamp&quot;: &quot;1675457078297&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/BlobTheVod/Documents/Programacion/Asignaturas/Acceso a Datos/AD-P03-TennislabNoSQL/TennisLab-SpringBoot&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\main\kotlin\dto" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\main\kotlin\koin\services\utils" />
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\test\kotlin" />
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\test\koin" />
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\test" />
+      <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\gradle\wrapper" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.ControllerTest">
+    <configuration name="ControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controller.ControllerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ControllerTest.findMaquinaById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controller.ControllerTest.findMaquinaById&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MaquinaRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;repositories.MaquinaRepositoryTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UserRepositoryCachedTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;cached_repositories.UserRepositoryCachedTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UserRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;repositories.UserRepositoryTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ControllerTest" />
+        <item itemvalue="Gradle.ControllerTest.findMaquinaById" />
+        <item itemvalue="Gradle.UserRepositoryCachedTest" />
+        <item itemvalue="Gradle.MaquinaRepositoryTest" />
+        <item itemvalue="Gradle.UserRepositoryTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d3d35c68-ee1b-4393-b0a0-19a5a5227e35" name="Changes" comment="" />
-      <created>1673600021639</created>
+      <changelist id="9d305494-9832-440d-94d2-67b0567994a0" name="Changes" comment="" />
+      <created>1673605899310</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1673600021639</updated>
-      <workItem from="1673600023009" duration="51000" />
+      <updated>1673605899310</updated>
+      <workItem from="1673605900754" duration="237000" />
+      <workItem from="1673642120361" duration="709000" />
+      <workItem from="1673778841984" duration="37000" />
+      <workItem from="1673803095429" duration="3726000" />
+      <workItem from="1674148758385" duration="8933000" />
+      <workItem from="1674200373732" duration="5713000" />
+      <workItem from="1674386177956" duration="7263000" />
+      <workItem from="1674459703717" duration="691000" />
+      <workItem from="1674915689116" duration="978000" />
+      <workItem from="1674997102219" duration="10798000" />
+      <workItem from="1675064964965" duration="9236000" />
+      <workItem from="1675159697004" duration="411000" />
+      <workItem from="1675188159586" duration="1305000" />
+      <workItem from="1675274368051" duration="10760000" />
+      <workItem from="1675323251457" duration="1398000" />
+      <workItem from="1675326176237" duration="8529000" />
+      <workItem from="1675361758680" duration="9861000" />
+      <workItem from="1675409727433" duration="3710000" />
+      <workItem from="1675448436880" duration="5345000" />
+      <workItem from="1675457500969" duration="54000" />
+      <workItem from="1675514066701" duration="21000" />
+      <workItem from="1675516368295" duration="796000" />
+      <workItem from="1675523407897" duration="28000" />
+      <workItem from="1675523447569" duration="3649000" />
+      <workItem from="1675534288471" duration="344000" />
     </task>
+    <task id="LOCAL-00001" summary="Arreglo archivos de configuración">
+      <created>1673606546140</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1673606546140</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Maquinarepository">
+      <created>1673807063884</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673807063884</updated>
+    </task>
+    <task id="LOCAL-00003" summary="userrepo">
+      <created>1674157197215</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674157197215</updated>
+    </task>
+    <task id="LOCAL-00004" summary="UserRepository y ProouctoRepository con corrutinas">
+      <created>1674158800827</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674158800827</updated>
+    </task>
+    <task id="LOCAL-00005" summary="TareaRepository con corrutinas">
+      <created>1674159921673</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674159921673</updated>
+    </task>
+    <task id="LOCAL-00006" summary="TareaRepository con corrutinas">
+      <created>1674160987163</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1674160987163</updated>
+    </task>
+    <task id="LOCAL-00007" summary="TurnoRepository con corrutinas">
+      <created>1674161825808</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1674161825808</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Tarea, Turno y User DTOs">
+      <created>1674205068022</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1674205068022</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Dtos">
+      <created>1674206039389</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1674206039389</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Comienzo test repositorios">
+      <created>1674408144985</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1674408144986</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Test repositorios sin cache">
+      <created>1675013040904</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675013040904</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Test repositorios con cache, revisar @SpyK val cache">
+      <created>1675071789100</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675071789100</updated>
+    </task>
+    <task id="LOCAL-00013" summary="import fixes">
+      <created>1675274807119</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675274807119</updated>
+    </task>
+    <task id="LOCAL-00014" summary="controller test sin terminar">
+      <created>1675285874779</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1675285874779</updated>
+    </task>
+    <task id="LOCAL-00015" summary=".">
+      <created>1675323310954</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1675323310954</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Documentación y cambios ControllerTest">
+      <created>1675329972346</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1675329972347</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Test reorganizados">
+      <created>1675334675442</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1675334675442</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Test reorganizados">
+      <created>1675334812994</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1675334812994</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Test reorganizados">
+      <created>1675338297434</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1675338297434</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Controller Kdoc hecho">
+      <created>1675368256070</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1675368256070</updated>
+    </task>
+    <task id="LOCAL-00021" summary="KDoc">
+      <created>1675370264650</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1675370264650</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Kdoc terminado">
+      <created>1675457193702</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1675457193702</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Arreglo archivos de configuración" />
+    <MESSAGE value="Maquinarepository" />
+    <MESSAGE value="userrepo" />
+    <MESSAGE value="UserRepository y ProouctoRepository con corrutinas" />
+    <MESSAGE value="TareaRepository con corrutinas" />
+    <MESSAGE value="TurnoRepository con corrutinas" />
+    <MESSAGE value="Tarea, Turno y User DTOs" />
+    <MESSAGE value="Dtos" />
+    <MESSAGE value="Comienzo test repositorios" />
+    <MESSAGE value="Test repositorios sin cache" />
+    <MESSAGE value="Test repositorios con cache, revisar @SpyK val cache" />
+    <MESSAGE value="import fixes" />
+    <MESSAGE value="controller test sin terminar" />
+    <MESSAGE value="." />
+    <MESSAGE value="Documentación y cambios ControllerTest" />
+    <MESSAGE value="Test reorganizados" />
+    <MESSAGE value="Controller Kdoc hecho" />
+    <MESSAGE value="KDoc" />
+    <MESSAGE value="Kdoc terminado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kdoc terminado" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TennisLab_Mongo$ControllerTest_findMaquinaById.ic" NAME="ControllerTest.findMaquinaById Coverage Results" MODIFIED="1675280366063" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/TennisLab_Mongo$ControllerTest.ic" NAME="ControllerTest Coverage Results" MODIFIED="1675280518132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -12,7 +12,7 @@ Tenemos varios modelos con los que trabajar de los que hablaré a continuación:
 
 - **Pedido**: Este objeto está compuesto con un identificador, los estados que puede tener el pedido y las fechas requeridas, estas son la fecha de entrada del pedido, la fecha programada de salida, la fecha real de salida, y la fecha tope de entrega, este planteamiento viene dado para tener un registro de cuándo se recibe el pedido, cuándo es la estimación en la que se piensa que se entregará para dar una fecha al cliente cuando se recibe el pedido, esta fecha después se puede actualizar a la fecha de salida real, que podría no ser la misma y por último tendremos la fecha de entrega, que podría variar en unos pocos días, ya que cuando sale el pedido de las instalaciones no tiene por qué ser el mismo día que el pedido llegue al cliente, o que el mismo lo recoja.
 
-- **Tarea**:
+- **Tarea**: Este objeto está compuesto por un identificador propio, un identificador de la raqueta, precio que va a tener, el tipo de tarea a realizar, un atributo para marcar si está finalizada o no, el id del pedido al que pertenece la tarea, el id del producto adquirido que puede ser nulo porque puede no ser una tarea de tipo adquisición sino una tarea de tipo personalización o de encordaje, en el caso de las personalizaciones tenermos los atributos de peso de tipo int nullable, balance de tipo doble nullable, rigidez de tipo int nullable por lo dicho anteriormente y por último los atributos de la tarea de encordaje que son la tensión horizontal, identificador del cordaje horizontal, tensión vertical, identificación del cordaje vertical y un atributo de tipo boolean para definir si tiene dos nudos o no, todos estos también nullables.
 
 - **Producto**: Este objeto está compuesto de un identificador, el **tipo de producto** que es, ya que podrían ser **raquetas, cordajes, overgrips, grips, antivibradores y fundas**,
   el modelo también tiene registros de las marcas y modelos los cuáles son cadenas de texto, el precio del producto que se trata con un Double y el stock actual.
@@ -21,7 +21,7 @@ Tenemos varios modelos con los que trabajar de los que hablaré a continuación:
 
 - **Turno**: Este objeto representa la jornada con un identificador en la que se ha completado una o dos tareas, las cuales son referenciadas a través de su identificador, este modelo se compone por la referencia al identificador del trabajador, y al de la máquina, las horas de inicio y de fin que son dos **LocalDateTime** y el número de pedidos activos, solo es obligatoria una referencia a una tarea, ya que es necesario que mínimo haya una tarea para guardar el registro del turno, por ello la segunda es de tipo **String?** con lo que admitimos valores nullables en este.
 
-- **Máquina**: Se trata de la representación de la máquina que se haya utilizado para trabajar durante el turno, está compuesto por un identificador, modelo, marca y número de serie de tipo **String**, la fecha de adquisición de la máquina **LocalDate**, el tipo de la máquina que podrá ser **encordadora o personalizadora** y por último se encapsulan los datos en el valor data representado el cuál será los atributos de específicos del tipo de máquina del que se trata.
+- **Máquina**: Se trata de la representación de la máquina que se haya utilizado para trabajar durante el turno, está compuesto por un identificador, modelo, marca y número de serie de tipo **String**, la fecha de adquisición de la máquina **LocalDate**, el tipo de la máquina que podrá ser **encordadora o personalizadora**, un atributo de tipo **boolean** para definir si la máquina está en activo o no y por último se encapsulan los datos en el valor data representado el cuál será los atributos de específicos del tipo de máquina del que se trata. Estos atributos encapsulados son en caso de la _encordadora_ un atributo para saber si es manual de tipo **boolean**, tensión máxima y tensión mínima de tipo **doble** nullable, en el caso de las personalizadoras utilizarán los atributos que indican si mide la maniobravilidad, si mide la rigidez y si mide el balance todos estos de tipo **boolean** nullable. Estos últimos atributos son nullables porque dependiendo del tipo de máquina del que se trate utilizarán unos atributos u otros.
 
 ### En cuanto a las relaciones:
 
@@ -39,9 +39,12 @@ Tenemos varios modelos con los que trabajar de los que hablaré a continuación:
 
 ## ¿Cómo funciona?
 
-De momento printea el código plantilla de intellij.
+Se conecta a una base de datos de mongo, almacenamos la línea de conexión en el archivo de configuración situado en [esta carpeta](https://github.com/IvanAzagraTroya/AD-P03-TennislabNoSQL/blob/develop/TennisLab-Mongo/src/main/resources/config.properties).
+Al iniciar la aplicación el servidor recogerá todos los datos almacenados en la base de datos y los cargará para su acceso mientras que el cliente tendrá un cli (Command Line Interface) con los menús correspondientes para acceder a las distintas opciones provistas por la aplicación.
+Tenemos un sistema de verificación por tokens por lo que el usuario de un cliente no podrá hacer uso de las funciones provistas para la administración del sistema.
+Mediante el uso de una caché con la librería [cache4k](https://github.com/ReactiveCircus/cache4k) al hacer peticiones estos datos se guardarán en la caché para agilizar el ritmo de consultas y cada cierto tiempo se refrescará para mantenerse actualizado con posibles cambios que hayan podido haber en la fuente de estos mismos datos.
 
-## Tencnologías:
+## Tecnologías:
 
 <p align="center">
   
