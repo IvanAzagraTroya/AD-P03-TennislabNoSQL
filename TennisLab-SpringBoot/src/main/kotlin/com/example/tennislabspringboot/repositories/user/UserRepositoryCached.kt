@@ -197,6 +197,6 @@ class UserRepositoryCached
      * Borra todos los usuarios
      */
     suspend fun deleteAll() {
-        uRepo.deleteAll()
+        let { uRepo.deleteAll() }
     }
 }

@@ -3,10 +3,9 @@ package com.example.tennislabspringboot.services.login
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.example.tennislabspringboot.models.ResponseError
 import com.example.tennislabspringboot.models.user.User
 import com.example.tennislabspringboot.models.user.UserProfile
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import java.time.Instant
 import java.util.*
 
@@ -38,25 +37,25 @@ fun decode(token: String): DecodedJWT? {
     }
 }
 
-fun checkToken(token: String, profile: UserProfile): ResponseEntity<out Any>? {
+fun checkToken(token: String, profile: UserProfile): ResponseError? {
     val decoded = decode(token)
-        ?: return ResponseEntity("No token detected.", HttpStatus.UNAUTHORIZED)
+        ?: return ResponseError(401, "No token detected.")
     if (decoded.getClaim("profile").isMissing || decoded.getClaim("active").isMissing ||
         decoded.getClaim("profile").isNull || decoded.getClaim("active").isNull ||
         decoded.getClaim("active").asBoolean() == false)
-        return ResponseEntity("Invalid token.", HttpStatus.UNAUTHORIZED)
+        return ResponseError(401, "Invalid token.")
     if (decoded.expiresAtAsInstant.isBefore(Instant.now()))
-        return ResponseEntity("Token expired.", HttpStatus.UNAUTHORIZED)
+        return ResponseError(401, "Token expired.")
     when (profile) {
         UserProfile.ADMIN -> {
             if (!decoded.getClaim("profile").asString().equals(UserProfile.ADMIN.name)) {
-                return ResponseEntity("You are not allowed to to this.", HttpStatus.FORBIDDEN)
+                return ResponseError(403, "You are not allowed to to this.")
             }
         }
         UserProfile.WORKER -> {
             if (!(decoded.getClaim("profile").asString().equals(UserProfile.ADMIN.name) ||
                 decoded.getClaim("profile").asString().equals(UserProfile.WORKER.name))) {
-                return ResponseEntity("You are not allowed to to this.", HttpStatus.FORBIDDEN)
+                return ResponseError(403, "You are not allowed to to this.")
             }
         }
         UserProfile.CLIENT -> {}

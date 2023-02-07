@@ -119,6 +119,6 @@ class PedidoRepositoryCached
      * Borra todos los pedidos
      */
     suspend fun deleteAll() {
-        repo.deleteAll()
+        let { repo.deleteAll() }
     }
 }

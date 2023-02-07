@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">1.163s</div>
+<div class="counter">0.967s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,42 +79,42 @@
 </thead>
 <tr>
 <td class="success">delete()</td>
-<td class="success">0.020s</td>
+<td class="success">0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findAll()</td>
-<td class="success">0.709s</td>
+<td class="success">0.536s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findById()</td>
-<td class="success">0.017s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByIdNotExists()</td>
-<td class="success">0.013s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByUUID()</td>
-<td class="success">0.017s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByUUIDNotExists()</td>
-<td class="success">0.013s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">save()</td>
-<td class="success">0.360s</td>
+<td class="success">0.371s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">setFinalizada()</td>
-<td class="success">0.014s</td>
+<td class="success">0.012s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -122,29 +122,29 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>13:52:52.537 [Test worker] DEBUG koin.services.cache.tarea.TareaCache - Initializing TareaCache...
-13:52:52.542 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for TareaCache name=cache#705
-13:52:52.592 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for TareaRepository name=repo#706
-13:52:52.640 [DefaultDispatcher-worker-1 @coroutine#887] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on TareaCache(cache#705).getRefreshTime()
-13:52:52.647 [Test worker @coroutine#888] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#707
-13:52:52.649 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63dfa6a445532c417eff8115, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).setFinalizada(63dfa6a445532c417eff8115, continuation {})
-13:52:52.659 [Test worker @coroutine#894] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#708
-13:52:52.662 [Test worker @coroutine#894] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#709
-13:52:52.665 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63dfa6a445532c417eff8115, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).delete(63dfa6a445532c417eff8115, continuation {})
-13:52:52.668 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@1d8f95b9 on TareaCache(cache#705).getCache()
-13:52:52.680 [Test worker @coroutine#902] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#706#710
-13:52:52.683 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@5c24c628 on TareaRepository(repo#706).findAll(continuation {})
-13:52:53.389 [Test worker @coroutine#924] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#711
-13:52:53.392 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63dfa6a445532c417eff8115, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).findById(63dfa6a445532c417eff8115, continuation {})
-13:52:53.406 [Test worker @coroutine#930] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#712
-13:52:53.409 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@1d8f95b9 on TareaCache(cache#705).getCache()
-13:52:53.410 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63dfa6a445532c417eff8115, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).findByUUID(93a98d69-0013-48a7-b34f-05b596ea83cc, continuation {})
-13:52:53.417 [Test worker @background work runner#933] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#713
-13:52:53.423 [Test worker @coroutine#936] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#714
-13:52:53.425 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63dfa6a445532c417eff8115, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).save(Tarea(id=63dfa6a445532c417eff8115, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null), continuation {})
-13:52:53.785 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@1d8f95b9 on TareaCache(cache#705).getCache()
-13:52:53.787 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on TareaRepository(repo#706).findByUUID(148c9eed-2ebc-4b1b-aa87-3a31eb5e7806, continuation {})
-13:52:53.800 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on TareaRepository(repo#706).findById(63dfa6a545532c417eff81de, continuation {})
+<pre>22:49:34.080 [Test worker] DEBUG koin.services.cache.tarea.TareaCache - Initializing TareaCache...
+22:49:34.084 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for TareaCache name=cache#705
+22:49:34.120 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for TareaRepository name=repo#706
+22:49:34.154 [DefaultDispatcher-worker-2 @coroutine#888] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on TareaCache(cache#705).getRefreshTime()
+22:49:34.158 [Test worker @coroutine#889] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#707
+22:49:34.160 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63e2c76e285de2538ba4e32a, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).setFinalizada(63e2c76e285de2538ba4e32a, continuation {})
+22:49:34.169 [Test worker @coroutine#895] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#708
+22:49:34.171 [Test worker @coroutine#895] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#709
+22:49:34.173 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63e2c76e285de2538ba4e32a, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).delete(63e2c76e285de2538ba4e32a, continuation {})
+22:49:34.174 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@67c29f85 on TareaCache(cache#705).getCache()
+22:49:34.181 [Test worker @coroutine#903] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#706#710
+22:49:34.183 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@6376909d on TareaRepository(repo#706).findAll(continuation {})
+22:49:34.717 [Test worker @coroutine#925] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#711
+22:49:34.719 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63e2c76e285de2538ba4e32a, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).findById(63e2c76e285de2538ba4e32a, continuation {})
+22:49:34.728 [Test worker @coroutine#931] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#712
+22:49:34.730 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@67c29f85 on TareaCache(cache#705).getCache()
+22:49:34.731 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63e2c76e285de2538ba4e32a, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).findByUUID(93a98d69-0013-48a7-b34f-05b596ea83cc, continuation {})
+22:49:34.734 [Test worker @background work runner#934] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#713
+22:49:34.738 [Test worker @coroutine#937] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Tarea name=child of repo#706#714
+22:49:34.740 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Tarea(id=63e2c76e285de2538ba4e32a, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null) on TareaRepository(repo#706).save(Tarea(id=63e2c76e285de2538ba4e32a, uuid=93a98d69-0013-48a7-b34f-05b596ea83cc, raquetaId=93a98d69-0001-48a7-b34f-05b596ea83ba, precio=0.0, tipo=ADQUISICION, finalizada=false, pedidoId=93a98d69-0010-48a7-b34f-05b596ea8acc, productoAdquiridoId=93a98d69-0004-48a7-b34f-05b596ea83aa, peso=null, balance=null, rigidez=null, tensionHorizontal=null, cordajeHorizontalId=null, tensionVertical=null, cordajeVerticalId=null, dosNudos=null), continuation {})
+22:49:35.111 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@67c29f85 on TareaCache(cache#705).getCache()
+22:49:35.111 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on TareaRepository(repo#706).findByUUID(8c7ac211-b5fb-4481-b3b5-34e17b949886, continuation {})
+22:49:35.118 [DefaultDispatcher-worker-4] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on TareaRepository(repo#706).findById(63e2c76f285de2538ba4e3f3, continuation {})
 </pre>
 </span>
 </div>
@@ -156,7 +156,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 5, 2023, 1:53:10 PM</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 7, 2023, 10:49:50 PM</p>
 </div>
 </div>
 </body>

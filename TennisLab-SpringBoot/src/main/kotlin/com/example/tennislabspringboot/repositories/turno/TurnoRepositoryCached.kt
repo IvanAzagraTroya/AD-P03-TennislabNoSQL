@@ -146,6 +146,6 @@ class TurnoRepositoryCached
      * Borra todos los turnos
      */
     suspend fun deleteAll() {
-        repo.deleteAll()
+        let { repo.deleteAll() }
     }
 }
