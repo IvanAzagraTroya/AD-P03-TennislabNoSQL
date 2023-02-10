@@ -94,6 +94,15 @@ private val jsonLoginRegister = Json {
 
 private var token: String? = null
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * El main de la aplicacion. Primero iniciamos koin, luego creamos una instancia de la clase Application,
+ * cargamos los datos iniciales de la base de datos, lanzamos una corrutina que escuche los cambios en tiempo
+ * real de los productos y finalmente lanzamos el menu que navegará el usuario. Si en algun momento el usuario
+ * selecciona la opcion de salir, saldrá del bucle while, verá un mensaje de despedida por pantalla y la
+ * aplicacion finalizará con un codigo de finalizacion 0.
+ */
 fun main() = runBlocking {
     startKoin { modules(KoinModule().module) }
     val app = Application()
@@ -113,6 +122,15 @@ fun main() = runBlocking {
     val x = exitProcess(0) // puesto como "val x = " porque si no el exitProcess lo ponia como return del runBlocking.
 }
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * Este metodo es un menu para loguearse o registrarse. En caso de loguearse/registrarse correctamente, setea el token
+ * al resultado que el controller le haya dado (y lo printea por pantalla). De lo contrario printea por pantalla la
+ * respuesta del controlador y deja el token a nulo.
+ *
+ * Devuelve true si el usuario selecciona salir; false si selecciona cualquier otra cosa.
+ */
 suspend fun menuLogin(controller: Controller): Boolean {
     var userInput = 0
     while (userInput < 1 || userInput > 3) {
@@ -215,10 +233,24 @@ suspend fun menuLogin(controller: Controller): Boolean {
     }
 }
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * Esta clase es para cargar koin e inicializar el controller con todas sus dependencias inyectadas
+ * (y dichas dependencias tienen a su vez inyectadas sus respectivas dependencias).
+ */
 class Application : KoinComponent {
     val controller : Controller by inject()
 }
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * Esta funcion inicializa los datos de la base de datos.
+ * Primero borra todas las colecciones de la base de dato concurrentemente,
+ * luego crea un token de administrador y por ultimo, con ese token,
+ * inicializara la base de datos con los distintos datos iniciales de cada coleccion.
+ */
 suspend fun loadData(app: Application) = runBlocking {
     let { DBManager.database.getCollection<User>().drop() }
     let { DBManager.database.getCollection<Producto>().drop() }

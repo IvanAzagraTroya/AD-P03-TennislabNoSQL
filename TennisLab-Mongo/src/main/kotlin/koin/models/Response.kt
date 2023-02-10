@@ -36,5 +36,13 @@ class ResponseSuccess<T: Any>(val code: Int, val data: T) : Response<T>()
 @SerialName("ResponseError")
 class ResponseError(val code: Int, val message: String?) : Response<@Contextual Nothing>()
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * Esta clase esta hecha para que el deserializador de kotlinx-serialization no implosione,
+ * puesto que cuando intenta deserializar Response<out String> por algun motivo explota porque se espera una
+ * lista de objetos (?) si uso el serializador 1 del main, y dice que no puede deserializar nulos si uso el
+ * serializador 2 del main, asique le digo que lo deserialize como esta clase y asi si funciona perfectamente.
+ */
 @Serializable
 class ResponseToken(val code: Int, val data: String? = null, val message: String? = null)

@@ -55,6 +55,12 @@ private val adquis = AdquisicionDTOcreate(
     productoAdquirido = producto
 )
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * Este conjunto de metodos es el menu que salta cuando te has logueado/registrado y conseguido el token.
+ * En funcion de las acciones que hagas en el menu, llamara a unos u otros metodos del controller.
+ */
 suspend fun menu(json: Json, token: String, controller: Controller): Boolean {
     var userInput = 0
     while (userInput < 1 || userInput > 7) {

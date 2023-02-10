@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.074s</div>
+<div class="counter">0.079s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,12 +79,12 @@
 </thead>
 <tr>
 <td class="success">delete()</td>
-<td class="success">0.018s</td>
+<td class="success">0.019s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findAll()</td>
-<td class="success">0.010s</td>
+<td class="success">0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -99,7 +99,7 @@
 </tr>
 <tr>
 <td class="success">findByUUID()</td>
-<td class="success">0.012s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -109,7 +109,7 @@
 </tr>
 <tr>
 <td class="success">save()</td>
-<td class="success">0.009s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -117,27 +117,27 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>20:47:40.771 [Test worker] DEBUG koin.services.cache.pedido.PedidoCache - Initializing PedidoCache...
-20:47:40.774 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for PedidoCache name=cache#686
-20:47:40.803 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for PedidoRepository name=repo#687
-20:47:40.835 [DefaultDispatcher-worker-1 @coroutine#704] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on PedidoCache(cache#686).getRefreshTime()
-20:47:40.839 [Test worker @coroutine#705] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#688
-20:47:40.843 [Test worker @coroutine#705] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#689
-20:47:40.845 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e69f5c3d878c607c737081, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).delete(63e69f5c3d878c607c737081, continuation {})
-20:47:40.847 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@742f59b4 on PedidoCache(cache#686).getCache()
-20:47:40.856 [Test worker @coroutine#713] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#687#690
-20:47:40.857 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@abfedc4 on PedidoRepository(repo#687).findAll(continuation {})
-20:47:40.866 [Test worker @coroutine#719] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#691
-20:47:40.867 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e69f5c3d878c607c737081, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).findById(63e69f5c3d878c607c737081, continuation {})
-20:47:40.876 [Test worker @coroutine#725] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#692
-20:47:40.878 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@742f59b4 on PedidoCache(cache#686).getCache()
-20:47:40.879 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e69f5c3d878c607c737081, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).findByUUID(93a98d69-0010-48a7-b34f-05b596ea8acc, continuation {})
-20:47:40.882 [Test worker @background work runner#728] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#693
-20:47:40.888 [Test worker @coroutine#731] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#694
-20:47:40.890 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e69f5c3d878c607c737081, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).save(Pedido(id=63e69f5c3d878c607c737081, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0), continuation {})
-20:47:40.897 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@742f59b4 on PedidoCache(cache#686).getCache()
-20:47:40.898 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on PedidoRepository(repo#687).findByUUID(0a908187-1e88-493e-9120-e9cc739e0ca7, continuation {})
-20:47:40.905 [DefaultDispatcher-worker-1] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on PedidoRepository(repo#687).findById(63e69f5c3d878c607c737082, continuation {})
+<pre>20:54:44.256 [Test worker] DEBUG koin.services.cache.pedido.PedidoCache - Initializing PedidoCache...
+20:54:44.260 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for PedidoCache name=cache#686
+20:54:44.290 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for PedidoRepository name=repo#687
+20:54:44.322 [DefaultDispatcher-worker-2 @coroutine#704] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on PedidoCache(cache#686).getRefreshTime()
+20:54:44.327 [Test worker @coroutine#705] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#688
+20:54:44.330 [Test worker @coroutine#705] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#689
+20:54:44.333 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e6a10461c2a601272c4ffd, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).delete(63e6a10461c2a601272c4ffd, continuation {})
+20:54:44.334 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@44f04630 on PedidoCache(cache#686).getCache()
+20:54:44.343 [Test worker @coroutine#713] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#687#690
+20:54:44.346 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@48ecf22a on PedidoRepository(repo#687).findAll(continuation {})
+20:54:44.356 [Test worker @coroutine#719] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#691
+20:54:44.358 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e6a10461c2a601272c4ffd, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).findById(63e6a10461c2a601272c4ffd, continuation {})
+20:54:44.367 [Test worker @coroutine#725] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#692
+20:54:44.369 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@44f04630 on PedidoCache(cache#686).getCache()
+20:54:44.369 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e6a10461c2a601272c4ffd, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).findByUUID(93a98d69-0010-48a7-b34f-05b596ea8acc, continuation {})
+20:54:44.374 [Test worker @background work runner#728] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#693
+20:54:44.378 [Test worker @coroutine#731] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Pedido name=child of repo#687#694
+20:54:44.381 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Pedido(id=63e6a10461c2a601272c4ffd, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0) on PedidoRepository(repo#687).save(Pedido(id=63e6a10461c2a601272c4ffd, uuid=93a98d69-0010-48a7-b34f-05b596ea8acc, userId=93a98d69-0006-48a7-b34f-05b596ea839a, state=PROCESO, fechaEntrada=2013-10-10, fechaSalida=2023-12-12, topeEntrega=2023-12-14, precio=0.0), continuation {})
+20:54:44.391 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@44f04630 on PedidoCache(cache#686).getCache()
+20:54:44.392 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on PedidoRepository(repo#687).findByUUID(32c0632d-ddf2-48e8-9eef-abb4e8355132, continuation {})
+20:54:44.400 [DefaultDispatcher-worker-2] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on PedidoRepository(repo#687).findById(63e6a10461c2a601272c4ffe, continuation {})
 </pre>
 </span>
 </div>
@@ -149,7 +149,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 10, 2023, 8:47:58 PM</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 10, 2023, 8:55:01 PM</p>
 </div>
 </div>
 </body>
