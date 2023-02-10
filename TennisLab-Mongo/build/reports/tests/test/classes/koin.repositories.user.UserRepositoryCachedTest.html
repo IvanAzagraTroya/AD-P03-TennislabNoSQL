@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">10.758s</div>
+<div class="counter">9.594s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,37 +79,37 @@
 </thead>
 <tr>
 <td class="success">delete()</td>
-<td class="success">0.017s</td>
+<td class="success">0.019s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findAll()</td>
-<td class="success">3.399s</td>
+<td class="success">3.019s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByEmail()</td>
-<td class="success">3.396s</td>
+<td class="success">3.043s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findById()</td>
-<td class="success">0.009s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByIdNotExists()</td>
-<td class="success">0.006s</td>
+<td class="success">0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByIdNumerical()</td>
-<td class="success">0.482s</td>
+<td class="success">0.417s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findByPhone()</td>
-<td class="success">3.416s</td>
+<td class="success">3.052s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -119,17 +119,17 @@
 </tr>
 <tr>
 <td class="success">findByUUIDNotExists()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">save()</td>
-<td class="success">0.009s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">setInactive()</td>
-<td class="success">0.008s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -137,43 +137,43 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>22:49:37.403 [Test worker] DEBUG koin.services.cache.user.UserCache - Initializing UserCache...
-22:49:37.406 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for UserCache name=cache#725
-22:49:37.436 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for UserRepository name=repo#726
-22:49:37.473 [DefaultDispatcher-worker-5 @coroutine#1106] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on UserCache(cache#725).getRefreshTime()
-22:49:37.478 [Test worker @coroutine#1107] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#727
-22:49:37.482 [Test worker @coroutine#1107] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#728
-22:49:37.484 [DefaultDispatcher-worker-5] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e2c771285de2538ba4e3fc, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).delete(63e2c771285de2538ba4e3fc, continuation {})
-22:49:37.485 [DefaultDispatcher-worker-5] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@25334132 on UserCache(cache#725).getCache()
-22:49:37.493 [Test worker @coroutine#1115] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#726#729
-22:49:37.496 [DefaultDispatcher-worker-5] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@1c1e336c on UserRepository(repo#726).findAll(continuation {})
-22:49:40.892 [Test worker @coroutine#1134] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#730
-22:49:40.894 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e2c771285de2538ba4e3fc, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).findById(63e2c771285de2538ba4e3fc, continuation {})
-22:49:40.902 [Test worker @coroutine#1140] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#731
-22:49:40.903 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@25334132 on UserCache(cache#725).getCache()
-22:49:40.904 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e2c771285de2538ba4e3fc, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).findByUUID(93a98d69-0000-1111-0000-05b596ea83ba, continuation {})
-22:49:40.908 [Test worker @background work runner#1143] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#732
-22:49:40.912 [Test worker @coroutine#1146] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#733
-22:49:40.913 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e2c771285de2538ba4e3fc, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).save(User(id=63e2c771285de2538ba4e3fc, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true), continuation {})
-22:49:40.921 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@25334132 on UserCache(cache#725).getCache()
-22:49:40.922 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on UserRepository(repo#726).findByUUID(ddbe9e3a-b667-467f-9f36-8bc703d7baa0, continuation {})
-22:49:40.928 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on UserRepository(repo#726).findById(63e2c774285de2538ba4e407, continuation {})
-22:49:40.935 [DefaultDispatcher-worker-12] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@79a52d84 on UserRepository(repo#726).findAll(continuation {})
-22:49:44.330 [DefaultDispatcher-worker-9] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@767d741f on UserRepository(repo#726).findAll(continuation {})
-22:49:47.102 [cluster-rtt-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;hello&quot;: 1, &quot;$db&quot;: &quot;admin&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675806575, &quot;i&quot;: 19}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;+JBPArXVhDr68lLtPhXdCI1BGT4=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}}' with request id 172 to database admin on connection [connectionId{localValue:4, serverValue:212769}] to server ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017
-22:49:47.102 [cluster-rtt-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;hello&quot;: 1, &quot;$db&quot;: &quot;admin&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675806575, &quot;i&quot;: 19}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;+JBPArXVhDr68lLtPhXdCI1BGT4=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}}' with request id 174 to database admin on connection [connectionId{localValue:6, serverValue:217233}] to server ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017
-22:49:47.102 [cluster-rtt-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;hello&quot;: 1, &quot;$db&quot;: &quot;admin&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1675806575, &quot;i&quot;: 19}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;+JBPArXVhDr68lLtPhXdCI1BGT4=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}}' with request id 173 to database admin on connection [connectionId{localValue:5, serverValue:216574}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
-22:49:47.141 [cluster-rtt-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 173 completed successfully in 38.47 ms on connection [connectionId{localValue:5, serverValue:216574}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
-22:49:47.141 [cluster-rtt-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 174 completed successfully in 38.48 ms on connection [connectionId{localValue:6, serverValue:217233}] to server ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017
-22:49:47.141 [cluster-rtt-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 172 completed successfully in 38.47 ms on connection [connectionId{localValue:4, serverValue:212769}] to server ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017
-22:49:47.141 [cluster-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Updating cluster description to  {type=REPLICA_SET, servers=[{address=ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_PRIMARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}]
-22:49:47.141 [cluster-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Checking status of ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
-22:49:47.141 [cluster-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Updating cluster description to  {type=REPLICA_SET, servers=[{address=ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_PRIMARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}]
-22:49:47.141 [cluster-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Checking status of ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017
-22:49:47.153 [cluster-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Updating cluster description to  {type=REPLICA_SET, servers=[{address=ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=48.5 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_PRIMARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.9 ms, state=CONNECTED}]
-22:49:47.153 [cluster-ClusterId{value='63e2c73e285de2538ba4e012', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Checking status of ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017
-22:49:48.227 [Test worker @coroutine#1217] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#734
-22:49:48.228 [DefaultDispatcher-worker-8] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e2c771285de2538ba4e3fc, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).setInactive(63e2c771285de2538ba4e3fc, continuation {})
+<pre>20:47:47.010 [Test worker] DEBUG koin.services.cache.user.UserCache - Initializing UserCache...
+20:47:47.014 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for UserCache name=cache#725
+20:47:47.044 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for UserRepository name=repo#726
+20:47:47.082 [DefaultDispatcher-worker-6 @coroutine#1104] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering 60000 on UserCache(cache#725).getRefreshTime()
+20:47:47.086 [Test worker @coroutine#1105] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#727
+20:47:47.091 [Test worker @coroutine#1105] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#728
+20:47:47.093 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e69f633d878c607c73715d, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).delete(63e69f633d878c607c73715d, continuation {})
+20:47:47.095 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@ea31072 on UserCache(cache#725).getCache()
+20:47:47.101 [Test worker @coroutine#1113] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Flow name=child of repo#726#729
+20:47:47.104 [DefaultDispatcher-worker-6] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@7ae4fcb2 on UserRepository(repo#726).findAll(continuation {})
+20:47:50.119 [Test worker @coroutine#1132] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#730
+20:47:50.121 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e69f633d878c607c73715d, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).findById(63e69f633d878c607c73715d, continuation {})
+20:47:50.127 [Test worker @coroutine#1138] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#731
+20:47:50.129 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@ea31072 on UserCache(cache#725).getCache()
+20:47:50.130 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e69f633d878c607c73715d, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).findByUUID(93a98d69-0000-1111-0000-05b596ea83ba, continuation {})
+20:47:50.133 [Test worker @background work runner#1141] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#732
+20:47:50.136 [Test worker @coroutine#1144] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#733
+20:47:50.138 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e69f633d878c607c73715d, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).save(User(id=63e69f633d878c607c73715d, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true), continuation {})
+20:47:50.144 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering io.github.reactivecircus.cache4k.RealCache@ea31072 on UserCache(cache#725).getCache()
+20:47:50.145 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on UserRepository(repo#726).findByUUID(933727c7-4598-45b0-abfc-4be4772e047c, continuation {})
+20:47:50.149 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering null on UserRepository(repo#726).findById(63e69f663d878c607c737168, continuation {})
+20:47:50.155 [DefaultDispatcher-worker-13] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@1541a710 on UserRepository(repo#726).findAll(continuation {})
+20:47:53.199 [DefaultDispatcher-worker-10] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$2@24d0d32 on UserRepository(repo#726).findAll(continuation {})
+20:47:55.865 [cluster-rtt-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;hello&quot;: 1, &quot;$db&quot;: &quot;admin&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1676058463, &quot;i&quot;: 2}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;+sE0urVM2Zy58NOJLAwpx67c+Mk=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}}' with request id 172 to database admin on connection [connectionId{localValue:4, serverValue:268608}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+20:47:55.865 [cluster-rtt-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;hello&quot;: 1, &quot;$db&quot;: &quot;admin&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1676058463, &quot;i&quot;: 2}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;+sE0urVM2Zy58NOJLAwpx67c+Mk=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}}' with request id 173 to database admin on connection [connectionId{localValue:1, serverValue:269192}] to server ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017
+20:47:55.865 [cluster-rtt-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Sending command '{&quot;hello&quot;: 1, &quot;$db&quot;: &quot;admin&quot;, &quot;$clusterTime&quot;: {&quot;clusterTime&quot;: {&quot;$timestamp&quot;: {&quot;t&quot;: 1676058463, &quot;i&quot;: 2}}, &quot;signature&quot;: {&quot;hash&quot;: {&quot;$binary&quot;: {&quot;base64&quot;: &quot;+sE0urVM2Zy58NOJLAwpx67c+Mk=&quot;, &quot;subType&quot;: &quot;00&quot;}}, &quot;keyId&quot;: 7161871216054108163}}}' with request id 174 to database admin on connection [connectionId{localValue:6, serverValue:264658}] to server ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017
+20:47:55.888 [cluster-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Updating cluster description to  {type=REPLICA_SET, servers=[{address=ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=51.2 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_PRIMARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=55.2 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.8 ms, state=CONNECTED}]
+20:47:55.888 [cluster-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Checking status of ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017
+20:47:55.898 [cluster-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Updating cluster description to  {type=REPLICA_SET, servers=[{address=ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=51.2 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_PRIMARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=55.2 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.8 ms, state=CONNECTED}]
+20:47:55.898 [cluster-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Checking status of ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017
+20:47:55.906 [cluster-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Updating cluster description to  {type=REPLICA_SET, servers=[{address=ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=51.2 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_PRIMARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=55.2 ms, state=CONNECTED}, {address=ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017, type=REPLICA_SET_SECONDARY, TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, roundTripTime=50.8 ms, state=CONNECTED}]
+20:47:55.906 [cluster-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.cluster - Checking status of ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+20:47:55.924 [cluster-rtt-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 174 completed successfully in 59.17 ms on connection [connectionId{localValue:6, serverValue:264658}] to server ac-o2suyf6-shard-00-01.7qtbnuz.mongodb.net:27017
+20:47:55.924 [cluster-rtt-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 172 completed successfully in 59.32 ms on connection [connectionId{localValue:4, serverValue:268608}] to server ac-o2suyf6-shard-00-02.7qtbnuz.mongodb.net:27017
+20:47:55.924 [cluster-rtt-ClusterId{value='63e69f2e3d878c607c736d73', description='null'}-ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017] DEBUG org.mongodb.driver.protocol.command - Execution of command with request id 173 completed successfully in 59.20 ms on connection [connectionId{localValue:1, serverValue:269192}] to server ac-o2suyf6-shard-00-00.7qtbnuz.mongodb.net:27017
+20:47:56.668 [Test worker @coroutine#1215] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for User name=child of repo#726#734
+20:47:56.671 [DefaultDispatcher-worker-8] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering User(id=63e69f633d878c607c73715d, uuid=93a98d69-0000-1111-0000-05b596ea83ba, nombre=loli, apellido=test, telefono=123456789, email=loli@test.com, password=lolitest, perfil=ADMIN, activo=true) on UserRepository(repo#726).setInactive(63e69f633d878c607c73715d, continuation {})
 </pre>
 </span>
 </div>
@@ -185,7 +185,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 7, 2023, 10:49:50 PM</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at Feb 10, 2023, 8:47:58 PM</p>
 </div>
 </div>
 </body>

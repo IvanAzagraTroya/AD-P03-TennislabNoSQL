@@ -179,7 +179,6 @@ class UserRepositoryCached
      */
     override suspend fun findByEmail(email: String): User? = withContext(Dispatchers.IO) {
         uRepo.findFirstByEmail(email).toList().firstOrNull()
-        //findAll().toList().firstOrNull { it.email == email }
     }
 
     /**
@@ -190,7 +189,6 @@ class UserRepositoryCached
      */
     override suspend fun findByPhone(phone: String): User? = withContext(Dispatchers.IO) {
         uRepo.findFirstByTelefono(phone).toList().firstOrNull()
-        //findAll().toList().firstOrNull { it.telefono == phone }
     }
 
     /**
