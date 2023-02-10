@@ -36,3 +36,5 @@ class ResponseSuccess<T: Any>(val code: Int, val data: T) : Response<T>()
 @SerialName("ResponseError")
 class ResponseError(val code: Int, val message: String?) : Response<@Contextual Nothing>()
 
+@Serializable
+class ResponseToken(val code: Int, val data: String? = null, val message: String? = null)
