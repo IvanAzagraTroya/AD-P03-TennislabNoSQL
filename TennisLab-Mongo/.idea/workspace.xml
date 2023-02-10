@@ -6,52 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9d305494-9832-440d-94d2-67b0567994a0" name="Changes" comment="Kdoc terminado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/dto/user/UserDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/dto/user/UserDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/maquina/MaquinaRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/maquina/MaquinaRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/pedido/PedidoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/pedido/PedidoRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/producto/ProductoRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/turno/TurnoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/koin/repositories/turno/TurnoRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/controllers/Controller.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/controllers/Controller.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/pedido/PedidoDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/pedido/PedidoDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/producto/ProductoDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/producto/ProductoDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/tarea/TareaDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/tarea/TareaDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/turno/TurnoDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/turno/TurnoDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/user/UserDTO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/dto/user/UserDTO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/IMaquinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/IMaquinaRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/maquina/MaquinaRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/IPedidoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/IPedidoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/pedido/PedidoRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/IProductoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/IProductoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/producto/ProductoRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/ITareaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/ITareaRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/tarea/TareaRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/ITurnoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/ITurnoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/turno/TurnoRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/IUserRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/IUserRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepositoryCached.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/repositories/user/UserRepositoryCached.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/ICache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/ICache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/maquina/MaquinaCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/maquina/MaquinaCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/pedido/PedidoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/pedido/PedidoCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/IProductoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/IProductoCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/ProductoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/producto/ProductoCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/ITareaCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/ITareaCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/TareaCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/tarea/TareaCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/ITurnoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/ITurnoCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/TurnoCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/turno/TurnoCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/IUserCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/IUserCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/UserCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/cache/user/UserCache.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/LoginService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/LoginService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/TokenService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/login/TokenService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/CipherService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/CipherService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/FieldCheckingService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/FieldCheckingService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/utils/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TennisLab-SpringBoot/src/main/kotlin/com/example/tennislabspringboot/services/utils/Utils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/koin/services/ktorfit/_IKtorFitImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated/ksp/main/kotlin/koin/services/ktorfit/_IKtorFitImpl.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,18 +42,18 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;liberica-17&quot;,
-    &quot;ktor.last.update.timestamp&quot;: &quot;1675457078297&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/BlobTheVod/Documents/Programacion/Asignaturas/Acceso a Datos/AD-P03-TennislabNoSQL/TennisLab-SpringBoot&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "liberica-17",
+    "ktor.last.update.timestamp": "1676059061806",
+    "last_opened_file_path": "C:/Users/BlobTheVod/Documents/Programacion/Asignaturas/Acceso a Datos/SuperTechnology",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\BlobTheVod\Documents\Programacion\Asignaturas\Acceso a Datos\AD-P03-TennislabNoSQL\TennisLab-Mongo\src\main\kotlin\dto" />
@@ -272,7 +227,10 @@
       <workItem from="1675516368295" duration="796000" />
       <workItem from="1675523407897" duration="28000" />
       <workItem from="1675523447569" duration="3649000" />
-      <workItem from="1675534288471" duration="344000" />
+      <workItem from="1675534288471" duration="466000" />
+      <workItem from="1675933406061" duration="2063000" />
+      <workItem from="1675937121032" duration="912000" />
+      <workItem from="1676058082879" duration="4109000" />
     </task>
     <task id="LOCAL-00001" summary="Arreglo archivos de configuración">
       <created>1673606546140</created>

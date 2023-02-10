@@ -10,10 +10,10 @@ import de.jensklingenberg.ktorfit.http.Path
 import koin.dto.tarea.TareaDTOFromApi
 import koin.dto.user.UserDTOfromAPI
 
-public class _IKtorFitImpl(
+class _IKtorFitImpl(
   private val client: KtorfitClient,
 ) : IKtorFit {
-  public override suspend fun getAll(): List<UserDTOfromAPI> {
+  override suspend fun getAll(): List<UserDTOfromAPI> {
     val requestData = RequestData(method="GET",
         relativeUrl="users",
         returnTypeData=TypeData("kotlin.collections.List",listOf(TypeData("koin.dto.user.UserDTOfromAPI"))))
@@ -22,7 +22,7 @@ public class _IKtorFitImpl(
     return client.suspendRequest<List<UserDTOfromAPI>, UserDTOfromAPI>(requestData)!!
   }
 
-  public override suspend fun getById(id: Int): UserDTOfromAPI? {
+  override suspend fun getById(id: Int): UserDTOfromAPI? {
     val requestData = RequestData(method="GET",
         relativeUrl="users/{id}",
         returnTypeData=TypeData("UserDTOfromAPI?"),
@@ -31,7 +31,7 @@ public class _IKtorFitImpl(
     return client.suspendRequest<UserDTOfromAPI?, UserDTOfromAPI?>(requestData)
   }
 
-  public override suspend fun getAllTareas(): List<TareaDTOFromApi> {
+  override suspend fun getAllTareas(): List<TareaDTOFromApi> {
     val requestData = RequestData(method="GET",
         relativeUrl="todos",
         returnTypeData=TypeData("kotlin.collections.List",listOf(TypeData("koin.dto.tarea.TareaDTOFromApi"))))
@@ -40,7 +40,7 @@ public class _IKtorFitImpl(
     return client.suspendRequest<List<TareaDTOFromApi>, TareaDTOFromApi>(requestData)!!
   }
 
-  public override suspend fun saveTareas(tarea: TareaDTOFromApi): TareaDTOFromApi {
+  override suspend fun saveTareas(tarea: TareaDTOFromApi): TareaDTOFromApi {
     val requestData = RequestData(method="POST",
         relativeUrl="todos",
         bodyData = tarea,
@@ -50,4 +50,4 @@ public class _IKtorFitImpl(
   }
 }
 
-public fun Ktorfit.createIKtorFit(): IKtorFit = _IKtorFitImpl(KtorfitClient(this))
+fun Ktorfit.createIKtorFit(): IKtorFit = _IKtorFitImpl(KtorfitClient(this))
