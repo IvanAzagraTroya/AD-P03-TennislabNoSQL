@@ -28,3 +28,10 @@ class ResponseSuccess<T: Any>(val code: Int, val data: T) : Response<T>()
  */
 class ResponseError(val code: Int, val message: String?) : Response<Nothing>()
 
+/**
+ * @author Daniel Rodriguez Muñoz
+ *
+ * Esta clase esta hecha para que el deserializador pueda deserializar los tokens,
+ * puesto que hay que pasarle la clase a deserializar.
+ */
+class ResponseToken(var code: Int, var data: String? = null, var message: String? = null)
