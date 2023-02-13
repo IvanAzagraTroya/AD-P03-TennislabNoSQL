@@ -156,6 +156,6 @@ class ProductoRepositoryCached
      * Borra todos los productos
      */
     suspend fun deleteAll() {
-        repo.deleteAll()
+        let { repo.deleteAll() }
     }
 }

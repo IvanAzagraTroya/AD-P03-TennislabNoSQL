@@ -31,6 +31,7 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
 }
 
 tasks.withType<KotlinCompile> {

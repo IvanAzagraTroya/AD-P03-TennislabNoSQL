@@ -150,6 +150,6 @@ class MaquinaRepositoryCached
      * Borra todas las máquinas
      */
     suspend fun deleteAll() {
-        repo.deleteAll()
+        let { repo.deleteAll() }
     }
 }

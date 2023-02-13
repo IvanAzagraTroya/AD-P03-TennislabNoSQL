@@ -170,6 +170,6 @@ class TareaRepositoryCached
      * Borra todas las tareas
      */
     suspend fun deleteAll() {
-        repo.deleteAll()
+        let { repo.deleteAll() }
     }
 }
